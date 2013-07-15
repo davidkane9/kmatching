@@ -11,13 +11,12 @@
 #' should sum to. This cannot be used if there are discrete matching variables because
 #' it ends up being redundant or contradictory. 
 #' @param ... Parameters to be passed to the sampling methods
-#' 
+#' @export
 #' @author Mike Flynn \email{mjf2@@williams.edu}
 #' 
 #' @examples
 #' data = data.frame(size = rnorm(50), weight = rep(.02, 50))
 #' weights = kmatch(data = data, match.var = "size", weight.var = "weight", n = 100)
-#' 
 #' 
 kmatch <-
 function(data, match.var, weight.var, sumlimit = NULL, ...) {

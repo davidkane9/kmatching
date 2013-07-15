@@ -23,7 +23,7 @@
 #' 
 #' A = matrix(1, ncol = 100, nrow = 1)
 #' b = 50
-#' A = rbind(Amat, rnorm(100))
+#' A = rbind(A, rnorm(100))
 #' b = c(b,0)
 #' w = hitandrun(A, b, n = 100) 
 hitandrun <- function(A, b = NULL, x0 = NULL, n, discard = 0, skiplength = 5, verbose = FALSE) {

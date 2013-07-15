@@ -6,6 +6,8 @@
 #' @param Emat This is the matrix of the equality constraint coefficients
 #' @param x0 An original solution to the constraints
 #' @param n Number of random solutions to output
+#' @param verbose Give verbose output describing the progress of the function
+#' @param numjump The number of jumps to scatter around the direction given by the difference from zero
 #' 
 #' @author Mike Flynn \email{<mjf2@@willaims.edu>}
 #' @export

@@ -13,6 +13,12 @@ using a Monte Carlo Random Walk reflecting at the boundaries.}
   \item{x0}{An original solution to the constraints}
 
   \item{n}{Number of random solutions to output}
+
+  \item{verbose}{Give verbose output describing the
+  progress of the function}
+
+  \item{numjump}{The number of jumps to scatter around the
+  direction given by the difference from zero}
 }
 \description{
   Generates weights to a new portfolio using mirror

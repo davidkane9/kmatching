@@ -40,7 +40,7 @@ w = hitandrun(A, b, n = 100)
 
 A = matrix(1, ncol = 100, nrow = 1)
 b = 50
-A = rbind(Amat, rnorm(100))
+A = rbind(A, rnorm(100))
 b = c(b,0)
 w = hitandrun(A, b, n = 100)
 }

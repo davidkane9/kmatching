@@ -10,7 +10,7 @@
 #' by the sum of the rightmost vector
 #' 
 #' @author Mike Flynn \email{<mjf2@@williams.edu>}
-#' 
+#' @export
 #' @examples
 #' data = data.frame(size = rnorm(50), weight = rep(.02, 50))
 #' weights = kmatch(data = data, match.var = "size", weight.var = "weight", n = 100)
