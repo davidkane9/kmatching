@@ -6,9 +6,8 @@
 #' @param Emat This is the matrix of the equality constraint coefficients
 #' @param x0 An original solution to the constraints
 #' @param n Number of random solutions to output
-
-#' @keywords Random-Portfolio Matching-Portfolio Monte-Carlo
-
+#' 
+#' @author Mike Flynn \email{<mjf2@@willaims.edu>}
 #' @export
 #' @examples
 #' Emat = matrix(1, ncol = 3, nrow = 1)

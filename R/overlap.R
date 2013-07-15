@@ -1,5 +1,23 @@
+#' Checks the similarity of a group of vectors
+#' 
+#' This function takes a matrix as an argument 
+#' where the columns are vectors we want to compare
+#' and calculates the correlation and Euclidean
+#' distance between these vectors
+#' 
+#' @param mat The matrix of vectors to compare
+#' @param compare Whether to compare to vectors distributed uniformly on a simplex scaled
+#' by the sum of the rightmost vector
+#' 
+#' @author Mike Flynn \email{<mjf2@@williams.edu>}
+#' 
+#' @examples
+#' data = data.frame(size = rnorm(50), weight = rep(.02, 50))
+#' weights = kmatch(data = data, match.var = "size", weight.var = "weight", n = 100)
+#' overlap(weights)
+
 overlap <-
-function(mat, orig = NULL, compare = FALSE) {
+function(mat, compare = FALSE) {
   
   correlations = cor(mat)
   cat("Overlap:\n");

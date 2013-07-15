@@ -1,4 +1,31 @@
-#' Uniformly samples from {A*x=A*x0} U {x>0}
+#' Uniformly samples from {A*x=A*x0}, {x>0} or {Ax=b} & {x>0}
+#' 
+#' Randomly samples uniformly from a convex polytope given by linear equalities 
+#' in the parameters. Uses a hit-and-run algorithm as described in [insert paper here]
+#' 
+#' @param A Matrix of constraint coefficients, rows should correspond to each constraint
+#' @param b A vector of exposures that correspond to the right hand side of the constraints. Should
+#' not be used at the same time as x0
+#' @param x0 An original solution we want to match, should not be used at the same time as b.
+#' @param n The number of output vectors desired
+#' @param discard A burninlength, how many vectors should be discarded before recording
+#' @param skiplength Only 1 out of every 'skiplength' vectors will be recorded, in order to
+#' optimally spread out the output
+#' @param verbose Give verbose output of how the function is progressing.
+#' 
+#' @export
+#' @author Mike Flynn \email{mjf2@@williams.edu}
+#' 
+#' @examples
+#' A = matrix(1, ncol = 5, nrow = 1)
+#' b = 1
+#' w = hitandrun(A, b, n = 100)
+#' 
+#' A = matrix(1, ncol = 100, nrow = 1)
+#' b = 50
+#' A = rbind(Amat, rnorm(100))
+#' b = c(b,0)
+#' w = hitandrun(A, b, n = 100) 
 hitandrun <- function(A, b = NULL, x0 = NULL, n, discard = 0, skiplength = 5, verbose = FALSE) {
   if(n <= 0 || n %% 1 != 0){
     stop("n must be a positive integer")

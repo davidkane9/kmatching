@@ -1,4 +1,5 @@
-
+#' Creates a dummy matrix for a vector of categorical variables.
+#' @keywords internal
 .dummy <- function(vec) {
   names = sort(unique(vec))
   mat = matrix(rep(0, length(vec)*length(names)), nrow = length(names))
