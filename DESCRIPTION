@@ -9,7 +9,7 @@ Depends:
     MASS
 Description: Samples uniformly from the positive solutions space of a linear
     problem Ax=b
-License: MIT
+License: BSD
 Collate:
     'hitandrun.R'
     'internals.R'
