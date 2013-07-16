@@ -76,11 +76,11 @@ hitandrun <- function(A, b = NULL, x0 = NULL, n, discard = 0, skiplength = 5, ve
             u = Z%*%r
             c = y/u
             ## determine intersections of x + t*u with walls
+            ## the limits on how far you can go backward and forward
+            tmin = max(-c[u>0]); tmax = min(-c[u<0]);
             if(tmin == -Inf || tmax == Inf){
               stop("problem is unbounded")
             }
-            ## the limits on how far you can go backward and forward
-            tmin = max(-c[u>0]); tmax = min(-c[u<0]);
             if(tmin==0 && tmax ==0) {
                 stop("found bad direction")
             }
