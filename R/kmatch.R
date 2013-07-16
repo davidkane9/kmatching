@@ -16,8 +16,10 @@
 #' data = data.frame(size = rnorm(50), weight = rep(.02, 50))
 #' weights = kmatch(data = data, match.var = "size", weight.var = "weight", n = 100)
 #' 
-kmatch <-
-function(data, match.var, weight.var, n, ...) {
+kmatch <- function(data, match.var, weight.var, n, ...) {
+  
+  ## Where are the comments? This code is very hard to follow.
+  
   Alist = list()
   hasdiscrete = FALSE
   for(i in 1:length(match.var)) {
