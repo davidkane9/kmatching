@@ -12,12 +12,11 @@
 #' @author Mike Flynn \email{<mflynn210@@gmail.com>}
 #' @export
 #' @examples
-#' data = data.frame(size = rnorm(50), weight = rep(.02, 50))
-#' weights = kmatch(data = data, match.var = "size", weight.var = "weight", n = 100)
+#' data <- data.frame(size = rnorm(50), weight = rep(.02, 50))
+#' weights <- kmatch(data = data, match.var = "size", weight.var = "weight", n = 100)
 #' overlap(weights)
 
-overlap <-
-function(mat, compare = FALSE) {
+overlap <- function(mat, compare = FALSE) {
   
   correlations = cor(mat)
   cat("Overlap:\n");
