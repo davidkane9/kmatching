@@ -2,15 +2,16 @@ library(kmatching)
 library(testthat)
 context("Testing constraints")
 
-orig = rexp(1000)
-orig = orig/sum(orig)
-data = data.frame(value = rnorm(100), growth = rnorm(100), orig = orig, country = sample(c("Cuba", "USA", "Mexico", "Canada"), 100, replace = T))
+orig <- rexp(1000)
+orig <- orig/sum(orig)
+data <- data.frame(value = rnorm(100), growth = rnorm(100), orig = orig, country = sample(c("Cuba", "USA", "Mexico", "Canada"), 100, replace = T))
 
-k = kmatch(data = data, match.var = c("value", "growth", "country"), weight.var = "orig", n = 100)
-Amat = matrix(c(data$value, data$growth), ncol = nrow(data), byrow = TRUE)
-Amat = rbind(Amat, .dummy(data$country))
+k <- kmatch(data = data, match.var = c("value", "growth", "country"), weight.var = "orig", n = 100)
+Amat <- matrix(c(data$value, data$growth), ncol = nrow(data), byrow = TRUE)
+Amat <- rbind(Amat, .dummy(data$country))
 Amat %*% data$orig
 Amat %*% k[,1]
+
 #'Constraints:
 #'-must add up to same as weight var
 #'-must have same exposures
