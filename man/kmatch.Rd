@@ -2,7 +2,7 @@
 \alias{kmatch}
 \title{Create matching vectors based on data}
 \usage{
-  kmatch(data, match.var, weight.var, sumlimit = NULL, ...)
+  kmatch(data, match.var, weight.var, n, ...)
 }
 \arguments{
   \item{data}{A data frame containing data we want to
@@ -14,10 +14,7 @@
   \item{weight.var}{The name of the column of orignal set
   of weights.}
 
-  \item{sumlimit}{An optional parameter specifying what the
-  weights in the vector should sum to. This cannot be used
-  if there are discrete matching variables because it ends
-  up being redundant or contradictory.}
+  \item{n}{The number of outputs desired}
 
   \item{...}{Parameters to be passed to the sampling
   methods}
@@ -33,6 +30,6 @@ data = data.frame(size = rnorm(50), weight = rep(.02, 50))
 weights = kmatch(data = data, match.var = "size", weight.var = "weight", n = 100)
 }
 \author{
-  Mike Flynn \email{mjf2@williams.edu}
+  Mike Flynn \email{mflynn210@gmail.com}
 }
 

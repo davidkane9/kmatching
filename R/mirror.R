@@ -9,7 +9,7 @@
 #' @param verbose Give verbose output describing the progress of the function
 #' @param numjump The number of jumps to scatter around the direction given by the difference from zero
 #' 
-#' @author Mike Flynn \email{<mjf2@@willaims.edu>}
+#' @author Mike Flynn \email{<mflynn210@@gmail.com>}
 #' @export
 #' @examples
 #' Emat = matrix(1, ncol = 3, nrow = 1)

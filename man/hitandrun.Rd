@@ -45,6 +45,6 @@ b = c(b,0)
 w = hitandrun(A, b, n = 100)
 }
 \author{
-  Mike Flynn \email{mjf2@williams.edu}
+  Mike Flynn \email{mflynn210@gmail.com}
 }
 

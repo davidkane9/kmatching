@@ -32,6 +32,6 @@ x0 = c(.3, .3, .4)
 mirror(Emat, x0, 1)
 }
 \author{
-  Mike Flynn \email{<mjf2@willaims.edu>}
+  Mike Flynn \email{<mflynn210@gmail.com>}
 }
 

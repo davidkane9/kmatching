@@ -14,7 +14,7 @@
 #' @param verbose Give verbose output of how the function is progressing.
 #' 
 #' @export
-#' @author Mike Flynn \email{mjf2@@williams.edu}
+#' @author Mike Flynn \email{mflynn210@@gmail.com}
 #' 
 #' @examples
 #' A = matrix(1, ncol = 5, nrow = 1)

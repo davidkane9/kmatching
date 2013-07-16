@@ -9,7 +9,7 @@
 #' @param compare Whether to compare to vectors distributed uniformly on a simplex scaled
 #' by the sum of the rightmost vector
 #' 
-#' @author Mike Flynn \email{<mjf2@@williams.edu>}
+#' @author Mike Flynn \email{<mflynn210@@gmail.com>}
 #' @export
 #' @examples
 #' data = data.frame(size = rnorm(50), weight = rep(.02, 50))
