@@ -12,6 +12,7 @@
 #' @export
 #' @author Mike Flynn \email{mflynn210@@gmail.com}
 #' 
+#' 
 #' @examples
 #' data = data.frame(size = rnorm(50), weight = rep(.02, 50))
 #' weights = kmatch(data = data, match.var = "size", weight.var = "weight", n = 100)

@@ -3,7 +3,8 @@
 #' Randomly samples uniformly from a convex polytope given by linear equalities 
 #' in the parameters. Uses a hit-and-run algorithm as described in [insert paper here]
 #' 
-#' @param A Matrix of constraint coefficients, rows should correspond to each constraint
+#' @param A Matrix of constraint coefficients, rows should correspond to each constraint. A must not 
+#' have collinear rows.
 #' @param b A vector of exposures that correspond to the right hand side of the constraints. Should
 #' not be used at the same time as x0
 #' @param x0 An original solution we want to match, should not be used at the same time as b.
@@ -37,9 +38,22 @@ hitandrun <- function(A, b = NULL, x0 = NULL, n, discard = 0, skiplength = 5, ve
     if(is.null(x0)) {
         str = "Finding an intial solution..."
         if(verbose) cat(str)
+
+        ## make initial solution = Ap %*% b where 
+        ## Ap is the psuedoinverse of A
+        SVD = svd(A)
+        d = SVD[['d']]
+        V = SVD[['v']]
+        U = SVD[['u']]
+        ## get rid of division errors in d because they will
+        ## mess up 1/d
+        d[d < 1e-10] = 0
+        di = 1/d
+        di[di == Inf] = 0
+        Ap = V %*% t(diag(di)) %*% t(U)
+        ## l is initial solution
+        l = Ap %*% b
         
-        ## l = (closest point to zero)
-        l = t(A) %*% solve(A %*% t(A)) %*% b
         ## if l isn't in feasible space mirror it
         if(!(all(l > 0))) {
             if(verbose) for(i in 1:nchar(str)) cat("\b")
@@ -82,7 +96,7 @@ hitandrun <- function(A, b = NULL, x0 = NULL, n, discard = 0, skiplength = 5, ve
               stop("problem is unbounded")
             }
             if(tmin==0 && tmax ==0) {
-                stop("found bad direction")
+                stop("hitandrun found can't find feasible direction, cannot generate points")
             }
         }
 
