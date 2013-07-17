@@ -24,6 +24,8 @@ kmatch <- function(data, match.var, weight.var, n, replace = FALSE, ...) {
   ## index will help us keep track of subsetted data
   data$index = 1:nrow(data)
   
+  if(n <= 0) stop("")
+  
   ## Intialize list that will be turned into a matrix with do.call
   Alist = list()
   
