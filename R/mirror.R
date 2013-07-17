@@ -16,9 +16,10 @@
 #' @references Van Den Meershe, Karel, Karline Soetaert, and Dick Van Oevelen. "Xsample(): An R Function for Sampling Linear Inverse Problems." Journal of Statistical Software 30 (2009): 1-15. Print. \url{http://cran.cermin.lipi.go.id/web/packages/limSolve/vignettes/xsample.pdf}
 #' 
 #' @examples
-#' Emat = matrix(1, ncol = 3, nrow = 1)
-#' x0 = c(.3, .3, .4)
+#' Emat <- matrix(1, ncol = 3, nrow = 1)
+#' x0 <- c(.3, .3, .4)
 #' mirror(Emat, x0, 1)
+
 mirror <- function(Emat, x0, n, verbose = FALSE, numjump= 20) {
     ## columns of Z are orthoganal, unit basis of null space of Emat
     Z = Null(t(Emat))
