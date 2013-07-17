@@ -18,15 +18,16 @@
 #' @author Mike Flynn \email{mflynn210@@gmail.com}
 #' 
 #' @examples
-#' A = matrix(1, ncol = 5, nrow = 1)
-#' b = 1
-#' w = hitandrun(A, b, n = 100)
+#' A <- matrix(1, ncol = 5, nrow = 1)
+#' b <- 1
+#' w <- hitandrun(A, b, n = 100)
 #' 
-#' A = matrix(1, ncol = 100, nrow = 1)
-#' b = 50
-#' A = rbind(A, rnorm(100))
-#' b = c(b,0)
-#' w = hitandrun(A, b, n = 100) 
+#' A <- matrix(1, ncol = 100, nrow = 1)
+#' b <- 50
+#' A <- rbind(A, rnorm(100))
+#' b <- c(b,0)
+#' w <- hitandrun(A, b, n = 100) 
+
 hitandrun <- function(A, b = NULL, x0 = NULL, n, discard = 0, skiplength = 5, verbose = FALSE) {
     
     if(n <= 0 || n %% 1 != 0) {

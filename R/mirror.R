@@ -12,9 +12,10 @@
 #' @author Mike Flynn \email{<mflynn210@@gmail.com>}
 #' @export
 #' @examples
-#' Emat = matrix(1, ncol = 3, nrow = 1)
-#' x0 = c(.3, .3, .4)
+#' Emat <- matrix(1, ncol = 3, nrow = 1)
+#' x0 <- c(.3, .3, .4)
 #' mirror(Emat, x0, 1)
+
 mirror <- function(Emat, x0, n, verbose = FALSE, numjump= 20) {
     ## columns of Z are orthoganal, unit basis of null space of Emat
     Z = Null(t(Emat))
