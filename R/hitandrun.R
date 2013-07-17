@@ -50,7 +50,8 @@ hitandrun <- function(A, b = NULL, x0 = NULL, n, discard = 0, skiplength = 5, ve
         d[d < 1e-10] = 0
         di = 1/d
         di[di == Inf] = 0
-        Ap = V %*% t(diag(di)) %*% t(U)
+        if(length(di) <= 1) Dt = matrix(di, ncol = 1, nrow =1) else Dt = t(diag(di))
+        Ap = V %*% Dt %*% t(U)
         ## l is initial solution
         l = Ap %*% b
         
@@ -60,6 +61,8 @@ hitandrun <- function(A, b = NULL, x0 = NULL, n, discard = 0, skiplength = 5, ve
             str = "Using mirror algorithm to find inner solution...\n"
             if(verbose) cat(str)
             y = mirror(A, l, 1, verbose)
+        } else {
+          y = l
         }
 
         if(verbose) for(i in 1:nchar(str)) cat("\b")

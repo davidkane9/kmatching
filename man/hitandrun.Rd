@@ -7,7 +7,8 @@
 }
 \arguments{
   \item{A}{Matrix of constraint coefficients, rows should
-  correspond to each constraint}
+  correspond to each constraint. A must not have collinear
+  rows.}
 
   \item{b}{A vector of exposures that correspond to the
   right hand side of the constraints. Should not be used at
