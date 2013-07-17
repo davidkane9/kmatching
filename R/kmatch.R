@@ -89,9 +89,9 @@ kmatch <- function(data, match.var, weight.var, n, replace = FALSE, ...) {
   
   ret = matrix(0, nrow = nrow(data), ncol = n)
   if(!replace) {
-    ret[which(data[[weight.var]]) == 0,] = weights
+    ret[which(data[[weight.var]] == 0),] = weights
   } else {
     ret = weights
   }  
-  return(weights)
+  return(ret)
 }

@@ -1,8 +1,9 @@
 #' Generates weights to a new portfolio using mirror algorithm
 
 #' Fulfills equality constraints while maintaining randomness by
-#' using a Monte Carlo Random Walk reflecting at the boundaries.
-
+#' using a Monte Carlo Random Walk reflecting at the boundaries. Based
+#' on xsample() function in limSolve package.
+#' 
 #' @param Emat This is the matrix of the equality constraint coefficients
 #' @param x0 An original solution to the constraints
 #' @param n Number of random solutions to output
@@ -11,6 +12,9 @@
 #' 
 #' @author Mike Flynn \email{<mflynn210@@gmail.com>}
 #' @export
+#' 
+#' @references Van Den Meershe, Karel, Karline Soetaert, and Dick Van Oevelen. "Xsample(): An R Function for Sampling Linear Inverse Problems." Journal of Statistical Software 30 (2009): 1-15. Print. \url{http://cran.cermin.lipi.go.id/web/packages/limSolve/vignettes/xsample.pdf}
+#' 
 #' @examples
 #' Emat = matrix(1, ncol = 3, nrow = 1)
 #' x0 = c(.3, .3, .4)
