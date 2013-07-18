@@ -1,4 +1,4 @@
-#' Uniformly samples from \eqn{A*x=A*x0}, \eqn{x>0} or \eqn{Ax=b} , \eqn{x>0}
+#' Uniformly samples from \eqn{Ax=Ax0}, \eqn{x>0} or \eqn{Ax=b} , \eqn{x>0}
 #' 
 #' Randomly samples uniformly from a convex polytope given by linear equalities 
 #' in the parameters. Uses a hit-and-run algorithm. Given constraints:
