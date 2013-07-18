@@ -32,18 +32,27 @@
 \description{
   Randomly samples uniformly from a convex polytope given
   by linear equalities in the parameters. Uses a
-  hit-and-run algorithm as described in [insert paper here]
+  hit-and-run algorithm. Given constraints: $$Ax = b, x\ge
+  0$$ or $$Ax = Ax_0, x>0$$ the algorithm finds a point on
+  the interior of the constraints. From there it picks a
+  direction in the k-plane defined by $Ax=b$, it then
+  calculates the maximum and minimum distances it can move
+  the point in that direction, called \verb+tmin+ and
+  \verb+tmax+. It pick a random distance to travel between
+  \verb+tmin+ and \verb+tmax+ and this is used as the next
+  point. This algorithm is useful because each sample is
+  made in constant time.
 }
 \examples{
-A = matrix(1, ncol = 5, nrow = 1)
-b = 1
-w = hitandrun(A, b, n = 100)
+A <- matrix(1, ncol = 5, nrow = 1)
+b <- 1
+w <- hitandrun(A, b, n = 100)
 
-A = matrix(1, ncol = 100, nrow = 1)
-b = 50
-A = rbind(A, rnorm(100))
-b = c(b,0)
-w = hitandrun(A, b, n = 100)
+A <- matrix(1, ncol = 100, nrow = 1)
+b <- 50
+A <- rbind(A, rnorm(100))
+b <- c(b,0)
+w <- hitandrun(A, b, n = 100)
 }
 \author{
   Mike Flynn \email{mflynn210@gmail.com}

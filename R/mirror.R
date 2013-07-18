@@ -1,10 +1,19 @@
-#' Generates weights to a new portfolio using mirror algorithm
+#' Generates weights using mirror algorithm
 
 #' Fulfills equality constraints while maintaining randomness by
-#' using a Monte Carlo Random Walk reflecting at the boundaries. Based
-#' on xsample() function in limSolve package.
+#' using a random Walk reflecting at the boundaries. Based
+#' on xsample() function in limSolve package. Given a set of constraints:
+#' $$ Ex = Ex_0, x \ge 0 $$ mirror starts at $x_0$ and repeatedly jumps from
+#' the point in a random direction in the k-plane that defines $Ax=b$. It then
+#' checks against $x\ge 0$. If it has violated this constraint, it projects onto 
+#' the violating components and projects the resulting vector back into the plane.
+#' This final vector is subtracted from the violating jump, with the length scaled by
+#' a random number that is calculated to maximally reduce the distance from the walls
+#' (helps it converge faster). This process is repeated until there are no components 
+#' violating the constraints. In practice this process generates points in time that is
+#' exponential in $n$, the number of components of $x$.
 #' 
-#' @param Emat This is the matrix of the equality constraint coefficients
+#' @param Amat This is the matrix of the equality constraint coefficients
 #' @param x0 An original solution to the constraints
 #' @param n Number of random solutions to output
 #' @param verbose Give verbose output describing the progress of the function
@@ -16,29 +25,41 @@
 #' @references Van Den Meershe, Karel, Karline Soetaert, and Dick Van Oevelen. "Xsample(): An R Function for Sampling Linear Inverse Problems." Journal of Statistical Software 30 (2009): 1-15. Print. \url{http://cran.cermin.lipi.go.id/web/packages/limSolve/vignettes/xsample.pdf}
 #' 
 #' @examples
-#' Emat <- matrix(1, ncol = 3, nrow = 1)
+#' Amat <- matrix(1, ncol = 3, nrow = 1)
 #' x0 <- c(.3, .3, .4)
-#' mirror(Emat, x0, 1)
+#' mirror(Amat, x0, 1)
 
-mirror <- function(Emat, x0, n, verbose = FALSE, numjump= 20) {
-    ## columns of Z are orthoganal, unit basis of null space of Emat
-    Z = Null(t(Emat))
+mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20) {
+  
+    ## columns of Z are orthogonal, unit basis of null space of Amat
+    ## a.k.a. vectors in the plane defined by Ax=b
+    Z = Null(t(Amat))
+    
     ## initialize return matrix
     ret = matrix(0, nrow = length(x0), ncol = n + 1)
+    
+    ## number of cols in Z and mean of x0 used to normalize jumps else
+    ## the convergence time grows much faster for higher n
     nc = ncol(Z)
     mn = mean(x0)
     ## jump from initial point, distance normally distributed
     ret[, 1] = x0 + Z %*% rnorm(nc, 0, abs(mn))/sqrt(nc)
-    k = 0
+    
+    ## bestjump will eventually be used to store the optimal length to scale the
+    ## reflection
     bestjump = 0
     for (i in 2:(n + 1)) {
+        ## jump
         ret[, i] = ret[, i - 1] + Z %*% rnorm(nc, 0, abs(mn))/sqrt(nc)
+        
+        ## we will compare olddist to dist, if olddist < dist, then we have
+        ## moved away from feasible space with a jump, and are not converging
         olddist = Inf
         ## if any of the components is negative, mirror component back
         while(any(ret[, i] < 0)) {
             ## project vector into infeasible space
-            reflection = rep(0, ncol(Emat))
-            overdist = rep(0, ncol(Emat))
+            reflection = rep(0, ncol(Amat))
+            overdist = rep(0, ncol(Amat))
             overdist[which(ret[, i] < 0)] = ret[, i][which(ret[, i] < 0)]
             dist = sqrt(sum(overdist^2))
             if(olddist <= dist) {
