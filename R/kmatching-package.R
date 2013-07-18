@@ -14,3 +14,4 @@
 #' 
 #' @name kmatching-package
 #' @docType package
+NA

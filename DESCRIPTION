@@ -18,3 +18,4 @@ Collate:
     'kmatch.R'
     'mirror.R'
     'overlap.R'
+    'kmatching-package.R'

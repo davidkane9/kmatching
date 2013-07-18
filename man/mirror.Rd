@@ -4,15 +4,9 @@
 Fulfills equality constraints while maintaining randomness by
 using a random Walk reflecting at the boundaries. Based
 on xsample() function in limSolve package. Given a set of constraints:
-<<<<<<< HEAD
-$$ Ex = Ex_0, x >= 0 $$ mirror starts at $x_0$ and repeatedly jumps from
-the point in a random direction in the k-plane that defines $Ax=b$. It then
-checks against $x >= 0$. If it has violated this constraint, it projects onto
-=======
 \eqn{Ex = Ex_0, x \ge 0} mirror starts at \eqn{x_0} and repeatedly jumps from
 the point in a random direction in the k-plane that defines \eqn{Ax=b}. It then
 checks against \eqn{x\ge 0}. If it has violated this constraint, it projects onto
->>>>>>> 051f3d84ac928262e0c88bdff3a09249444d2457
 the violating components and projects the resulting vector back into the plane.
 This final vector is subtracted from the violating jump, with the length scaled by
 a random number that is calculated to maximally reduce the distance from the walls
@@ -41,17 +35,10 @@ exponential in n, the number of components of x.}
   equality constraints while maintaining randomness by
   using a random Walk reflecting at the boundaries. Based
   on xsample() function in limSolve package. Given a set of
-<<<<<<< HEAD
-  constraints: $$ Ex = Ex_0, x >= 0 $$ mirror starts at
-  $x_0$ and repeatedly jumps from the point in a random
-  direction in the k-plane that defines $Ax=b$. It then
-  checks against $x >= 0$. If it has violated this
-=======
   constraints: \eqn{Ex = Ex_0, x \ge 0} mirror starts at
   \eqn{x_0} and repeatedly jumps from the point in a random
   direction in the k-plane that defines \eqn{Ax=b}. It then
   checks against \eqn{x\ge 0}. If it has violated this
->>>>>>> 051f3d84ac928262e0c88bdff3a09249444d2457
   constraint, it projects onto the violating components and
   projects the resulting vector back into the plane. This
   final vector is subtracted from the violating jump, with

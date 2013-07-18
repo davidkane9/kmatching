@@ -43,5 +43,7 @@ test_that("replace = FALSE works correctly", {
   expect_true(all(apply(k, 2, function(x) abs(sum(x) - sum(data$orig)) < 1e-12)))
   ## expect that there are the same number of row in output
   expect_that(nrow(k), equals(nrow(data)))
+  ## expect that none of the weighted rows in the original are weighted in the output
+  expect_true(all(apply(k[which(data$orig > 0),], 1, function(x) all(x==0))))
 })
 
