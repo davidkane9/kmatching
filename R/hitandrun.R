@@ -2,7 +2,7 @@
 #' 
 #' Randomly samples uniformly from a convex polytope given by linear equalities 
 #' in the parameters. Uses a hit-and-run algorithm. Given constraints:
-#' $$Ax = b, x\ge 0$$ or $$Ax = Ax_0, x>0$$ the algorithm finds a point on
+#' \eqn{Ax = b, x\ge 0} or \eqn{Ax = Ax_0, x>0} the algorithm finds a point on
 #' the interior of the constraints. From there it picks a direction in the k-plane
 #' defined by $Ax=b$, it then calculates the maximum and minimum distances it can
 #' move the point in that direction, called \verb+tmin+ and \verb+tmax+. It pick a random

@@ -32,12 +32,12 @@
 \description{
   Randomly samples uniformly from a convex polytope given
   by linear equalities in the parameters. Uses a
-  hit-and-run algorithm. Given constraints: $$Ax = b, x\ge
-  0$$ or $$Ax = Ax_0, x>0$$ the algorithm finds a point on
-  the interior of the constraints. From there it picks a
-  direction in the k-plane defined by $Ax=b$, it then
-  calculates the maximum and minimum distances it can move
-  the point in that direction, called \verb+tmin+ and
+  hit-and-run algorithm. Given constraints: \eqn{Ax = b,
+  x\ge 0} or \eqn{Ax = Ax_0, x>0} the algorithm finds a
+  point on the interior of the constraints. From there it
+  picks a direction in the k-plane defined by $Ax=b$, it
+  then calculates the maximum and minimum distances it can
+  move the point in that direction, called \verb+tmin+ and
   \verb+tmax+. It pick a random distance to travel between
   \verb+tmin+ and \verb+tmax+ and this is used as the next
   point. This algorithm is useful because each sample is
