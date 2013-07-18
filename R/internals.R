@@ -1,4 +1,5 @@
 #' Creates a dummy matrix for a vector of categorical variables.
+#' @name internals
 #' @keywords internal
 .dummy <- function(vec) {
   names = sort(unique(vec))
