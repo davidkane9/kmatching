@@ -3,9 +3,9 @@
 #' Fulfills equality constraints while maintaining randomness by
 #' using a random Walk reflecting at the boundaries. Based
 #' on xsample() function in limSolve package. Given a set of constraints:
-#' $$ Ex = Ex_0, x \ge 0 $$ mirror starts at $x_0$ and repeatedly jumps from
+#' $$ Ex = Ex_0, x >= 0 $$ mirror starts at $x_0$ and repeatedly jumps from
 #' the point in a random direction in the k-plane that defines $Ax=b$. It then
-#' checks against $x\ge 0$. If it has violated this constraint, it projects onto 
+#' checks against $x >= 0$. If it has violated this constraint, it projects onto 
 #' the violating components and projects the resulting vector back into the plane.
 #' This final vector is subtracted from the violating jump, with the length scaled by
 #' a random number that is calculated to maximally reduce the distance from the walls
@@ -57,28 +57,40 @@ mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20) {
         olddist = Inf
         ## if any of the components is negative, mirror component back
         while(any(ret[, i] < 0)) {
-            ## project vector into infeasible space
+            ## intialize the reflection
             reflection = rep(0, ncol(Amat))
+            
+            ## overdist is the vector in infeasible space
             overdist = rep(0, ncol(Amat))
             overdist[which(ret[, i] < 0)] = ret[, i][which(ret[, i] < 0)]
+            ## measure distance of negative components from x ==0 
             dist = sqrt(sum(overdist^2))
+            
+            ## throw error if mirror not converging
             if(olddist <= dist) {
-              stop("mirror failing to converge")
+              stop("mirror failing to converge, possibly no solution")
             }
             if(verbose) str = paste("Distance from walls: ", dist, "\nBest jump: ", bestjump, sep = "" )
             if(verbose) cat(str)
             ## project the infeasible vector back into feasible space
             for (j in 1:ncol(Z)) {
-                proj =  Z[, j] * (overdist %*% Z[, j])/Z[,j] %*% Z[, j]
+                ## projection = u * (u*v)/(v*V)
+                proj =  Z[, j] * (overdist %*% Z[, j])/(Z[,j] %*% Z[, j])
+                ## add projection to reflection
                 reflection = reflection  - proj
+                ## remove component from "overdist"
                 overdist = overdist - proj
             }
             ## randomly generate jump lengths, pick best, converges faster
             jumps = matrix(abs(rnorm(numjump, sd = 2)), nrow = 1)
+            
+            ## find distances when reflection is scaled by jumps
             dists = apply(jumps, 2, function(x) {
               point = ret[,i] + x*reflection
               sqrt(sum(point[which(point<0)]^2))
             })
+            
+            ## pick closest distance to zero and use that jump
             bestjump = jumps[1, which.min(dists)]
             ret[,i] = ret[,i] + bestjump*reflection
             if(verbose) for(j in 1:nchar(str))  cat("\b")
