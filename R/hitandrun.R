@@ -11,9 +11,7 @@
 #' 
 #' @param A Matrix of constraint coefficients, rows should correspond to each constraint. A must not 
 #' have collinear rows.
-#' @param b A vector of exposures that correspond to the right hand side of the constraints. Should
-#' not be used at the same time as x0
-#' @param x0 An original solution we want to match, should not be used at the same time as b.
+#' @param b A vector of exposures that correspond to the right hand side of the constraints.
 #' @param n The number of output vectors desired
 #' @param discard A burninlength, how many vectors should be discarded before recording
 #' @param skiplength Only 1 out of every 'skiplength' vectors will be recorded, in order to
@@ -34,49 +32,44 @@
 #' b <- c(b,0)
 #' w <- hitandrun(A, b, n = 100) 
 
-hitandrun <- function(A, b = NULL, x0 = NULL, n, discard = 0, skiplength = 5, verbose = FALSE) {
+hitandrun <- function(A, b = NULL, n, discard = 0, skiplength = 5, verbose = FALSE) {
     
     if(n <= 0 || n %% 1 != 0) {
       stop("n must be a positive integer")
     }
-    ## should use x0 or b, not both
-    stopifnot(!is.null(x0) || !is.null(b))
     
-    if(is.null(x0)) {
-        str = "Finding an intial solution..."
-        if(verbose) cat(str)
-
-        ## make initial solution = Ap %*% b where 
-        ## Ap is the psuedoinverse of A
-        SVD = svd(A)
-        d = SVD[['d']]
-        V = SVD[['v']]
-        U = SVD[['u']]
-        ## get rid of division errors in d because they will
-        ## mess up 1/d
-        d[d < 1e-10] = 0
-        di = 1/d
-        di[di == Inf] = 0
-        if(length(di) <= 1) Dt = matrix(di, ncol = 1, nrow =1) else Dt = t(diag(di))
-        Ap = V %*% Dt %*% t(U)
-        ## l is initial solution
-        l = Ap %*% b
-        
-        ## if l isn't in feasible space mirror it
-        if(!(all(l > 0))) {
-            if(verbose) for(i in 1:nchar(str)) cat("\b")
-            str = "Using mirror algorithm to find inner solution...\n"
-            if(verbose) cat(str)
-            y = mirror(A, l, 1, verbose)
-        } else {
-          y = l
-        }
-
-        if(verbose) for(i in 1:nchar(str)) cat("\b")
+    
+    str = "Finding an intial solution..."
+    if(verbose) cat(str)
+    
+    ## make initial solution = Ap %*% b where 
+    ## Ap is the psuedoinverse of A
+    SVD = svd(A)
+    d = SVD[['d']]
+    V = SVD[['v']]
+    U = SVD[['u']]
+    ## get rid of division errors in d because they will
+    ## mess up 1/d
+    d[d < 1e-10] = 0
+    di = 1/d
+    di[di == Inf] = 0
+    if(length(di) <= 1) Dt = matrix(di, ncol = 1, nrow =1) else Dt = t(diag(di))
+    Ap = V %*% Dt %*% t(U)
+    ## l is initial solution
+    l = Ap %*% b
+    
+    ## if l isn't in feasible space mirror it
+    if(!(all(l > 0))) {
+      if(verbose) for(i in 1:nchar(str)) cat("\b")
+      str = "Using mirror algorithm to find inner solution...\n"
+      if(verbose) cat(str)
+      y = mirror(A, l, 1, verbose)
     } else {
-        y = x0;
-        if(!is.null(b)) stopifnot(A %*% x0 == b)
+      y = l
     }
+    
+    if(verbose) for(i in 1:nchar(str)) cat("\b")
+
     ## resolve weird quirk in Null() function
     if(ncol(A) ==1) {
         Z = Null(A)

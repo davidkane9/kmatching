@@ -2,8 +2,8 @@
 \alias{hitandrun}
 \title{Uniformly samples from \eqn{Ax=Ax0}, \eqn{x>0} or \eqn{Ax=b} , \eqn{x>0}}
 \usage{
-  hitandrun(A, b = NULL, x0 = NULL, n, discard = 0,
-    skiplength = 5, verbose = FALSE)
+  hitandrun(A, b = NULL, n, discard = 0, skiplength = 5,
+    verbose = FALSE)
 }
 \arguments{
   \item{A}{Matrix of constraint coefficients, rows should
@@ -11,11 +11,7 @@
   rows.}
 
   \item{b}{A vector of exposures that correspond to the
-  right hand side of the constraints. Should not be used at
-  the same time as x0}
-
-  \item{x0}{An original solution we want to match, should
-  not be used at the same time as b.}
+  right hand side of the constraints.}
 
   \item{n}{The number of output vectors desired}
 
