@@ -1,12 +1,12 @@
-#' Uniformly samples from {A*x=A*x0}, {x>0} or {Ax=b} & {x>0}
+#' Uniformly samples from \eqn{Ax=Ax0}, \eqn{x>0} or \eqn{Ax=b} , \eqn{x>0}
 #' 
 #' Randomly samples uniformly from a convex polytope given by linear equalities 
 #' in the parameters. Uses a hit-and-run algorithm. Given constraints:
-#' $$Ax = b, x >= 0$$ or $$Ax = Ax_0, x>=0$$ the algorithm finds a point on
+#' \eqn{Ax = b, x\ge 0} or \eqn{Ax = Ax_0, x>0} the algorithm finds a point on
 #' the interior of the constraints. From there it picks a direction in the k-plane
-#' defined by $Ax=b$, it then calculates the maximum and minimum distances it can
-#' move the point in that direction, called tmin and tmax. It pick a random
-#' distance to travel between tmin and tmax and this is used as the next point.
+#' defined by \eqn{Ax=b}, it then calculates the maximum and minimum distances it can
+#' move the point in that direction, called \code{tmin} and \code{tmax}. It pick a random
+#' distance to travel between \code{tmin} and \code{tmax} and this is used as the next point.
 #' This algorithm is useful because each sample is made in constant time. 
 #' 
 #' @param A Matrix of constraint coefficients, rows should correspond to each constraint. A must not 
