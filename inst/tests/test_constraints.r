@@ -47,3 +47,21 @@ test_that("replace = FALSE works correctly", {
   expect_true(all(apply(k[which(data$orig > 0),], 1, function(x) all(x==0))))
 })
 
+test_that("samples are generated uniformly") {
+
+  ## A sample of 1000 coordinates for 2 variables should follow binomial
+  ## distribution with respect to being above/below .5
+  A = matrix(1,ncol = 2)
+  b = 1
+  set.seed(1)
+  k = hitandrun(A, b, n = 1000)
+  expect_true(all(apply(k, 1, function(x) length(which(x> .5)) < qbinom(.99, 1000, .5))))
+
+
+
+
+
+
+
+
+}

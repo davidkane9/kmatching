@@ -22,3 +22,6 @@ test_that("make sure 100 samples meet constraint", {
   expect_that(apply(mirror(A, x0, 100), 2, sum), equals(rep(6, 100)))
   
 })
+
+
+
