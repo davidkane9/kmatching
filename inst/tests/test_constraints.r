@@ -1,4 +1,6 @@
 context("Testing constraints")
+library(stats)
+library(utils)
 
 set.seed(44)
 
@@ -69,8 +71,30 @@ test_that("samples are generated uniformly") {
     return(bin)
   })
   ChiSquared = chisq.test(table(bins))
-  expect_true(ChiSquared$p.value > .01)
+  expect_true(ChiSquared$p.value > .1) 
   
   
+  ## n variables, these bins will grow like 2^(n^2), unfortunately, suffering
+  ## from an extreme curse of dimensionality. High dimensions will make most bins=0.
+  n = 5
+  A = matrix(1, ncol = n)
+  b = 1
+  set.seed(10)
+  k = hitandrun(A,b, n = 1000)
+  
+  ## this creates a list of combinations of the 10 variables we could have
+  ## we will compare each combination, and bin them based on whether one is
+  ## greater or less than the other, there are roughly n^2 combinations
+  combin = combn(1:n, 2)
+  bins = apply(k, 2, function(x) {
+    bin = "b"
+    ## digit i is 1 if ith combination returns true else 0, there are roughly
+    ## 2^n ways each weighted rows 
+    for(i in 1:ncol(combin))
+      bin = paste(bin, as.numeric(x[combin[1,i]] >= x[combin[2,i]]), sep = "")
+    return(bin)    
+  })
+  ChiSquared = chisq.test(table(bins))
+  expect_true(ChiSquared$p.value > .1)
 }
 
