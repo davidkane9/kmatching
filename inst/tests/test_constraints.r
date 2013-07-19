@@ -49,7 +49,7 @@ test_that("replace = FALSE works correctly", {
   expect_true(all(apply(k[which(data$orig > 0),], 1, function(x) all(x==0))))
 })
 
-test_that("samples are generated uniformly") {
+test_that("samples are generated uniformly", {
 
   ## 2 variables:
   ## A sample of 1000 coordinates for 2 variables should follow binomial
@@ -96,5 +96,5 @@ test_that("samples are generated uniformly") {
   })
   ChiSquared = chisq.test(table(bins))
   expect_true(ChiSquared$p.value > .1)
-}
+})
 
