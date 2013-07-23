@@ -1,0 +1,18 @@
+\documentclass{article}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{subfig}
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{}
+
+\begin{document}
+\title{Kmatching: A Method}
+\author{David Kane}
+\maketitle
+
+\section*{Introduction}
+
+
+
+
+\end{document}
