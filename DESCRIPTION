@@ -10,7 +10,7 @@ Depends:
     testthat,
     plyr
 Description: Samples uniformly from the positive solutions space of a linear
-    problem Ax=b
+    problem Ax=b. 
 License: BSD
 Collate:
     'hitandrun.R'
