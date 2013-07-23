@@ -15,17 +15,18 @@
 #'   
 #' @examples
 #' x <- data.frame(size = rnorm(50), weight = rep(.02, 50))
-#' weights <- kmatch(x, match.var = "size", weight.var = "weight", n = 100, replace = TRUE)
+#' weights <- kmatch(x, weight.var = "weight", match.var = "size", n = 100, replace = TRUE)
 
-kmatch <- function(x, match.var, weight.var, n = 1, replace = FALSE, ...) {
+kmatch <- function(x, weight.var, match.var,  n = 1, replace = FALSE, ...) {
   
   ## Index will help us keep track of subsetted data. Is this reall necessary if
   ## we keep everything in the same order?
   
+  
   x$index = 1:nrow(x)
   
   stopifnot(n > 0)
-  stopifnot()
+  stopifnot(all(c(weight.var, match.var) %in% names(x)))
   
   ## Intialize list that will be turned into a matrix with do.call
   
