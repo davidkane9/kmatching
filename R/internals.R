@@ -1,7 +1,17 @@
 #' Creates a dummy matrix for a vector of categorical variables.
-#' @name internals
-#' @keywords internal
-dummy <- function(vec) {
+#' 
+#' @param vec vector of character or factor variable 
+#' 
+#' @author David Kane \email{<dave.kane@@gmail.com>}
+#' @export
+#' 
+#' @examples
+#' dummy(letters[1:3])
+
+dummy <- function(vec){
+  
+  ## Do we really need this helper function.
+  
   names = sort(unique(vec))
   mat = matrix(rep(0, length(vec)*length(names)), nrow = length(names))
   for(i in 1:nrow(mat)) {
