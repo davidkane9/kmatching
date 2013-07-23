@@ -2,7 +2,7 @@
 \alias{kmatch}
 \title{Create matching vectors based on data Creates a matrix of weights which}
 \usage{
-  kmatch(x, match.var, weight.var, n = 1, replace = FALSE,
+  kmatch(x, weight.var, match.var, n = 1, replace = FALSE,
     ...)
 }
 \arguments{
@@ -30,7 +30,7 @@
 }
 \examples{
 x <- data.frame(size = rnorm(50), weight = rep(.02, 50))
-weights <- kmatch(x, match.var = "size", weight.var = "weight", n = 100, replace = TRUE)
+weights <- kmatch(x, weight.var = "weight", match.var = "size", n = 100, replace = TRUE)
 }
 \author{
   Mike Flynn \email{mflynn210@gmail.com}
