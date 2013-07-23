@@ -40,7 +40,7 @@ kmatch <- function(x, weight.var, match.var,  n = 1, replace = FALSE, ...) {
     }
   }
   ## do.call on Alist makes constraint matrix A
-  browser()
+
   A = do.call(rbind, Alist)
 
   ## b is the constraint matrix

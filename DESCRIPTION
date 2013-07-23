@@ -1,13 +1,14 @@
 Package: kmatching
 Type: Package
 Title: Creates random vectors fulfilling constraints.
-Version: 0.1-1
-Date: 2013-07-15
+Version: 0.1-2
+Date: 2013-07-23
 Author: Mike Flynn and David Kane
-Maintainer: Mike Flynn <mjf2@williams.edu>
+Maintainer: David Kane <dave.kane@gmail.com>
 Suggests: 
     knitr,
     testthat,
+    MatchIt,
     roxygen2 
 Depends:
     MASS,
