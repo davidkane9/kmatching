@@ -1,21 +1,18 @@
-#' Create matching vectors based on data
+#' Create matching vectors based on data Creates a matrix of weights which
 #' 
-#' An abstraction on top of the random sampling methods. This function
-#' allows a user to specify which variables they would like to match exposures
-#' to an original vector of weights. Returns a matching portfolio the same size as
-#' the original.
-#' 
-#' @param data A data frame containing data we want to match
-#' @param match.var A list of names of columns of 'data' we wish to match
-#' @param weight.var The name of the column of orignal set of weights.
-#' @param n The number of outputs desired 
-#' @param replace FALSE if nothing weighted in the original weight.var
-#' should be weighted in the outputs.
-#' @param ... Parameters to be passed to the sampling methods
+#' @param data data frame containing needed input data
+#' @param weight.var character name of the column of the input weights
+#' @param match.var character vector of names of columns of 'data' we wish to
+#'   match on
+#' @param n numeric number of weight vectors desired
+#' @param replace logical indicating whether or not bservations weighted in the
+#'   original weight.var are allowed positive weight in the output. Default is
+#'   FALSE
+#' @param ... parameters to be passed to the sampling methods
 #' @export
 #' @author Mike Flynn \email{mflynn210@@gmail.com}
-#' 
-#' 
+#'   
+#'   
 #' @examples
 #' data = data.frame(size = rnorm(50), weight = rep(.02, 50))
 #' weights = kmatch(data = data, match.var = "size", weight.var = "weight", n = 100, replace = TRUE)
@@ -86,6 +83,7 @@ kmatch <- function(data, match.var, weight.var, n, replace = FALSE, ...) {
     ## remove columns corresponding to variables that have weight in the original 
     A = A[,-which(data[[weight.var]] > 0)]
   }
+  
   
   weights = hitandrun(A, b, n=n, ...)
   
