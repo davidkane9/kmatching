@@ -26,10 +26,11 @@ kmatch <- function(x, weight.var, match.var,  n = 1, replace = FALSE, ...) {
   
   Alist = list()
     
-  ## include the continuous and discrete variables in Alist
+  ## Include the continuous and discrete variables in Alist. Need to be careful
+  ## in deciding just what a 0/1 variable means, for example.
   
-  for(i in 1:length(match.var)) {
-    if(class(x[[match.var[i]]]) == "numeric") {
+  for(i in 1:length(match.var)){
+    if(is.numeric(x[[match.var[i]]])){
       ## continuous
       Alist[[i]] = x[[match.var[i]]]
 
@@ -39,7 +40,7 @@ kmatch <- function(x, weight.var, match.var,  n = 1, replace = FALSE, ...) {
     }
   }
   ## do.call on Alist makes constraint matrix A
-
+  browser()
   A = do.call(rbind, Alist)
 
   ## b is the constraint matrix
