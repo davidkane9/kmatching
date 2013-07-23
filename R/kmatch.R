@@ -31,51 +31,23 @@ kmatch <- function(x, weight.var, match.var,  n = 1, replace = FALSE, ...) {
   ## Intialize list that will be turned into a matrix with do.call
   
   Alist = list()
-  
-  ## OLD CODE FROM TRYING TO SHRINK, IGNORE #####################
-#   ## seperate into discrete and continuous variables
-#   match.var.c = match.var[sapply(match.var, function(x) class(data[[x]]) == "numeric" )]
-#   match.var.d = match.var[sapply(match.var, function(x) class(data[[x]]) != "numeric" )]
-#   
-#   if(length(match.var.d) > 0) {
-#     ## get a small subset of the data frame that preserves number of rows
-#     ## in each variable category.
-#     newdata = ddply(data, match.var.d, function(x) {
-#       pos = 1:nrow(x)
-#       if(!replace) pos = pos[-which(x[[weight.var]] > 0)]
-#       if(length(pos) < length(which(x[[weight.var]] > 0))) {
-#         stop("Error: there are not enough entries in each possible
-#            cross-section of discrete variables to not weight at least one of the rows in the 
-#            original data. Try setting replace = TRUE.")
-#       }
-#       len = length(which(x[[weight.var]] != 0))
-#       return(x[sample(pos, len),])
-#     })
-#   } else {
-#     pos = 1:nrow(data)
-#     if(!replace) pos = pos[-which(data[[weight.var]] > 0)]
-#     newdata = data[sample(pos, length(which(data[[weight.var]] > 0)))]
-#   }
-  ###########################################################
-  
-  ## checking if there is a discrete variable will prevent redundancies
-  
-  Alist2 = list()
+    
+
   ## include the continuous and discrete variables in Alist
   for(i in 1:length(match.var)) {
     if(class(x[[match.var[i]]]) == "numeric") {
       ## continuous
       Alist[[i]] = x[[match.var[i]]]
-      ##Alist2[[i]] = newdata[[match.var[i]]]
+
     } else {
       ## discrete
       Alist[[i]] = dummy(x[[match.var[i]]])
-      ##Alist2[[i]] = .dummy(newdata[[match.var[i]]])
     }
   }
   ## do.call on Alist makes constraint matrix A
+
   A = do.call(rbind, Alist)
-  ##A2 = do.call(rbind, Alist2)
+
   ## b is the constraint matrix
   b = A %*% x[[weight.var]]
   
