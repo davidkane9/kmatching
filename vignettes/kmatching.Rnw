@@ -3,8 +3,8 @@
 \usepackage{amsfonts}
 \usepackage{subfig}
 
-\VignetteEngine{knitr}
-\VignetteIndexEntry{kmatching}
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{kmatching}
 
 \begin{document}
 \title{Kmatching}
