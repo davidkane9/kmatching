@@ -18,13 +18,7 @@
 #' weights <- kmatch(x, weight.var = "weight", match.var = "size", n = 100, replace = TRUE)
 
 kmatch <- function(x, weight.var, match.var,  n = 1, replace = FALSE, ...) {
-  
-  ## Index will help us keep track of subsetted data. Is this reall necessary if
-  ## we keep everything in the same order?
-  
-  
-  x$index = 1:nrow(x)
-  
+    
   stopifnot(n > 0)
   stopifnot(all(c(weight.var, match.var) %in% names(x)))
   
@@ -32,8 +26,8 @@ kmatch <- function(x, weight.var, match.var,  n = 1, replace = FALSE, ...) {
   
   Alist = list()
     
-
   ## include the continuous and discrete variables in Alist
+  
   for(i in 1:length(match.var)) {
     if(class(x[[match.var[i]]]) == "numeric") {
       ## continuous
