@@ -1,10 +1,10 @@
 #' Create matching vectors based on data Creates a matrix of weights which
 #' 
-#' @param data data frame containing needed input data
+#' @param x data frame containing needed input data
 #' @param weight.var character name of the column of the input weights
 #' @param match.var character vector of names of columns of 'data' we wish to
 #'   match on
-#' @param n numeric number of weight vectors desired
+#' @param n numeric number of weight vectors desired. Default is 1
 #' @param replace logical indicating whether or not bservations weighted in the
 #'   original weight.var are allowed positive weight in the output. Default is
 #'   FALSE
@@ -14,16 +14,21 @@
 #'   
 #'   
 #' @examples
-#' data = data.frame(size = rnorm(50), weight = rep(.02, 50))
-#' weights = kmatch(data = data, match.var = "size", weight.var = "weight", n = 100, replace = TRUE)
-#' 
-kmatch <- function(data, match.var, weight.var, n, replace = FALSE, ...) {
-  ## index will help us keep track of subsetted data
-  data$index = 1:nrow(data)
+#' x <- data.frame(size = rnorm(50), weight = rep(.02, 50))
+#' weights <- kmatch(x, match.var = "size", weight.var = "weight", n = 100, replace = TRUE)
+
+kmatch <- function(x, match.var, weight.var, n = 1, replace = FALSE, ...) {
   
-  if(n <= 0) stop("")
+  ## Index will help us keep track of subsetted data. Is this reall necessary if
+  ## we keep everything in the same order?
+  
+  x$index = 1:nrow(x)
+  
+  stopifnot(n > 0)
+  stopifnot()
   
   ## Intialize list that will be turned into a matrix with do.call
+  
   Alist = list()
   
   ## OLD CODE FROM TRYING TO SHRINK, IGNORE #####################
@@ -57,13 +62,13 @@ kmatch <- function(data, match.var, weight.var, n, replace = FALSE, ...) {
   Alist2 = list()
   ## include the continuous and discrete variables in Alist
   for(i in 1:length(match.var)) {
-    if(class(data[[match.var[i]]]) == "numeric") {
+    if(class(x[[match.var[i]]]) == "numeric") {
       ## continuous
-      Alist[[i]] = data[[match.var[i]]]
+      Alist[[i]] = x[[match.var[i]]]
       ##Alist2[[i]] = newdata[[match.var[i]]]
     } else {
       ## discrete
-      Alist[[i]] = .dummy(data[[match.var[i]]])
+      Alist[[i]] = dummy(x[[match.var[i]]])
       ##Alist2[[i]] = .dummy(newdata[[match.var[i]]])
     }
   }
@@ -71,25 +76,25 @@ kmatch <- function(data, match.var, weight.var, n, replace = FALSE, ...) {
   A = do.call(rbind, Alist)
   ##A2 = do.call(rbind, Alist2)
   ## b is the constraint matrix
-  b = A %*% data[[weight.var]]
+  b = A %*% x[[weight.var]]
   
   ## attach the "match sum" constraint, redundanies no longer matter
-  sumlimit = sum(data[[weight.var]])
+  sumlimit = sum(x[[weight.var]])
   A = rbind(A, rep(1, ncol(A)))
   b = c(b, sumlimit)
   
   if(!replace) {
-    if(sum(data[[weight.var]] > 0) >= nrow(data) ) stop("All rows are weighted, set replace = TRUE.")
+    if(sum(x[[weight.var]] > 0) >= nrow(x) ) stop("All rows are weighted, set replace = TRUE.")
     ## remove columns corresponding to variables that have weight in the original 
-    A = A[,-which(data[[weight.var]] > 0)]
+    A = A[,-which(x[[weight.var]] > 0)]
   }
   
   
   weights = hitandrun(A, b, n=n, ...)
   
-  ret = matrix(0, nrow = nrow(data), ncol = n)
+  ret = matrix(0, nrow = nrow(x), ncol = n)
   if(!replace) {
-    ret[which(data[[weight.var]] == 0),] = weights
+    ret[which(x[[weight.var]] == 0),] = weights
   } else {
     ret = weights
   }  

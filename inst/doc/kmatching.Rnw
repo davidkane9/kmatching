@@ -2,17 +2,26 @@
 \usepackage{mathtools}
 \usepackage{amsfonts}
 \usepackage{subfig}
-%\VignetteEngine{knitr}
-%\VignetteIndexEntry{}
+
+\VignetteEngine{knitr}
+\VignetteIndexEntry{kmatching}
 
 \begin{document}
-\title{Kmatching: A Method}
+\title{Kmatching}
 \author{David Kane}
 \maketitle
 
 \section*{Introduction}
 
+Kmatching is an algorithm for forming control groups to estimate a causal effect using the potentional outcome framework of the Rubin Causal Model (RCM). $Y_i$ is the outcome of interest for unit $i$. $Y_i(T)$ is the outcome when unit $i$ is exposed to treatment $T$. In the simplest case, there are two treatments: $T \in (0, 1)$. The causal effect of $T$ on $Y$ for unit $i$ is:
+
+$$Y_i(T = 1) - Y_i(T = 0)$$
+
+The problem is that we can not observe both $Y(T = 1)$ and $Y(T = 0)$ for the same unit $i$.
 
 
+\section*{Lalonde}
+
+Consider the classic example 
 
 \end{document}

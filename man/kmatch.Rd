@@ -1,38 +1,36 @@
 \name{kmatch}
 \alias{kmatch}
-\title{Create matching vectors based on data}
+\title{Create matching vectors based on data Creates a matrix of weights which}
 \usage{
-  kmatch(data, match.var, weight.var, n, replace = FALSE,
+  kmatch(x, match.var, weight.var, n = 1, replace = FALSE,
     ...)
 }
 \arguments{
-  \item{data}{A data frame containing data we want to
-  match}
+  \item{x}{data frame containing needed input data}
 
-  \item{match.var}{A list of names of columns of 'data' we
-  wish to match}
+  \item{weight.var}{character name of the column of the
+  input weights}
 
-  \item{weight.var}{The name of the column of orignal set
-  of weights.}
+  \item{match.var}{character vector of names of columns of
+  'data' we wish to match on}
 
-  \item{n}{The number of outputs desired}
+  \item{n}{numeric number of weight vectors desired.
+  Default is 1}
 
-  \item{replace}{FALSE if nothing weighted in the original
-  weight.var should be weighted in the outputs.}
+  \item{replace}{logical indicating whether or not
+  bservations weighted in the original weight.var are
+  allowed positive weight in the output. Default is FALSE}
 
-  \item{...}{Parameters to be passed to the sampling
+  \item{...}{parameters to be passed to the sampling
   methods}
 }
 \description{
-  An abstraction on top of the random sampling methods.
-  This function allows a user to specify which variables
-  they would like to match exposures to an original vector
-  of weights. Returns a matching portfolio the same size as
-  the original.
+  Create matching vectors based on data Creates a matrix of
+  weights which
 }
 \examples{
-data = data.frame(size = rnorm(50), weight = rep(.02, 50))
-weights = kmatch(data = data, match.var = "size", weight.var = "weight", n = 100, replace = TRUE)
+x <- data.frame(size = rnorm(50), weight = rep(.02, 50))
+weights <- kmatch(x, match.var = "size", weight.var = "weight", n = 100, replace = TRUE)
 }
 \author{
   Mike Flynn \email{mflynn210@gmail.com}

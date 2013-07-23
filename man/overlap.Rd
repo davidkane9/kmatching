@@ -18,7 +18,7 @@
 }
 \examples{
 data <- data.frame(size = rnorm(50), weight = rep(.02, 50))
-weights <- kmatch(data = data, match.var = "size", weight.var = "weight", n = 100, replace = TRUE)
+weights <- kmatch(x = data, match.var = "size", weight.var = "weight", n = 100, replace = TRUE)
 overlap(weights)
 }
 \author{

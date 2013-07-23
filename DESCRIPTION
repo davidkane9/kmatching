@@ -5,9 +5,12 @@ Version: 0.1
 Date: 2013-07-15
 Author: Mike Flynn and David Kane
 Maintainer: Mike Flynn <mjf2@williams.edu>
+Suggests: 
+    knitr,
+    testthat,
+    roxygen2 
 Depends:
     MASS,
-    testthat,
     plyr
 Description: Samples uniformly from the positive solutions space of a linear
     problem Ax=b. 

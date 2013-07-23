@@ -8,9 +8,9 @@ orig <- rexp(100)
 orig <- orig/sum(orig)
 data <- data.frame(value = rnorm(100), growth = rnorm(100), orig = orig, country = sample(c("Cuba", "USA", "Mexico", "Canada"), 100, replace = T))
 
-k <- kmatch(data = data, match.var = c("value", "growth", "country"), weight.var = "orig", n = 100, replace = TRUE)
+k <- kmatch(data, match.var = c("value", "growth", "country"), weight.var = "orig", n = 100, replace = TRUE)
 Amat <- matrix(c(data$value, data$growth), ncol = nrow(data), byrow = TRUE)
-Amat <- rbind(Amat, .dummy(data$country))
+Amat <- rbind(Amat, dummy(data$country))
 
 #'Constraints:
 #'-must add up to same as weight var
@@ -34,7 +34,7 @@ orig2 = rexp(60)
 orig2 = orig2/sum(orig2)
 
 data$orig = c(orig2, rep(0, 40))
-k <- kmatch(data = data, match.var = c("value", "growth", "country"), weight.var = "orig", n = 100)
+k <- kmatch(x = data, match.var = c("value", "growth", "country"), weight.var = "orig", n = 100)
 
 test_that("replace = FALSE works correctly", {
   ## match Ax = b, within tolerance (division error approximately 1e-12)
