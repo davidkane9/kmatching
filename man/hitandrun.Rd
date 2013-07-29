@@ -1,6 +1,6 @@
 \name{hitandrun}
 \alias{hitandrun}
-\title{Uniformly samples from \eqn{Ax=Ax0}, \eqn{x>0} or \eqn{Ax=b} , \eqn{x>0}}
+\title{Samples from \eqn{Ax=b} and \eqn{x>0}.}
 \usage{
   hitandrun(A, b = NULL, n, discard = 0, skiplength = 5,
     verbose = FALSE)
@@ -25,18 +25,18 @@
   progressing.}
 }
 \description{
-  Randomly samples uniformly from a convex polytope given
-  by linear equalities in the parameters. Uses a
-  hit-and-run algorithm. Given constraints: \eqn{Ax = b,
-  x\ge 0} or \eqn{Ax = Ax_0, x>0} the algorithm finds a
-  point on the interior of the constraints. From there it
-  picks a direction in the k-plane defined by \eqn{Ax=b},
-  it then calculates the maximum and minimum distances it
-  can move the point in that direction, called \code{tmin}
-  and \code{tmax}. It pick a random distance to travel
-  between \code{tmin} and \code{tmax} and this is used as
-  the next point. This algorithm is useful because each
-  sample is made in constant time.
+  Randomly samples from a convex polytope given by linear
+  equalities in the parameters using a hit-and-run
+  algorithm. Given constraints: \eqn{Ax = b, x\ge 0} or
+  \eqn{Ax = Ax_0, x>0} the algorithm finds a point on the
+  interior of the constraints. From there it picks a
+  direction in the k-plane defined by \eqn{Ax=b}, it then
+  calculates the maximum and minimum distances it can move
+  the point in that direction, called \code{tmin} and
+  \code{tmax}. It pick a random distance to travel between
+  \code{tmin} and \code{tmax} and this is used as the next
+  point. This algorithm is useful because each sample is
+  made in constant time.
 }
 \examples{
 A <- matrix(1, ncol = 5, nrow = 1)
