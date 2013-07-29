@@ -43,6 +43,10 @@ mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20) {
     nc = ncol(Z)
     mn = mean(x0)
     ## jump from initial point, distance normally distributed
+    ## Z %*% r = r1*v1 + r2*v2 + ... + rn*vn where the v's are orthogonal
+    ## vectors in the solution plane and r's are random vectors
+    ## for example: if n = 3 and  v1 = x, v2 = y, v4 = z and we have a random point
+    ## [r1, r2, r3].
     ret[, 1] = x0 + Z %*% rnorm(nc, 0, abs(mn))/sqrt(nc)
     
     ## bestjump will eventually be used to store the optimal length to scale the
@@ -60,10 +64,15 @@ mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20) {
             ## intialize the reflection
             reflection = rep(0, ncol(Amat))
             
-            ## overdist is the vector in infeasible space
+            ## overdist will be a vector of all zeros except for the negative components
+            ## of ret[,i], this is to isolate the "bad" part of the current vector
+            ## We will get rid of this "bad" part by projecting it back on to the solution space
+            ## (It is no longer in the solution space because we set all the "good" components to zero, 
+            ## changing it)
             overdist = rep(0, ncol(Amat))
             overdist[which(ret[, i] < 0)] = ret[, i][which(ret[, i] < 0)]
-            ## measure distance of negative components from x ==0 
+            ## measure distance of negative components from x ==0, this is to
+            ## help debug and give verbose output
             dist = sqrt(sum(overdist^2))
             
             ## throw error if mirror not converging
@@ -72,7 +81,10 @@ mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20) {
             }
             if(verbose) str = paste("Distance from walls: ", dist, "\nBest jump: ", bestjump, sep = "" )
             if(verbose) cat(str)
-            ## project the infeasible vector back into feasible space
+            ## project the infeasible vector back into feasible space, each column
+            ## of z constitutes a basis vector in the plane we want to project into, to
+            ## project we do the standard projection calculation onto each basis vector (each column) and 
+            ## subtract the result from overdist in order to not count twice for a component.
             for (j in 1:ncol(Z)) {
                 ## projection = u * (u*v)/(v*V)
                 proj =  Z[, j] * (overdist %*% Z[, j])/(Z[,j] %*% Z[, j])

@@ -51,13 +51,18 @@ hitandrun <- function(A, b = NULL, n, discard = 0, skiplength = 5, verbose = FAL
     ## not invertible. Luckily, there exists an object
     ## called the psuedoinverse Ap such that Ap * A * b = b.
     ## Ap can be constructed from the SVD of A, where
-    ## SVD(A) = U D V', Ap = V (1/D)' U'.
+    ## SVD(A) = U D V', Ap = V (1/D)' U'. 1/D simply means take
+    ## 1/d for each non-zero entry d, and zero all the others.
+    ## Look up math text for
+    ## more information on the wonderful world of singular
+    ## value decompositions.
     SVD = svd(A)
     d = SVD[['d']]
     V = SVD[['v']]
     U = SVD[['u']]
     ## get rid of division errors in d because they will
-    ## mess up 1/d
+    ## mess up 1/d (we keep doing 1/0, so R gives us Inf as well
+    ## we must zero these)
     d[d < 1e-10] = 0
     di = 1/d
     di[di == Inf] = 0
@@ -66,7 +71,8 @@ hitandrun <- function(A, b = NULL, n, discard = 0, skiplength = 5, verbose = FAL
     ## l is initial solution
     l = Ap %*% b
     
-    ## if l isn't in feasible space mirror it
+    ## if l isn't in feasible space use mirror algorithm to find viable solution
+    ## in the interior
     if(!(all(l > 0))) {
       if(verbose) for(i in 1:nchar(str)) cat("\b")
       str = "Using mirror algorithm to find inner solution...\n"
