@@ -60,6 +60,11 @@ mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20) {
         ## moved away from feasible space with a jump, and are not converging
         olddist = Inf
         ## if any of the components is negative, mirror component back
+        ## Steps:
+        ## -Project onto negative components
+        ## -Project resulting vector onto solution plane
+        ## -generate random lengths of the resulting vector to subtract from the current
+        ## -pick the length to subtract that results in a vector closest to the interior
         while(any(ret[, i] < 0)) {
             ## intialize the reflection
             reflection = rep(0, ncol(Amat))
@@ -81,7 +86,7 @@ mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20) {
             }
             if(verbose) str = paste("Distance from walls: ", dist, "\nBest jump: ", bestjump, sep = "" )
             if(verbose) cat(str)
-            ## project the infeasible vector back into feasible space, each column
+            ## project the bad vector back into feasible space, each column
             ## of z constitutes a basis vector in the plane we want to project into, to
             ## project we do the standard projection calculation onto each basis vector (each column) and 
             ## subtract the result from overdist in order to not count twice for a component.

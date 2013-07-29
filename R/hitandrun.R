@@ -103,11 +103,13 @@ hitandrun <- function(A, b = NULL, n, discard = 0, skiplength = 5, verbose = FAL
             r = r/sqrt(sum(r^2))
 
             ## u is a unit vector in the appropriate k-plane pointing in a
-            ## random direction
+            ## random direction Z %*% r is the same as in mirror
             u = Z%*%r
             c = y/u
             ## determine intersections of x + t*u with walls
             ## the limits on how far you can go backward and forward
+            ## this requires a pen and paper derivation, see hnr pdf in
+            ## randPort/oldCode/oldVignettes
             tmin = max(-c[u>0]); tmax = min(-c[u<0]);
             if(tmin == -Inf || tmax == Inf){
               stop("problem is unbounded")
