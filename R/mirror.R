@@ -13,6 +13,9 @@
 #' violating the constraints. In practice this process generates points in time that is
 #' exponential in n, the number of components of x.
 #' 
+#' To project a vector u onto vector v we use the operation \eqn{proj(u)_v = v * frac{u*v}{v*v}}. 
+#' See xsample paper for a beautiful mathematical description of the mirror process.
+#' 
 #' @param Amat This is the matrix of the equality constraint coefficients
 #' @param x0 An original solution to the constraints
 #' @param n Number of random solutions to output
