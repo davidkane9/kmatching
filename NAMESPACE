@@ -1,5 +1,5 @@
+export(dummy)
 export(hitandrun)
 export(kmatch)
 export(mirror)
 export(overlap)
-export(dummy)

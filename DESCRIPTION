@@ -5,16 +5,16 @@ Version: 0.1-3
 Date: 2013-07-29
 Author: Mike Flynn and David Kane
 Maintainer: David Kane <dave.kane@gmail.com>
-Suggests: 
+Suggests:
     knitr,
     testthat,
     MatchIt,
-    roxygen2 
+    roxygen2
 Depends:
     MASS,
     plyr
 Description: Samples uniformly from the positive solutions space of a linear
-    problem Ax=b. 
+    problem Ax=b.
 License: BSD
 Collate:
     'hitandrun.R'

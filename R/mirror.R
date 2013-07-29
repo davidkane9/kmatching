@@ -65,6 +65,7 @@ mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20) {
         ## -Project resulting vector onto solution plane
         ## -generate random lengths of the resulting vector to subtract from the current
         ## -pick the length to subtract that results in a vector closest to the interior
+        ## -repeat until back in interior of solution
         while(any(ret[, i] < 0)) {
             ## intialize the reflection
             reflection = rep(0, ncol(Amat))
@@ -100,7 +101,7 @@ mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20) {
             }
             ## randomly generate jump lengths, pick best, converges faster
             jumps = matrix(abs(rnorm(numjump, sd = 2)), nrow = 1)
-            
+
             ## find distances when reflection is scaled by jumps
             dists = apply(jumps, 2, function(x) {
               point = ret[,i] + x*reflection

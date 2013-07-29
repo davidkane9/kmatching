@@ -27,16 +27,24 @@
 \description{
   Randomly samples from a convex polytope given by linear
   equalities in the parameters using a hit-and-run
-  algorithm. Given constraints: \eqn{Ax = b, x\ge 0} or
-  \eqn{Ax = Ax_0, x>0} the algorithm finds a point on the
-  interior of the constraints. From there it picks a
-  direction in the k-plane defined by \eqn{Ax=b}, it then
-  calculates the maximum and minimum distances it can move
-  the point in that direction, called \code{tmin} and
-  \code{tmax}. It pick a random distance to travel between
-  \code{tmin} and \code{tmax} and this is used as the next
-  point. This algorithm is useful because each sample is
-  made in constant time.
+  algorithm. Given constraints: \eqn{Ax = b} and \eqn{x \ge
+  0} the algorithm finds a point on the interior of the
+  constraints. From there it picks a direction in the
+  k-plane defined by \eqn{Ax = b} and then calculates the
+  maximum and minimum distances (\code{tmin} and
+  \code{tmax}) it can move in that direction. It picks a
+  random distance to travel between \code{tmin} and
+  \code{tmax} and this is used as the next point. This
+  algorithm is useful because each sample is made in
+  constant time.
+}
+\details{
+  To find \code{tmin} and \code{tmax}, we must find the
+  first component that becomes zero when going in the
+  corresponding negative or positive direction. We have
+  that \eqn{x_i + u_it = 0} or \eqn{t = =-\frac{x_i}{u_i}}.
+  We must find the minimum and maximum for positive and
+  negative t, respectively, in i.
 }
 \examples{
 A <- matrix(1, ncol = 5, nrow = 1)

@@ -10,6 +10,10 @@
 #' the next point. This algorithm is useful because each sample is made in
 #' constant time.
 #' 
+#' To find \code{tmin} and \code{tmax}, we must find the first component that becomes zero
+#' when going in the corresponding negative or positive direction. We have that \eqn{x_i + u_it  = 0} or 
+#' \eqn{t = =-\frac{x_i}{u_i}}. We must find the minimum and maximum for positive and negative t, respectively, in i.
+#' 
 #' @param A Matrix of constraint coefficients, rows should correspond to each 
 #'   constraint. A must not have collinear rows
 #' @param b A vector corresponding to the right hand side of the constraints
