@@ -1,25 +1,27 @@
-#' Uniformly samples from \eqn{Ax=Ax0}, \eqn{x>0} or \eqn{Ax=b} , \eqn{x>0}
+#' Samples from \eqn{Ax=b} and \eqn{x>0}.
 #' 
-#' Randomly samples uniformly from a convex polytope given by linear equalities 
-#' in the parameters. Uses a hit-and-run algorithm. Given constraints:
-#' \eqn{Ax = b, x\ge 0} or \eqn{Ax = Ax_0, x>0} the algorithm finds a point on
-#' the interior of the constraints. From there it picks a direction in the k-plane
-#' defined by \eqn{Ax=b}, it then calculates the maximum and minimum distances it can
-#' move the point in that direction, called \code{tmin} and \code{tmax}. It pick a random
-#' distance to travel between \code{tmin} and \code{tmax} and this is used as the next point.
-#' This algorithm is useful because each sample is made in constant time. 
+#' Randomly samples from a convex polytope given by linear equalities in the 
+#' parameters using a hit-and-run algorithm. Given constraints: \eqn{Ax = b} and
+#' \eqn{x \ge 0} the algorithm finds a point on the interior of the constraints.
+#' From there it picks a direction in the k-plane defined by \eqn{Ax = b} and
+#' then calculates the maximum and minimum distances (\code{tmin} and
+#' \code{tmax}) it can move in that direction. It picks a random
+#' distance to travel between \code{tmin} and \code{tmax} and this is used as
+#' the next point. This algorithm is useful because each sample is made in
+#' constant time.
 #' 
-#' @param A Matrix of constraint coefficients, rows should correspond to each constraint. A must not 
-#' have collinear rows
+#' @param A Matrix of constraint coefficients, rows should correspond to each 
+#'   constraint. A must not have collinear rows
 #' @param b A vector corresponding to the right hand side of the constraints
 #' @param n The number of output vectors desired
-#' @param discard A burninlength, how many vectors should be discarded before recording
+#' @param discard A burninlength, how many vectors should be discarded before 
+#'   recording
 #' @param skiplength Only 1 out of every 'skiplength' vectors will be recorded
 #' @param verbose Give verbose output of how the function is progressing.
-#' 
+#'   
 #' @export
 #' @author Mike Flynn \email{mflynn210@@gmail.com}
-#' 
+#'   
 #' @examples
 #' A <- matrix(1, ncol = 5, nrow = 1)
 #' b <- 1
