@@ -8,10 +8,10 @@
 \arguments{
   \item{A}{Matrix of constraint coefficients, rows should
   correspond to each constraint. A must not have collinear
-  rows.}
+  rows}
 
-  \item{b}{A vector of exposures that correspond to the
-  right hand side of the constraints.}
+  \item{b}{A vector corresponding to the right hand side of
+  the constraints}
 
   \item{n}{The number of output vectors desired}
 
@@ -19,8 +19,7 @@
   discarded before recording}
 
   \item{skiplength}{Only 1 out of every 'skiplength'
-  vectors will be recorded, in order to optimally spread
-  out the output}
+  vectors will be recorded}
 
   \item{verbose}{Give verbose output of how the function is
   progressing.}
