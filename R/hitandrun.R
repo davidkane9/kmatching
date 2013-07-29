@@ -10,12 +10,11 @@
 #' This algorithm is useful because each sample is made in constant time. 
 #' 
 #' @param A Matrix of constraint coefficients, rows should correspond to each constraint. A must not 
-#' have collinear rows.
-#' @param b A vector of exposures that correspond to the right hand side of the constraints.
+#' have collinear rows
+#' @param b A vector corresponding to the right hand side of the constraints
 #' @param n The number of output vectors desired
 #' @param discard A burninlength, how many vectors should be discarded before recording
-#' @param skiplength Only 1 out of every 'skiplength' vectors will be recorded, in order to
-#' optimally spread out the output
+#' @param skiplength Only 1 out of every 'skiplength' vectors will be recorded
 #' @param verbose Give verbose output of how the function is progressing.
 #' 
 #' @export
