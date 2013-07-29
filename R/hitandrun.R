@@ -43,6 +43,13 @@ hitandrun <- function(A, b = NULL, n, discard = 0, skiplength = 5, verbose = FAL
     
     ## make initial solution = Ap %*% b where 
     ## Ap is the psuedoinverse of A
+    ## We want to get to solution x of Ax = b
+    ## if A was invertible we could just use
+    ## x = Ai*b, however, A is not square and therefore
+    ## not invertible. Luckily, there exists an object
+    ## called the psuedoinverse Ap such that Ap * A * b = b.
+    ## Ap can be constructed from the SVD of A, where
+    ## SVD(A) = U D V', Ap = V (1/D)' U'.
     SVD = svd(A)
     d = SVD[['d']]
     V = SVD[['v']]

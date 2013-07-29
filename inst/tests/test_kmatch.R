@@ -98,6 +98,12 @@ test_that("Using Lalonde produces results that match perfectly", {
   
 })
 
+test_that("Mixing properly", {
+  matchvars  = c("age", "educ", "black")
+  k = kmatch(x = lalonde, weight.var  = "treat", match.var = matchvars, n = 1000)
+  
+})
+
 
 
 
