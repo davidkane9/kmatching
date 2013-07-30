@@ -2,8 +2,8 @@
 \alias{mirror}
 \title{Generates weights using mirror algorithm.
 Fulfills equality constraints while maintaining randomness by
-using a random Walk reflecting at the boundaries. Based
-on xsample() function in limSolve package. Given a set of constraints:
+using a random walk reflecting at the boundaries. Based
+on \code{xsample} function in limSolve package. Given a set of constraints:
 \eqn{Ex = Ex_0, x \ge 0} mirror starts at \eqn{x_0} and repeatedly jumps from
 the point in a random direction in the k-plane that defines \eqn{Ax=b}. It then
 checks against \eqn{x\ge 0}. If it has violated this constraint, it projects onto
@@ -32,8 +32,9 @@ exponential in n, the number of components of x.}
 }
 \description{
   To project a vector u onto vector v we use the operation
-  \eqn{proj(u)_v = v * frac{u*v}{v*v}}. We do this several
-  times with an operation that looks like u * u%*%v/(u%*%u)
+  \eqn{proj(u)_v = v * \frac{u*v}{v*v}}. We do this several
+  times with an operation that looks like \eqn{u *
+  u%*%v/(u%*%u)}
 }
 \examples{
 Amat <- matrix(1, ncol = 3, nrow = 1)
