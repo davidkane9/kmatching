@@ -14,7 +14,7 @@
 #' exponential in n, the number of components of x.
 #' 
 #' To project a vector u onto vector v we use the operation \eqn{proj(u)_v = v * frac{u*v}{v*v}}. 
-#' See xsample paper for a beautiful mathematical description of the mirror process.
+#' We do this several times with an operation that looks like u * u%*%v/(u%*%u)
 #' 
 #' @param Amat This is the matrix of the equality constraint coefficients
 #' @param x0 An original solution to the constraints

@@ -11,8 +11,9 @@
 #' constant time.
 #' 
 #' To find \code{tmin} and \code{tmax}, we must find the first component that becomes zero
-#' when going in the corresponding negative or positive direction. We have that \eqn{x_i + u_it  = 0} or 
+#' when going in the negative or positive direction (t). We have that \eqn{x_i + u_it  = 0} or 
 #' \eqn{t = =-\frac{x_i}{u_i}}. We must find the minimum and maximum for positive and negative t, respectively, in i.
+#' Once those bounds are found, a value of t is picked uniformly on the interval between \code{tmin} and \code{tmax}.
 #' 
 #' @param A Matrix of constraint coefficients, rows should correspond to each 
 #'   constraint. A must not have collinear rows
@@ -57,9 +58,6 @@ hitandrun <- function(A, b = NULL, n, discard = 0, skiplength = 5, verbose = FAL
     ## Ap can be constructed from the SVD of A, where
     ## SVD(A) = U D V', Ap = V (1/D)' U'. 1/D simply means take
     ## 1/d for each non-zero entry d, and zero all the others.
-    ## Look up math text for
-    ## more information on the wonderful world of singular
-    ## value decompositions.
     SVD = svd(A)
     d = SVD[['d']]
     V = SVD[['v']]
@@ -112,12 +110,13 @@ hitandrun <- function(A, b = NULL, n, discard = 0, skiplength = 5, verbose = FAL
             c = y/u
             ## determine intersections of x + t*u with walls
             ## the limits on how far you can go backward and forward
-            ## this requires a pen and paper derivation, see hnr pdf in
-            ## randPort/oldCode/oldVignettes
+            ## i.e. the maximum and minimum ratio y_i/u_i for negative and positive u.
             tmin = max(-c[u>0]); tmax = min(-c[u<0]);
+            ## unboundedness
             if(tmin == -Inf || tmax == Inf){
               stop("problem is unbounded")
             }
+            ## if stuck on boundary point
             if(tmin==0 && tmax ==0) {
                 stop("hitandrun found can't find feasible direction, cannot generate points")
             }
