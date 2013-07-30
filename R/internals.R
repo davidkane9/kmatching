@@ -10,8 +10,7 @@
 
 dummy <- function(vec){
   
-  ## Do we really need this helper function? What does the sorting accomplish?
-  
+  ## sort in order to match up match up exposures when printing
   names <- sort(unique(vec))
   mat <- matrix(rep(0, length(vec)*length(names)), nrow = length(names))
   for(i in 1:nrow(mat)) {

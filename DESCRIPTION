@@ -23,3 +23,4 @@ Collate:
     'mirror.R'
     'overlap.R'
     'kmatching-package.R'
+    'plotmirror.R'

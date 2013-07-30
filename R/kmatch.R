@@ -14,6 +14,7 @@
 #'   
 #'   
 #' @examples
+#' set.seed(40)
 #' x <- data.frame(size = rnorm(50), weight = rep(.02, 50))
 #' weights <- kmatch(x, weight.var = "weight", match.var = "size", n = 100, replace = TRUE)
 

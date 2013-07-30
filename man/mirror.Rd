@@ -14,7 +14,8 @@ a random number that is calculated to maximally reduce the distance from the wal
 violating the constraints. In practice this process generates points in time that is
 exponential in n, the number of components of x.}
 \usage{
-  mirror(Amat, x0, n, verbose = FALSE, numjump = 20)
+  mirror(Amat, x0, n, verbose = FALSE, numjump = 20,
+    includeInfeasible = FALSE)
 }
 \arguments{
   \item{Amat}{This is the matrix of the equality constraint
@@ -29,6 +30,9 @@ exponential in n, the number of components of x.}
 
   \item{numjump}{The number of jumps to scatter around the
   direction given by the difference from zero}
+
+  \item{includeInfeasible}{TRUE to include all "bad" points
+  in the output}
 }
 \description{
   To project a vector u onto vector v we use the operation

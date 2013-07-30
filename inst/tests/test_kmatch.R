@@ -104,6 +104,6 @@ test_that("Mixing properly", {
   
 })
 
-
+## Add testcase with NAs
 
 

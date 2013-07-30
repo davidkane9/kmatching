@@ -21,6 +21,7 @@
 #' @param n Number of random solutions to output
 #' @param verbose Give verbose output describing the progress of the function
 #' @param numjump The number of jumps to scatter around the direction given by the difference from zero
+#' @param includeInfeasible TRUE to include all "bad" points in the output
 #' 
 #' @author Mike Flynn \email{<mflynn210@@gmail.com>}
 #' @export
@@ -32,7 +33,7 @@
 #' x0 <- c(.3, .3, .4)
 #' mirror(Amat, x0, 1)
 
-mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20) {
+mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20, includeInfeasible = FALSE) {
   
     ## columns of Z are orthogonal, unit basis of null space of Amat
     ## a.k.a. vectors in the plane defined by Ax=b
@@ -40,6 +41,8 @@ mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20) {
     
     ## initialize return matrix
     ret = matrix(0, nrow = length(x0), ncol = n + 1)
+    ## initialize return list
+    retlist = list()
     
     ## number of cols in Z and mean of x0 used to normalize jumps else
     ## the convergence time grows much faster for higher n
@@ -50,7 +53,13 @@ mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20) {
     ## vectors in the solution plane and r's are random vectors
     ## for example: if n = 3 and  v1 = x, v2 = y, v4 = z and we have a random point
     ## [r1, r2, r3].
+    index = 1
+    retlist[[index]] = x0
+    index = index + 1
+    
     ret[, 1] = x0 + Z %*% rnorm(nc, 0, abs(mn))/sqrt(nc)
+    retlist[[index]] = ret[,1]
+    index = index + 1
     
     ## bestjump will eventually be used to store the optimal length to scale the
     ## reflection
@@ -58,6 +67,8 @@ mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20) {
     for (i in 2:(n + 1)) {
         ## jump
         ret[, i] = ret[, i - 1] + Z %*% rnorm(nc, 0, abs(mn))/sqrt(nc)
+        retlist[[index]] = ret[,i]
+        index = index + 1
         
         ## we will compare olddist to dist, if olddist < dist, then we have
         ## moved away from feasible space with a jump, and are not converging
@@ -114,10 +125,16 @@ mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20) {
             ## pick closest distance to zero and use that jump
             bestjump = jumps[1, which.min(dists)]
             ret[,i] = ret[,i] + bestjump*reflection
+            retlist[[index]] = ret[,i]
+            index = index + 1
             if(verbose) for(j in 1:nchar(str))  cat("\b")
             olddist = dist
         }
     }
     ret = ret[, 2:(n + 1)]
-    return(ret)
+    if(includeInfeasible) {
+      return(do.call("cbind", retlist))  
+    } else {
+      return(ret)
+    }
 }

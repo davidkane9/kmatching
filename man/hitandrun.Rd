@@ -2,8 +2,8 @@
 \alias{hitandrun}
 \title{Samples from \eqn{Ax=b} and \eqn{x>0}.}
 \usage{
-  hitandrun(A, b = NULL, n, discard = 0, skiplength = 5,
-    verbose = FALSE)
+  hitandrun(A, b, n, discard = 0, skiplength = 5,
+    chains = 1, verbose = FALSE)
 }
 \arguments{
   \item{A}{Matrix of constraint coefficients, rows should
@@ -20,6 +20,9 @@
 
   \item{skiplength}{Only 1 out of every 'skiplength'
   vectors will be recorded}
+
+  \item{chains}{number of different chains, starting from
+  different starting points}
 
   \item{verbose}{Give verbose output of how the function is
   progressing.}

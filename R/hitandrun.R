@@ -22,6 +22,7 @@
 #' @param discard A burninlength, how many vectors should be discarded before 
 #'   recording
 #' @param skiplength Only 1 out of every 'skiplength' vectors will be recorded
+#' @param chains number of different chains, starting from different starting points
 #' @param verbose Give verbose output of how the function is progressing.
 #'   
 #' @export
@@ -43,7 +44,7 @@ hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose 
     if(n <= 0 || n %% 1 != 0) {
       stop("n must be a positive integer")
     }
-    X = matrix(0, nrow = length(y), ncol = (n + discard)*chains)
+    X = matrix(0, nrow = ncol(A), ncol = (n + discard)*chains)
     index = 1
     for(chainnum in 1:chains) {
       str = "Finding an intial solution..."
