@@ -10,7 +10,8 @@
 
 dummy <- function(vec){
   
-  ## Do we really need this helper function? What does the sorting accomplish?
+  ## Do we really need this helper function? Only gets called in one place in
+  ## kmatch. But breaking up big functions is a good idea, so let it stand.
   
   names <- sort(unique(vec))
   mat <- matrix(rep(0, length(vec)*length(names)), nrow = length(names))
