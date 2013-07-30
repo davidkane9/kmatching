@@ -1,4 +1,4 @@
-#' Creates a dummy matrix for a vector of categorical variables.
+#' Creates a dummy matrix for a vector of character/factor variables.
 #' 
 #' @param vec vector of character or factor variable 
 #' 
