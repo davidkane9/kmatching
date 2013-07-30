@@ -10,12 +10,12 @@
 
 dummy <- function(vec){
   
-  ## Do we really need this helper function.
+  ## Do we really need this helper function? What does the sorting accomplish?
   
-  names = sort(unique(vec))
-  mat = matrix(rep(0, length(vec)*length(names)), nrow = length(names))
+  names <- sort(unique(vec))
+  mat <- matrix(rep(0, length(vec)*length(names)), nrow = length(names))
   for(i in 1:nrow(mat)) {
-    mat[i,][which(vec == names[i])] = 1
+    mat[i,][which(vec == names[i])] <- 1
   }
   return(mat)
 }
