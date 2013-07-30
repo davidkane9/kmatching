@@ -41,10 +41,12 @@
 \details{
   To find \code{tmin} and \code{tmax}, we must find the
   first component that becomes zero when going in the
-  corresponding negative or positive direction. We have
-  that \eqn{x_i + u_it = 0} or \eqn{t = =-\frac{x_i}{u_i}}.
-  We must find the minimum and maximum for positive and
-  negative t, respectively, in i.
+  negative or positive direction (t). We have that \eqn{x_i
+  + u_it = 0} or \eqn{t = =-\frac{x_i}{u_i}}. We must find
+  the minimum and maximum for positive and negative t,
+  respectively, in i. Once those bounds are found, a value
+  of t is picked uniformly on the interval between
+  \code{tmin} and \code{tmax}.
 }
 \examples{
 A <- matrix(1, ncol = 5, nrow = 1)
