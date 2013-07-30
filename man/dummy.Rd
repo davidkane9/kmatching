@@ -1,6 +1,6 @@
 \name{dummy}
 \alias{dummy}
-\title{Creates a dummy matrix for a vector of categorical variables.}
+\title{Creates a dummy matrix for a vector of character/factor variables.}
 \usage{
   dummy(vec)
 }
@@ -8,7 +8,7 @@
   \item{vec}{vector of character or factor variable}
 }
 \description{
-  Creates a dummy matrix for a vector of categorical
+  Creates a dummy matrix for a vector of character/factor
   variables.
 }
 \examples{

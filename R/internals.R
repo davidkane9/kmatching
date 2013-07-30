@@ -1,4 +1,4 @@
-#' Creates a dummy matrix for a vector of categorical variables.
+#' Creates a dummy matrix for a vector of character/factor variables.
 #' 
 #' @param vec vector of character or factor variable 
 #' 
@@ -10,6 +10,7 @@
 
 dummy <- function(vec){
   
+
   ## sort in order to match up match up exposures when printing
   names <- sort(unique(vec))
   mat <- matrix(rep(0, length(vec)*length(names)), nrow = length(names))

@@ -83,8 +83,12 @@ test_that("Using Lalonde produces results that match perfectly", {
   ## Another fun activity is to look at the 100,000 sample weights for 
   ## individual units like PSID15 and PSID16. Looking at a histogram can show, 
   ## among (I assume) many possible patterns, a peak near zero with an 
-  ## exponential drop of to toward higher weights (PSID16) or a bi-modal
-  ## structure (PSID15). It is also interesting to consider 
+  ## exponential drop of to toward higher weights (PSID16) or a bi-modal 
+  ## structure (PSID15). It is also interesting to consider the time series of 
+  ## weights. We want these to show mixing. Often they do, especially with 
+  ## skiplength = 10 or 100. But not always! Even with skiplength = 1,000, we
+  ## don't get even reasonable mixing for row 200 with matchvars  = c("age",
+  ## "educ", "black").
   
   
   for(i in 1:10){
