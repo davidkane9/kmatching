@@ -1,8 +1,8 @@
 Package: kmatching
 Type: Package
 Title: Creates random vectors fulfilling constraints
-Version: 0.1-3
-Date: 2013-07-29
+Version: 0.1-4
+Date: 2013-07-30
 Author: Mike Flynn and David Kane
 Maintainer: David Kane <dave.kane@gmail.com>
 Suggests:

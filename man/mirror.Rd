@@ -32,9 +32,8 @@ that is exponential in $n$, the number of components of $x$.}
 }
 \description{
   To project a vector u onto vector v we use the operation
-  \eqn{proj(u)_v = v * \frac{u*v}{v*v}}. We do this several
-  times with an operation that looks like \eqn{u *
-  u%*%v/(u%*%u)}
+  proj(u)_v = v * frac{u*v}{v*v}. We do this several times
+  with an operation that looks like u * u%*%v/(u%*%u).
 }
 \examples{
 Amat <- matrix(1, ncol = 3, nrow = 1)

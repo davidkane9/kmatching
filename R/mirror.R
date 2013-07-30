@@ -13,9 +13,9 @@
 #' violating the constraints. In practice this process generates points in time
 #' that is exponential in $n$, the number of components of $x$.
 #' 
-#' To project a vector u onto vector v we use the operation \eqn{proj(u)_v = v *
-#' \frac{u*v}{v*v}}. We do this several times with an operation that looks like
-#' \eqn{u * u%*%v/(u%*%u)}
+#' To project a vector u onto vector v we use the operation proj(u)_v = v *
+#' frac{u*v}{v*v}. We do this several times with an operation that looks like
+#' u * u%*%v/(u%*%u).
 #' 
 #' @param Amat This is the matrix of the equality constraint coefficients
 #' @param x0 An original solution to the constraints
