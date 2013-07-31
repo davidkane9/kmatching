@@ -24,7 +24,10 @@
 #' @param skiplength Only 1 out of every 'skiplength' vectors will be recorded
 #' @param chains number of different chains, starting from different starting points
 #' @param verbose Give verbose output of how the function is progressing.
-#'   
+#' 
+#' @return In the even chains = 1, gives back a matrix with 'n' columns corrresponding
+#' to n solutions of Ax = b, if chains > 1, gives back a list of 'chains' matrices with 
+#' 'n' columns.  
 #' @export
 #' @author Mike Flynn \email{mflynn210@@gmail.com}
 #'   

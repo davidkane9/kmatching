@@ -27,6 +27,12 @@
   \item{verbose}{Give verbose output of how the function is
   progressing.}
 }
+\value{
+  In the even chains = 1, gives back a matrix with 'n'
+  columns corrresponding to n solutions of Ax = b, if
+  chains > 1, gives back a list of 'chains' matrices with
+  'n' columns.
+}
 \description{
   Randomly samples from a convex polytope given by linear
   equalities in the parameters using a hit-and-run

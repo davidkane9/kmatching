@@ -24,6 +24,11 @@
   \item{...}{parameters to be passed to the sampling
   methods}
 }
+\value{
+  Returns a matrix of 'n' sets of weights that match the
+  given set of weights in terms of weighted averages to the
+  'match.var' factors. The columns are the sets of weights.
+}
 \description{
   Create matching vectors based on data Creates a matrix of
   weights which

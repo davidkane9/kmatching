@@ -9,6 +9,10 @@
 #'   original weight.var are allowed positive weight in the output. Default is
 #'   FALSE
 #' @param ... parameters to be passed to the sampling methods
+#' 
+#' @return Returns a matrix of 'n' sets of weights that match the given set of
+#' weights in terms of weighted averages to the 'match.var' factors. The columns
+#' are the sets of weights.
 #' @export
 #' @author Mike Flynn \email{mflynn210@@gmail.com}
 #'   

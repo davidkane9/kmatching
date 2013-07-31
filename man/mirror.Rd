@@ -34,6 +34,13 @@ that is exponential in $n$, the number of components of $x$.}
   \item{includeInfeasible}{TRUE to include all "bad" points
   in the output}
 }
+\value{
+  Gives back a matrix with 'n' columns corresponding to 'n'
+  positive solutions to Ax = b. If includeInfeasible is
+  TRUE then infeasible points will also be included in the
+  output, so there will be some negatives. This is to be
+  able to track the walk of mirror.
+}
 \description{
   To project a vector u onto vector v we use the operation
   proj(u)_v = v * frac{u*v}{v*v}. We do this several times

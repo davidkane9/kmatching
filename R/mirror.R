@@ -24,6 +24,10 @@
 #' @param numjump The number of jumps to scatter around the direction given by 
 #' the difference from zero
 #' @param includeInfeasible TRUE to include all "bad" points in the output
+#' @return Gives back a matrix with 'n' columns corresponding to 'n' positive
+#' solutions to Ax = b. If includeInfeasible is TRUE then infeasible points will also
+#' be included in the output, so there will be some negatives. This is to be able to track
+#' the walk of mirror. 
 #' 
 #' @author Mike Flynn \email{<mflynn210@@gmail.com>}
 #' @export
