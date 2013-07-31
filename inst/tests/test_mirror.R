@@ -5,7 +5,7 @@ test_that("Single sample", {
   x0 <- c(1, 1, 1)
   
   set.seed(10)
-  expect_that(round(mirror(A, x0, 1), 2), equals(c(1.87, 0.36, 0.77)))
+  expect_that(round(mirror(A, x0, 1), 2), equals(c(1.07, 1.04, 0.89)))
    
 })
 

@@ -74,7 +74,7 @@ hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose 
       Ap = V %*% Dt %*% t(U)
       ## l is initial solution
       ## http://en.wikipedia.org/wiki/Moore%E2%80%93Penrose_pseudoinverse#Obtaining_all_solutions_of_a_linear_system
-      l = Ap %*% b ##+ (diag(nrow(Ap)) - Ap %*% A) %*% rnorm(nrow(Ap))
+      l = Ap %*% b + (diag(nrow(Ap)) - Ap %*% A) %*% rnorm(nrow(Ap))
       
       ## if l isn't in feasible space use mirror algorithm to find viable solution
       ## in the interior

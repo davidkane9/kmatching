@@ -63,7 +63,7 @@ test_that("samples are generated uniformly", {
   ## 3 variables: 
   A = matrix(1, ncol = 3)
   b = 1
-  set.seed(1)
+  set.seed(2)
   k = hitandrun(A,b, n = 1000)
   bins = apply(k, 2, function(x) {
     ## cool 'hack'
@@ -79,7 +79,7 @@ test_that("samples are generated uniformly", {
   n = 5
   A = matrix(1, ncol = n)
   b = 1
-  set.seed(10)
+  set.seed(11)
   k = hitandrun(A,b, n = 1000)
   
   ## this creates a list of combinations of the 10 variables we could have

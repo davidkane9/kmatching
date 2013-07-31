@@ -59,11 +59,8 @@ mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20, includeInfeasible 
     ## vectors in the solution plane and r's are random vectors
     ## for example: if n = 3 and  v1 = x, v2 = y, v4 = z and we have a random point
     ## [r1, r2, r3].
-    index = 1
-    retlist[[index]] = x0
-    index = index + 1
-    
-    ret[, 1] = x0 + Z %*% rnorm(nc, 0, abs(mn))/sqrt(nc)
+    index= 1
+    ret[, 1] = x0
     retlist[[index]] = ret[,1]
     index = index + 1
     
@@ -96,14 +93,15 @@ mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20, includeInfeasible 
             ## (It is no longer in the solution space because we set all the "good" components to zero, 
             ## changing it)
             overdist = rep(0, ncol(Amat))
-            overdist[which(ret[, i] < 0)] = ret[, i][which(ret[, i] < 0)]
+            j = which.min(ret[,i])
+            overdist[j] = ret[, i][j]
             ## measure distance of negative components from x ==0, this is to
             ## help debug and give verbose output
-            dist = sqrt(sum(overdist^2))
+            dist = overdist[j]
             
             ## throw error if mirror not converging
-            if(olddist <= dist) {
-              stop("mirror failing to converge, possibly no solution")
+            if(abs(dist) < 10e-25) {
+              stop("mirror failing to converge (approaches asymptotically), possibly no solution")
             }
             if(verbose) str = paste("Distance from walls: ", dist, "\nBest jump: ", bestjump, sep = "" )
             if(verbose) cat(str)
@@ -119,22 +117,24 @@ mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20, includeInfeasible 
                 ## remove component from "overdist"
                 overdist = overdist - proj
             }
-            ## randomly generate jump lengths, pick best, converges faster
-            jumps = matrix(abs(rnorm(numjump, sd = 2)), nrow = 1)
-
-            ## find distances when reflection is scaled by jumps
-            dists = apply(jumps, 2, function(x) {
-              point = ret[,i] + x*reflection
-              sqrt(sum(point[which(point<0)]^2))
-            })
-            
-            ## pick closest distance to zero and use that jump
-            bestjump = jumps[1, which.min(dists)]
-            ret[,i] = ret[,i] + bestjump*reflection
+#             ## randomly generate jump lengths, pick best, converges faster
+#             jumps = matrix(abs(rnorm(numjump, sd = 2)), nrow = 1)
+# 
+#             ## find distances when reflection is scaled by jumps
+#             dists = apply(jumps, 2, function(x) {
+#               point = ret[,i] + x*reflection
+#               ##sqrt(sum(point[which(point<0)]^2))
+#               -point[which.min(ret[,i])]
+#             })
+#             
+#             ## pick closest distance to zero and use that jump
+#             bestjump = jumps[1, which.min(dists)]
+#             ret[,i] = ret[,i] + bestjump*reflection
+            ret[,i] = ret[,i] + 2*reflection
+            newdist = ret[,i][j]
             retlist[[index]] = ret[,i]
             index = index + 1
             if(verbose) for(j in 1:nchar(str))  cat("\b")
-            olddist = dist
         }
     }
     ret = ret[, 2:(n + 1)]
