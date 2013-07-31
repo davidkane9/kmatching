@@ -1,4 +1,18 @@
 #' Plots 3-d mirror output in readable format
+#' 
+#' Plot the steps of a random walk on the simplex in 3 varibles, using arrows to direct
+#' 
+#' @param m A matrix with 3 rows, corresponding to the output of a call to mirror
+#' with includeInfeasible = TRUE.
+#' @return A ggplot object gives the arrow plot
+#' 
+#' @export
+#' @examples
+#' A = matrix(1, ncol = 3)
+#' x0 = c(.2, -.2, 1)
+#' 
+#' m = mirror(A, x0, n = 1, includeInfeasible = TRUE)
+#' plotmirror(m)
 plotmirror <- function(m) {
   ## map to a traingle with vertices at (0,0), (1,0) and (1/2, sqrt(3)/2).
   ## an equilateral triangle that matches the 3-d triangle on (1,0,0), (0,1,0)

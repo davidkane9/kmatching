@@ -1,7 +1,7 @@
 Package: kmatching
 Type: Package
 Title: Creates random vectors fulfilling constraints
-Version: 0.1-7
+Version: 0.1-8
 Date: 2013-07-31
 Author: Mike Flynn and David Kane
 Maintainer: David Kane <dave.kane@gmail.com>
@@ -12,7 +12,9 @@ Suggests:
     roxygen2
 Depends:
     MASS,
-    plyr
+    plyr,
+    ggplot2,
+    grid
 Description: Samples uniformly from the positive solutions space of a linear
     problem Ax=b.
 License: BSD
