@@ -2,8 +2,8 @@
 \alias{kmatch}
 \title{Create matching vectors based on data Creates a matrix of weights which}
 \usage{
-  kmatch(x, weight.var, match.var, n = 1, replace = FALSE,
-    ...)
+  kmatch(x, weight.var, match.var, n = 1, chains = 1,
+    replace = FALSE, ...)
 }
 \arguments{
   \item{x}{data frame containing needed input data}
@@ -16,6 +16,9 @@
 
   \item{n}{numeric number of weight vectors desired.
   Default is 1}
+
+  \item{chains}{number of different chains, starting from
+  different starting points. Default is 1}
 
   \item{replace}{logical indicating whether or not
   bservations weighted in the original weight.var are
