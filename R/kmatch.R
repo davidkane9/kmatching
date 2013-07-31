@@ -23,43 +23,9 @@ kmatch <- function(x, weight.var, match.var,  n = 1, replace = FALSE, ...) {
   stopifnot(n > 0)
   stopifnot(all(c(weight.var, match.var) %in% names(x)))
   
-  ## Intialize list that will be turned into a matrix with do.call
+  equation <- constraint.equation(x, weight.var, match.var, replace)
   
-  Alist = list()
-    
-  ## Include the continuous and discrete variables in Alist. Need to be careful
-  ## in deciding just what a 0/1 variable means, for example.
-  
-  for(i in 1:length(match.var)){
-    if(is.numeric(x[[match.var[i]]])){
-      ## continuous
-      Alist[[i]] = x[[match.var[i]]]
-
-    } else {
-      ## discrete
-      Alist[[i]] = dummy(x[[match.var[i]]])
-    }
-  }
-  ## do.call on Alist makes constraint matrix A
-
-  A = do.call(rbind, Alist)
-
-  ## b is the constraint matrix
-  b = A %*% x[[weight.var]]
-  
-  ## attach the "match sum" constraint, redundanies no longer matter
-  sumlimit = sum(x[[weight.var]])
-  A = rbind(A, rep(1, ncol(A)))
-  b = c(b, sumlimit)
-  
-  if(!replace) {
-    if(sum(x[[weight.var]] > 0) >= nrow(x) ) stop("All rows are weighted, set replace = TRUE.")
-    ## remove columns corresponding to variables that have weight in the original 
-    A = A[,-which(x[[weight.var]] > 0)]
-  }
-  
-  
-  weights = hitandrun(A, b, n=n, ...)
+  weights <- hitandrun(equation$A, equation$b, n = n, ...)
   
   ret = matrix(0, nrow = nrow(x), ncol = n)
   if(!replace) {
