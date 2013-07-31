@@ -18,8 +18,8 @@
   allowed positive weight in the output.}
 }
 \value{
-  A list with two components: A and b, representing the
-  components of the constraint equation \eqn{Ax = b}
+  A list with two named components: A and b, representing
+  the components of the constraint equation \eqn{Ax = b}
 }
 \description{
   Creates a constraint equation based on the input data

@@ -7,8 +7,8 @@
 #' @param replace logical indicating whether or not bservations weighted in the 
 #'   original weight.var are allowed positive weight in the output.
 #'   
-#' @return A list with two components: A and b, representing the components of
-#'   the constraint equation \eqn{Ax = b}
+#' @return A list with two named components: A and b, representing the
+#'   components of the constraint equation \eqn{Ax = b}
 #'   
 #' @author David Kane \email{<dave.kane@@gmail.com>}
 #' @export
