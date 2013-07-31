@@ -9,6 +9,8 @@ test_that("Mirror throws an error if it is not converging to a solution", {
   ## There should be no solution here because it expects x+y+z = -3 with
   ## x,y,z positive.
   
+  ## I can no longer make this check because as of commit 3862ef32 I changed
+  ## the mirror algorithm so that it sometimes moves away from the solution
   ##expect_error(mirror(A, x0 = x0, n = 10))  
 })
 

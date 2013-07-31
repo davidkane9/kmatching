@@ -44,12 +44,12 @@ hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose 
     if(n <= 0 || n %% 1 != 0) {
       stop("n must be a positive integer")
     }
-    X = matrix(0, nrow = ncol(A), ncol = (n + discard)*chains)
-    index = 1
+    chainlist = list()
     for(chainnum in 1:chains) {
       str = "Finding an intial solution..."
       if(verbose) cat(str)
-      
+      X = matrix(0, nrow = ncol(A), ncol = (n + discard))
+      index = 1
       ## make initial solution = Ap %*% b where 
       ## Ap is the psuedoinverse of A
       ## We want to get to solution x of Ax = b
@@ -136,7 +136,12 @@ hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose 
         str = paste(i)
         if(verbose) cat(str)
       }
+      chainlist[[chainnum]] = X[,(discard+1):ncol(X)]
     }
     if(verbose) cat("\n")
+    if(chains > 1) {
+      return(chainlist)
+    } else {
     return(X[,(discard+1):ncol(X)])
+    }
 }
