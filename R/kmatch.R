@@ -31,11 +31,11 @@ kmatch <- function(x, weight.var, match.var,  n = 1, replace = FALSE, ...) {
   
   weights <- hitandrun(equation$A, equation$b, n = n, ...)
   
-  ret = matrix(0, nrow = nrow(x), ncol = n)
+  ret <- matrix(0, nrow = nrow(x), ncol = n)
   if(!replace) {
-    ret[which(x[[weight.var]] == 0),] = weights
+    ret[which(x[[weight.var]] == 0),] <- weights
   } else {
-    ret = weights
+    ret <- weights
   }  
   return(ret)
 }

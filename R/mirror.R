@@ -47,39 +47,39 @@ mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20, includeInfeasible 
   
     ## columns of Z are orthogonal, unit basis of null space of Amat
     ## a.k.a. vectors in the plane defined by Ax=b
-    Z = Null(t(Amat))
+    Z <- Null(t(Amat))
     
     ## initialize return matrix
-    ret = matrix(0, nrow = length(x0), ncol = n + 1)
+    ret <- matrix(0, nrow = length(x0), ncol = n + 1)
     ## initialize return list
-    retlist = list()
+    retlist <- list()
     
     ## number of cols in Z and mean of x0 used to normalize jumps else
     ## the convergence time grows much faster for higher n
-    nc = ncol(Z)
-    mn = mean(x0)
+    nc <- ncol(Z)
+    mn <- mean(x0)
     ## jump from initial point, distance normally distributed
     ## Z %*% r = r1*v1 + r2*v2 + ... + rn*vn where the v's are orthogonal
     ## vectors in the solution plane and r's are random vectors
     ## for example: if n = 3 and  v1 = x, v2 = y, v4 = z and we have a random point
     ## [r1, r2, r3].
-    index= 1
-    ret[, 1] = x0
-    retlist[[index]] = ret[,1]
-    index = index + 1
+    index<- 1
+    ret[, 1] <- x0
+    retlist[[index]] <- ret[,1]
+    index <- index + 1
     
     ## bestjump will eventually be used to store the optimal length to scale the
     ## reflection
-    bestjump = 0
+    bestjump <- 0
     for (i in 2:(n + 1)) {
         ## jump
-        ret[, i] = ret[, i - 1] + Z %*% rnorm(nc, 0, abs(mn))/sqrt(nc)
-        retlist[[index]] = ret[,i]
-        index = index + 1
+        ret[, i] <- ret[, i - 1] + Z %*% rnorm(nc, 0, abs(mn))/sqrt(nc)
+        retlist[[index]] <- ret[,i]
+        index <- index + 1
         
         ## we will compare olddist to dist, if olddist < dist, then we have
         ## moved away from feasible space with a jump, and are not converging
-        olddist = Inf
+        olddist <- Inf
         ## if any of the components is negative, mirror component back
         ## Steps:
         ## -Project onto negative components
@@ -89,25 +89,25 @@ mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20, includeInfeasible 
         ## -repeat until back in interior of solution
         while(any(ret[, i] < 0)) {
             ## intialize the reflection
-            reflection = rep(0, ncol(Amat))
+            reflection <- rep(0, ncol(Amat))
             
             ## overdist will be a vector of all zeros except for the negative components
             ## of ret[,i], this is to isolate the "bad" part of the current vector
             ## We will get rid of this "bad" part by projecting it back on to the solution space
             ## (It is no longer in the solution space because we set all the "good" components to zero, 
             ## changing it)
-            overdist = rep(0, ncol(Amat))
-            j = which.min(ret[,i])
-            overdist[j] = ret[, i][j]
+            overdist <- rep(0, ncol(Amat))
+            j <- which.min(ret[,i])
+            overdist[j] <- ret[, i][j]
             ## measure distance of negative components from x ==0, this is to
             ## help debug and give verbose output
-            dist = overdist[j]
+            dist <- overdist[j]
             
             ## throw error if mirror not converging
             if(abs(dist) < 10e-25) {
               stop("mirror failing to converge (approaches asymptotically), possibly no solution")
             }
-            if(verbose) str = paste("Distance from walls: ", dist, "\nBest jump: ", bestjump, sep = "" )
+            if(verbose) str <- paste("Distance from walls: ", dist, "\nBest jump: ", bestjump, sep = "" )
             if(verbose) cat(str)
             ## project the bad vector back into feasible space, each column
             ## of z constitutes a basis vector in the plane we want to project into, to
@@ -115,11 +115,11 @@ mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20, includeInfeasible 
             ## subtract the result from overdist in order to not count twice for a component.
             for (j in 1:ncol(Z)) {
                 ## projection = u * (u*v)/(v*V)
-                proj =  Z[, j] * (overdist %*% Z[, j])/(Z[,j] %*% Z[, j])
+                proj <-  Z[, j] * (overdist %*% Z[, j])/(Z[,j] %*% Z[, j])
                 ## add projection to reflection
-                reflection = reflection  - proj
+                reflection <- reflection  - proj
                 ## remove component from "overdist"
-                overdist = overdist - proj
+                overdist <- overdist - proj
             }
 #             ## randomly generate jump lengths, pick best, converges faster
 #             jumps = matrix(abs(rnorm(numjump, sd = 2)), nrow = 1)
@@ -134,14 +134,14 @@ mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20, includeInfeasible 
 #             ## pick closest distance to zero and use that jump
 #             bestjump = jumps[1, which.min(dists)]
 #             ret[,i] = ret[,i] + bestjump*reflection
-            ret[,i] = ret[,i] + 2*reflection
-            newdist = ret[,i][j]
-            retlist[[index]] = ret[,i]
-            index = index + 1
+            ret[,i] <- ret[,i] + 2*reflection
+            newdist <- ret[,i][j]
+            retlist[[index]] <- ret[,i]
+            index <- index + 1
             if(verbose) for(j in 1:nchar(str))  cat("\b")
         }
     }
-    ret = ret[, 2:(n + 1)]
+    ret <- ret[, 2:(n + 1)]
     if(includeInfeasible) {
       return(do.call("cbind", retlist))  
     } else {

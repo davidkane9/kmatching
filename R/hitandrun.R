@@ -50,12 +50,12 @@ hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose 
     if(n <= 0 || n %% 1 != 0) {
       stop("n must be a positive integer")
     }
-    chainlist = list()
+    chainlist <- list()
     for(chainnum in 1:chains) {
-      str = "Finding an intial solution..."
+      str <- "Finding an intial solution..."
       if(verbose) cat(str)
-      X = matrix(0, nrow = ncol(A), ncol = (n + discard))
-      index = 1
+      X <- matrix(0, nrow = ncol(A), ncol = (n + discard))
+      index <- 1
       ## make initial solution = Ap %*% b where 
       ## Ap is the psuedoinverse of A
       ## We want to get to solution x of Ax = b
@@ -66,60 +66,60 @@ hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose 
       ## Ap can be constructed from the SVD of A, where
       ## SVD(A) = U D V', Ap = V (1/D)' U'. 1/D simply means take
       ## 1/d for each non-zero entry d, and zero all the others.
-      SVD = svd(A)
-      d = SVD[['d']]
-      V = SVD[['v']]
-      U = SVD[['u']]
+      SVD <- svd(A)
+      d <- SVD[['d']]
+      V <- SVD[['v']]
+      U <- SVD[['u']]
       ## get rid of division errors in d because they will
       ## mess up 1/d (we keep doing 1/0, so R gives us Inf as well
       ## we must zero these)
-      d[d < 1e-10] = 0
-      di = 1/d
-      di[di == Inf] = 0
-      if(length(di) <= 1) Dt = matrix(di, ncol = 1, nrow =1) else Dt = t(diag(di))
-      Ap = V %*% Dt %*% t(U)
+      d[d < 1e-10] <- 0
+      di <- 1/d
+      di[di == Inf] <- 0
+      if(length(di) <= 1) Dt <- matrix(di, ncol = 1, nrow =1) else Dt <- t(diag(di))
+      Ap <- V %*% Dt %*% t(U)
       ## l is initial solution
       ## http://en.wikipedia.org/wiki/Moore%E2%80%93Penrose_pseudoinverse#Obtaining_all_solutions_of_a_linear_system
-      l = Ap %*% b + (diag(nrow(Ap)) - Ap %*% A) %*% rnorm(nrow(Ap))
+      l <- Ap %*% b + (diag(nrow(Ap)) - Ap %*% A) %*% rnorm(nrow(Ap))
       
       ## if l isn't in feasible space use mirror algorithm to find viable solution
       ## in the interior
       if(!(all(l > 0))) {
         if(verbose) for(i in 1:nchar(str)) cat("\b")
-        str = "Using mirror algorithm to find inner solution...\n"
+        str <- "Using mirror algorithm to find inner solution...\n"
         if(verbose) cat(str)
-        y = mirror(A, l, 1, verbose)
+        y <- mirror(A, l, 1, verbose)
       } else {
-        y = l
+        y <- l
       }
       
       if(verbose) for(i in 1:nchar(str)) cat("\b")
       
       ## resolve weird quirk in Null() function
       if(ncol(A) ==1) {
-        Z = Null(A)
+        Z <- Null(A)
       } else {
-        Z = Null(t(A))
+        Z <- Null(t(A))
       }
 
       if(verbose) cat("Random Walk\nDone with: ")
-      str = "0"
+      str <- "0"
       if(verbose) cat(str)
       for(i in 1:(n*skiplength+discard)) {
-        tmin=0;tmax=0;
+        tmin<-0;tmax<-0;
         while(tmin ==0 && tmax ==0) {
           ## r is a random unit vector in with basis in Z
-          r = rnorm(ncol(Z))
-          r = r/sqrt(sum(r^2))
+          r <- rnorm(ncol(Z))
+          r <- r/sqrt(sum(r^2))
           
           ## u is a unit vector in the appropriate k-plane pointing in a
           ## random direction Z %*% r is the same as in mirror
-          u = Z%*%r
-          c = y/u
+          u <- Z%*%r
+          c <- y/u
           ## determine intersections of x + t*u with walls
           ## the limits on how far you can go backward and forward
           ## i.e. the maximum and minimum ratio y_i/u_i for negative and positive u.
-          tmin = max(-c[u>0]); tmax = min(-c[u<0]);
+          tmin <- max(-c[u>0]); tmax <- min(-c[u<0]);
           ## unboundedness
           if(tmin == -Inf || tmax == Inf){
             stop("problem is unbounded")
@@ -131,18 +131,18 @@ hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose 
         }
         
         ## chose a point on the line segment
-        y = y + (tmin + (tmax - tmin)*runif(1))*u;
+        y <- y + (tmin + (tmax - tmin)*runif(1))*u;
         
         ## choose a point every 'skiplength' samples
         if(i %% skiplength == 0) {
-          X[,index] = y
-          index = index + 1
+          X[,index] <- y
+          index <- index + 1
         }
         if(verbose) for(j in 1:nchar(str)) cat("\b")
-        str = paste(i)
+        str <- paste(i)
         if(verbose) cat(str)
       }
-      chainlist[[chainnum]] = X[,(discard+1):ncol(X)]
+      chainlist[[chainnum]] <- X[,(discard+1):ncol(X)]
     }
     if(verbose) cat("\n")
     if(chains > 1) {

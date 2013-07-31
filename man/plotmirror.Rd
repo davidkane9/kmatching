@@ -17,10 +17,10 @@
   varibles, using arrows to direct
 }
 \examples{
-A = matrix(1, ncol = 3)
-x0 = c(.2, -.2, 1)
+A <- matrix(1, ncol = 3)
+x0 <- c(.2, -.2, 1)
 
-m = mirror(A, x0, n = 1, includeInfeasible = TRUE)
+m <- mirror(A, x0, n = 1, includeInfeasible = TRUE)
 plotmirror(m)
 }
 
