@@ -1,3 +1,4 @@
+export(constraint.equation)
 export(dummy)
 export(hitandrun)
 export(kmatch)

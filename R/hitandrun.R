@@ -38,6 +38,9 @@
 #' A <- rbind(A, rnorm(100))
 #' b <- c(b,0)
 #' w <- hitandrun(A, b, n = 100) 
+#' 
+#' ##2 chains
+#' 2chainz = hitandrun(A, b, n = 10, chains = 2)
 
 hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose = FALSE) {
     
