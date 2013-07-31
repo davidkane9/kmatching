@@ -18,7 +18,8 @@ Description: Samples uniformly from the positive solutions space of a linear
 License: BSD
 Collate:
     'hitandrun.R'
-    'internals.R'
+    'dummy.R'
+    'constraint.equation.R'
     'kmatch.R'
     'mirror.R'
     'overlap.R'

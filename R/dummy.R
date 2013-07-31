@@ -2,6 +2,8 @@
 #' 
 #' @param vec vector of character or factor variable 
 #' 
+#' @return Matrix of dummy variables
+#' 
 #' @author David Kane \email{<dave.kane@@gmail.com>}
 #' @export
 #' 
@@ -19,3 +21,4 @@ dummy <- function(vec){
   }
   return(mat)
 }
+

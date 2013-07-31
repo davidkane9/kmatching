@@ -7,6 +7,9 @@
 \arguments{
   \item{vec}{vector of character or factor variable}
 }
+\value{
+  Matrix of dummy variables
+}
 \description{
   Creates a dummy matrix for a vector of character/factor
   variables.
