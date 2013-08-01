@@ -144,7 +144,7 @@ hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose 
       }
       chainlist[[chainnum]] <- X[,(discard+1):ncol(X)]
     }
-    if(verbose) cat("\n")
+    if(verbose) cat("\n\n")
     if(chains > 1) {
       return(chainlist)
     } else {
