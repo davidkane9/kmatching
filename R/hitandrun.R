@@ -107,6 +107,9 @@ hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose 
       if(verbose) cat(str)
       for(i in 1:(n*skiplength+discard)) {
         tmin<-0;tmax<-0;
+        ## runs counts how many times tried to pick a direction, if
+        ## too high fail.
+        runs = 0
         while(tmin ==0 && tmax ==0) {
           ## r is a random unit vector in with basis in Z
           r <- rnorm(ncol(Z))
@@ -126,7 +129,8 @@ hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose 
           }
           ## if stuck on boundary point
           if(tmin==0 && tmax ==0) {
-            stop("hitandrun found can't find feasible direction, cannot generate points")
+            runs = runs + 1
+            if(runs >= 1000) stop("hitandrun found can't find feasible direction, cannot generate points")
           }
         }
         
@@ -145,9 +149,5 @@ hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose 
       chainlist[[chainnum]] <- X[,(discard+1):ncol(X)]
     }
     if(verbose) cat("\n\n")
-    if(chains > 1) {
-      return(chainlist)
-    } else {
-    return(X[,(discard+1):ncol(X)])
-    }
+    return(chainlist)
 }

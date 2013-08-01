@@ -8,7 +8,7 @@ orig <- rexp(100)
 orig <- orig/sum(orig)
 data <- data.frame(value = rnorm(100), growth = rnorm(100), orig = orig, country = sample(c("Cuba", "USA", "Mexico", "Canada"), 100, replace = T))
 
-k <- kmatch(data, match.var = c("value", "growth", "country"), weight.var = "orig", n = 100, replace = TRUE)
+k <- kmatch(data, match.var = c("value", "growth", "country"), weight.var = "orig", n = 100, replace = TRUE)[[1]]
 Amat <- matrix(c(data$value, data$growth), ncol = nrow(data), byrow = TRUE)
 Amat <- rbind(Amat, dummy(data$country))
 
@@ -34,7 +34,7 @@ orig2 = rexp(60)
 orig2 = orig2/sum(orig2)
 
 data$orig = c(orig2, rep(0, 40))
-k <- kmatch(x = data, match.var = c("value", "growth", "country"), weight.var = "orig", n = 100)
+k <- kmatch(x = data, match.var = c("value", "growth", "country"), weight.var = "orig", n = 100)[[1]]
 
 test_that("replace = FALSE works correctly", {
   ## match Ax = b, within tolerance (division error approximately 1e-12)
@@ -57,14 +57,14 @@ test_that("samples are generated uniformly", {
   A = matrix(1,ncol = 2)
   b = 1
   set.seed(1)
-  k = hitandrun(A, b, n = 1000)
+  k = hitandrun(A, b, n = 1000)[[1]]
   expect_true(all(apply(k, 1, function(x) length(which(x> .5)) < qbinom(.99, 1000, .5))))
 
   ## 3 variables: 
   A = matrix(1, ncol = 3)
   b = 1
   set.seed(2)
-  k = hitandrun(A,b, n = 1000)
+  k = hitandrun(A,b, n = 1000)[[1]]
   bins = apply(k, 2, function(x) {
     ## cool 'hack'
     bin = (x[1] >= x[3]) + 2*(x[1] >= x[2]) + 4*(x[2] >= x[3])
@@ -80,7 +80,7 @@ test_that("samples are generated uniformly", {
   A = matrix(1, ncol = n)
   b = 1
   set.seed(11)
-  k = hitandrun(A,b, n = 1000)
+  k = hitandrun(A,b, n = 1000)[[1]]
   
   ## this creates a list of combinations of the 10 variables we could have
   ## we will compare each combination, and bin them based on whether one is

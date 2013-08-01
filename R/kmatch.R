@@ -1,4 +1,7 @@
-#' Create matching vectors based on data Creates a matrix of weights which
+#' Create matching vectors based on data 
+#' 
+#' Creates a matrix of weights which match a given set of weights in exposures
+#' to designated factors
 #' 
 #' @param x data frame containing needed input data
 #' @param weight.var character name of the column of the input weights
@@ -6,13 +9,12 @@
 #'   match on
 #' @param n numeric number of weight vectors desired. Default is 1
 #' @param chains number of different chains, starting from different starting points. Default is 1
-#' @param replace logical indicating whether or not bservations weighted in the
-#'   original weight.var are allowed positive weight in the output. Default is
-#'   FALSE
+#' @param replace if FALSE then any rows that had non-zero weight in 'weight.var' will
+#' be set to 0 in the output
 #' @param ... parameters to be passed to the sampling methods
 #' 
-#' @return Returns a matrix of 'n' sets of weights that match the given set of
-#' weights in terms of weighted averages to the 'match.var' factors. The columns
+#' @return Returns a list of "chains" matrices of 'n' sets of weights that match the given set of
+#' weights in terms of weighted averages to the 'match.var' factors. The columns of each matrix
 #' are the sets of weights.
 #' @export
 #' @author Mike Flynn \email{mflynn210@@gmail.com}
@@ -60,14 +62,13 @@ kmatch <- function(x, weight.var, match.var,  n = 1, chains = 1, replace = FALSE
   ## Now that we have the weights, we ceate the return matrix, taking account of
   ## the value of replace.
   
-  ret <- matrix(0, nrow = nrow(x), ncol = n)
-  
   if(!replace){
-    ret[which(x[[weight.var]] == 0),] <- weights
+    for(i in 1:chains) {
+      m = matrix(0, ncol = n, nrow = nrow(x))
+      m[which(x[[weight.var]] == 0),] <- weights[[i]]
+      weights[[i]] = m
+    }
   } 
-  else{
-    ret <- weights
-  }  
   
-  return(ret)
+  return(weights)
 }

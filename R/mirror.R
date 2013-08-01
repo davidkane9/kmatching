@@ -45,6 +45,8 @@
 
 mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20, includeInfeasible = FALSE) {
   
+    ## set number at which to set components to zero
+    smallnegnumber = -10e-100
     ## columns of Z are orthogonal, unit basis of null space of Amat
     ## a.k.a. vectors in the plane defined by Ax=b
     Z <- Null(t(Amat))
@@ -103,11 +105,11 @@ mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20, includeInfeasible 
             ## help debug and give verbose output
             dist <- overdist[j]
             
-            ## throw error if mirror not converging
-            if(abs(dist) < 10e-25) {
-              stop("mirror failing to converge (approaches asymptotically), possibly no solution")
-            }
-            if(verbose) str <- paste("Distance from walls: ", dist, "\nBest jump: ", bestjump, sep = "" )
+            ## if the only violators are very small members of ret[,i]
+            ## override this step, prepare to output zeros
+            if(all(abs(ret[,i]) > smallnegnumber)) overdist[j] == 0
+            
+            if(verbose) str <- paste("Distance from walls: ", dist, "\n", sep = "" )
             if(verbose) cat(str)
             ## project the bad vector back into feasible space, each column
             ## of z constitutes a basis vector in the plane we want to project into, to
@@ -121,20 +123,14 @@ mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20, includeInfeasible 
                 ## remove component from "overdist"
                 overdist <- overdist - proj
             }
-#             ## randomly generate jump lengths, pick best, converges faster
-#             jumps = matrix(abs(rnorm(numjump, sd = 2)), nrow = 1)
-# 
-#             ## find distances when reflection is scaled by jumps
-#             dists = apply(jumps, 2, function(x) {
-#               point = ret[,i] + x*reflection
-#               ##sqrt(sum(point[which(point<0)]^2))
-#               -point[which.min(ret[,i])]
-#             })
-#             
-#             ## pick closest distance to zero and use that jump
-#             bestjump = jumps[1, which.min(dists)]
-#             ret[,i] = ret[,i] + bestjump*reflection
             ret[,i] <- ret[,i] + 2*reflection
+            
+            ## if only violators are very small negative numbers, set to zero
+            if(all(ret[,i] > smallnegnumber)) {
+              ret[which(ret[,i] < 0),i] = 0
+              message("mirror set some components to zero because they were very small, may prevent hitandrun from finding a good direction. Caused by small solution space. Ignore message if hitandrun is not erroring.")
+            }
+            
             newdist <- ret[,i][j]
             retlist[[index]] <- ret[,i]
             index <- index + 1

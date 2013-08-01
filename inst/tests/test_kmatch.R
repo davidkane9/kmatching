@@ -10,7 +10,7 @@ test_that("Using Lalonde produces results that match perfectly", {
   
   ## Single 0/1 variable.
   
-  z <- kmatch(lalonde, match.var = c("hispan"), weight.var = "treat", n = 10)
+  z <- kmatch(lalonde, match.var = c("hispan"), weight.var = "treat", n = 10)[[1]]
     
   for(i in 1:10){
   expect_that(sum(lalonde$hispan[lalonde$treat == 1]), 
@@ -22,7 +22,7 @@ test_that("Using Lalonde produces results that match perfectly", {
   lalonde2 <- lalonde
   lalonde2$hispan <- factor(lalonde2$hispan, labels = c("Non-hispanic", "Hispanic"))
   
-  z <- kmatch(lalonde2, match.var = c("hispan"), weight.var = "treat", n = 10)
+  z <- kmatch(lalonde2, match.var = c("hispan"), weight.var = "treat", n = 10)[[1]]
   for(i in 1:10){
     expect_that(sum(lalonde$hispan[lalonde$treat == 1]), 
                 equals(apply(lalonde$hispan * z, 2, sum)[i]))
@@ -30,7 +30,7 @@ test_that("Using Lalonde produces results that match perfectly", {
   
   ## Two 0/1 variables.
   
-  z <- kmatch(lalonde, match.var = c("hispan", "black"), weight.var = "treat", n = 10)
+  z <- kmatch(lalonde, match.var = c("hispan", "black"), weight.var = "treat", n = 10)[[1]]
   
   for(i in 1:10){
     expect_that(sum(lalonde$hispan[lalonde$treat == 1]), 
@@ -41,7 +41,7 @@ test_that("Using Lalonde produces results that match perfectly", {
    
   ## Two 0/1 variables and continuous variable.
   
-  z <- kmatch(lalonde, match.var = c("hispan", "black", "educ"), weight.var = "treat", n = 10)
+  z <- kmatch(lalonde, match.var = c("hispan", "black", "educ"), weight.var = "treat", n = 10)[[1]]
   
   ## Be careful in the use of sum versus mean. You want 'mean' to work as well,
   ## but it doesn't because the number of observation is different when
@@ -104,8 +104,16 @@ test_that("Using Lalonde produces results that match perfectly", {
 
 test_that("Mixing properly", {
   matchvars  = c("age", "educ", "black")
-  k = kmatch(x = lalonde, weight.var  = "treat", match.var = matchvars, n = 1000)
+  k = kmatch(x = lalonde, weight.var  = "treat", match.var = matchvars, n = 1000)[[1]]
   
+})
+
+test_that("Chains are working appropriately", {
+  set.seed(99)
+  dat = data.frame(size = rnorm(10), weight = c(.3,.3,.3,0,0,0,0,0,0,0))
+  chains = 3
+  k = kmatch(x = dat, weight.var = "weight", match.var = "size", n = 10, chains = chains, replace = FALSE)
+  expect_that(length(k), equals(chains))
 })
 
 ## Add testcase with NAs

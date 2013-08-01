@@ -1,6 +1,6 @@
 \name{kmatch}
 \alias{kmatch}
-\title{Create matching vectors based on data Creates a matrix of weights which}
+\title{Create matching vectors based on data}
 \usage{
   kmatch(x, weight.var, match.var, n = 1, chains = 1,
     replace = FALSE, ...)
@@ -20,21 +20,21 @@
   \item{chains}{number of different chains, starting from
   different starting points. Default is 1}
 
-  \item{replace}{logical indicating whether or not
-  bservations weighted in the original weight.var are
-  allowed positive weight in the output. Default is FALSE}
+  \item{replace}{if FALSE then any rows that had non-zero
+  weight in 'weight.var' will be set to 0 in the output}
 
   \item{...}{parameters to be passed to the sampling
   methods}
 }
 \value{
-  Returns a matrix of 'n' sets of weights that match the
-  given set of weights in terms of weighted averages to the
-  'match.var' factors. The columns are the sets of weights.
+  Returns a list of "chains" matrices of 'n' sets of
+  weights that match the given set of weights in terms of
+  weighted averages to the 'match.var' factors. The columns
+  of each matrix are the sets of weights.
 }
 \description{
-  Create matching vectors based on data Creates a matrix of
-  weights which
+  Creates a matrix of weights which match a given set of
+  weights in exposures to designated factors
 }
 \examples{
 set.seed(40)
