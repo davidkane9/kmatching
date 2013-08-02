@@ -50,6 +50,22 @@ hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose 
     if(n <= 0 || n %% 1 != 0) {
       stop("n must be a positive integer")
     }
+    
+    dimen = dim(A)
+    if(dimen[1] == dimen[2]) {
+      if(det(A) != 0) {
+        warning("Solution to Ax=b is unique")
+        sol = solve(A) %*% b
+        if(all(sol > 0)) {
+          return(list(sol))
+        } else {
+          stop("There is no positive solution")
+        }
+      }
+    }
+    
+    
+    
     chainlist <- list()
     for(chainnum in 1:chains) {
       str <- "Finding an intial solution..."

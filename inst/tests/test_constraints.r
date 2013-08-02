@@ -96,3 +96,11 @@ test_that("samples are generated uniformly", {
   expect_true(ChiSquared$p.value > .1)
 })
 
+test_that("hitandrun knows when there is only 1 solution", {
+  A = matrix(c(1,1,1,1,0,-1,1,-1,0), ncol = 3, byrow = T)
+  b = c(1,0,0)
+  h = hitandrun(A, b, n = 10)[[1]]
+  expect_that(nrow(h), equals(3))
+  expect_that(ncol(h), equals(1))
+  expect_that(h[,1], equals(c(solve(A) %*% b)))
+})
