@@ -8,7 +8,6 @@ Maintainer: David Kane <dave.kane@gmail.com>
 Suggests:
     knitr,
     testthat,
-    MatchIt,
     roxygen2
 Depends:
     MASS,
