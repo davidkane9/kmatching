@@ -35,6 +35,23 @@ kmatch <- function(x, weight.var, match.var,  n = 1, chains = 1, replace = FALSE
   stopifnot(n > 0)
   stopifnot(all(c(weight.var, match.var) %in% names(x)))
   
+  notincluded = numeric()
+  ret = matrix(0, nrow = nrow(x), ncol = n)
+  
+  if(any(is.na(x[[weight.var]]))) {
+    warning("Some weights are missing, these rows are zeroed in the output")
+    notincluded = c(notincluded, which(is.na(x[[weight.var]])))
+    x = subset(x, !is.na(x[[weight.var]]))
+  }
+
+  for(v in match.var) {
+    if(any(is.na(x[[v]]))) {
+      warning(paste("Some entries of ", v, " column are missing, these rows are zeroed in the output", sep = ""))
+      notincluded = c(notincluded, which(is.na(x[[v]])))
+      x = subset(x, !is.na(x[[v]]))
+    }
+  }
+  
   ## Might consider moving the bulk of these inline comments to the description
   ## above, with better math formatting. For now, I will just leave them here.
   
@@ -62,13 +79,21 @@ kmatch <- function(x, weight.var, match.var,  n = 1, chains = 1, replace = FALSE
   ## Now that we have the weights, we ceate the return matrix, taking account of
   ## the value of replace.
   
-  if(!replace){
-    for(i in 1:chains) {
-      m = matrix(0, ncol = n, nrow = nrow(x))
+  for(i in 1:chains) {
+    m = matrix(0, ncol = n, nrow = nrow(x))     
+    if(!replace) {
       m[which(x[[weight.var]] == 0),] <- weights[[i]]
-      weights[[i]] = m
+    } else {
+      m = weights[[i]]
     }
-  } 
+    if(length(notincluded) > 0) {
+      ret[-notincluded,] = m
+    } else {
+      ret = m
+    }
+    weights[[i]] = ret
+  }
+  
   
   return(weights)
 }

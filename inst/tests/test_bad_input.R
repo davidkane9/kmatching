@@ -35,5 +35,6 @@ test_that("Missing entries are noted", {
   dat2$size[1:2] = c(NA, NULL)
   expect_warning(kmatch(x = dat, match.var = "size", weight.var = "weight", n = 10, replace = TRUE),
                  "weights are missing")
-  dat2
+  expect_warning(kmatch(x = dat2, match.var = "size", weight.var = "weight", n = 10, replace = TRUE),
+                 "size column are missing")
 })

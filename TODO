@@ -3,20 +3,20 @@ or the matchingportfolios project. As each is accmplished, please delete
 it from this list, check in the new file along with a commit comment about
 where/how it was done.
 
-1) Add a data directory. Add lalonde data, copied over (with
+1) DONE. Add a data directory. Add lalonde data, copied over (with
 attribution!) from MatchIt. Make sure to document the data set, maybe just using the
 help file from MatchIt. (I don't know the recommended way of doing via roxygen, if there is one. 
 Maybe it has to be done by hand.)
 
-2) Package then no lomger depends on MatchIt, so that can be removed from the DESCRIPTION.
+2) DONE. Package then no lomger depends on MatchIt, so that can be removed from the DESCRIPTION.
 
 3) Test cases for kmatch. (Several of these will require adding code that catches the problem.) 
 Ideally, most of these test cases will use a small hand-made data set of just 3 or so observations.
 I am especially interested in test cases that cause warnings and errors to be created.
 
-a) A warning should be issued when any weight.var observation is missing. The correct behavior is to then not use that observation in any of the matches. But we always return a matrix with the same number of rows as the input x.
+a) DONE. A warning should be issued when any weight.var observation is missing. The correct behavior is to then not use that observation in any of the matches. But we always return a matrix with the same number of rows as the input x.
 
-b) A warning should be issued when any match.var observation is missing. (All warnings should make it clear what is missing, both in terms of number of observations and in terms of which variable.) Again, the behavior is that any such observation is not given a positive weight in any match set.
+b) DONE A warning should be issued when any match.var observation is missing. (All warnings should make it clear what is missing, both in terms of number of observations and in terms of which variable.) Again, the behavior is that any such observation is not given a positive weight in any match set.
 
 c) A warning should be issued when there is only one solution that matches the constraints. When that happens, the return value should be a matrix with just one column (that single solution) even if n is greater than 1. A simple test case for this would be three observations with two constraints, but you need to make sure that those two constraints generate a solution in the space of all x >= 0.
 
