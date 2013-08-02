@@ -69,4 +69,7 @@ out constraint.equation from kmatch. Breaking functions into smaller chunks is a
 good idea. It makes testing much easier.
 
 10) Add more error checking to hitandrun and mirror, as I did with kmatch. See how we now
-check to make sure that the input data makes sense? This is a good idea everywhere.
+check to make sure that the input data makes sense? This is a good idea everywhere unless it
+generates too much of a hit to performance. (I like to think/hope that this isn't a problem
+since such checks just happen once, but I am not an expert in the use/structure of these
+functions.)
