@@ -13,11 +13,9 @@ Amat <- matrix(c(data$value, data$growth), ncol = nrow(data), byrow = TRUE)
 Amat <- rbind(Amat, dummy(data$country))
 
 #'Constraints:
-#'-must add up to same as weight var
-#'-must have same exposures
-
-#'Errors:
-#'-Must throw error if no solution
+#' Test constraints for all chains
+#' 
+#' 
   
 test_that("Generated Weights match the constraints", {
     ## match Ax = b, within tolerance (division error approximately 1e-12)
