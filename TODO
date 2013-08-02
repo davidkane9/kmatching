@@ -18,7 +18,7 @@ a) DONE. A warning should be issued when any weight.var observation is missing. 
 
 b) DONE A warning should be issued when any match.var observation is missing. (All warnings should make it clear what is missing, both in terms of number of observations and in terms of which variable.) Again, the behavior is that any such observation is not given a positive weight in any match set.
 
-c) A warning should be issued when there is only one solution that matches the constraints. When that happens, the return value should be a matrix with just one column (that single solution) even if n is greater than 1. A simple test case for this would be three observations with two constraints, but you need to make sure that those two constraints generate a solution in the space of all x >= 0.
+c) DONE A warning should be issued when there is only one solution that matches the constraints. When that happens, the return value should be a matrix with just one column (that single solution) even if n is greater than 1. A simple test case for this would be three observations with two constraints, but you need to make sure that those two constraints generate a solution in the space of all x >= 0.
 
 d) A error should be issued if there is no solution in x >= 0. A similar test 
 case to the above should work for that. Graphically, this is the situation in 
