@@ -113,7 +113,7 @@ test_that("kmatch knows when there is only 1 solutions", {
   expect_warning((
     k = kmatch(dat, weight.var= "x0",match.var = c("V1", "V2"), n = 10, replace= TRUE)[[1]]
   ), "unique")
-  expect_that(k, equals(solve(A) %*% b))
+  expect_that(k, equals(solve(A) %*% A %*% dat$x0))
   
   set.seed(20)
   dat2 = data.frame(a = rnorm(3), weight = c(1,0,0))
