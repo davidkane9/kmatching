@@ -27,3 +27,13 @@ test_that("Non matching dimensions lead to error", {
   ## expect_error(mirror(A, x0 = x0, n = 10))  
 })
 
+test_that("Missing entries are noted", {
+  set.seed(400)
+  dat = data.frame( size = rnorm(10), value = rnorm(10, 0, 2), weight = rep(.05, 10))
+  dat2 = dat
+  dat$weight[ 1:2] = c(NA, NULL)
+  dat2$size[1:2] = c(NA, NULL)
+  expect_warning(kmatch(x = dat, match.var = "size", weight.var = "weight", n = 10, replace = TRUE),
+                 "weights are missing")
+  dat2
+})
