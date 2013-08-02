@@ -26,3 +26,4 @@ Collate:
     'overlap.R'
     'kmatching-package.R'
     'plotmirror.R'
+    'lalonde.R'
