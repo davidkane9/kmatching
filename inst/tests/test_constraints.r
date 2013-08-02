@@ -99,8 +99,27 @@ test_that("samples are generated uniformly", {
 test_that("hitandrun knows when there is only 1 solution", {
   A = matrix(c(1,1,1,1,0,-1,1,-1,0), ncol = 3, byrow = T)
   b = c(1,0,0)
-  h = hitandrun(A, b, n = 10)[[1]]
+  expect_warning((h = hitandrun(A, b, n = 10)[[1]]), "unique")
   expect_that(nrow(h), equals(3))
   expect_that(ncol(h), equals(1))
   expect_that(h[,1], equals(c(solve(A) %*% b)))
+})
+
+test_that("kmatch knows when there is only 1 solutions", {
+  A = matrix(c(1,1,1,1,0,-1,1,-1,0), ncol = 3, byrow = T)
+  set.seed(87)
+  dat = as.data.frame(t(A[2:3,]))
+  dat$x0 = c(1/3,1/3,1/3)
+  expect_warning((
+    k = kmatch(dat, weight.var= "x0",match.var = c("V1", "V2"), n = 10, replace= TRUE)[[1]]
+  ), "unique")
+  expect_that(k, equals(solve(A) %*% b))
+  
+  set.seed(20)
+  dat2 = data.frame(a = rnorm(3), weight = c(1,0,0))
+  dat2[1,1] = 0
+  expect_warning((
+    k = kmatch(dat2, weight.var = "weight", match.var = "a", n = 10)
+  ), "unique")
+  expect_that(round(k[[1]][,1],2), equals(c(0, .75, .25 ) ))
 })

@@ -79,8 +79,8 @@ kmatch <- function(x, weight.var, match.var,  n = 1, chains = 1, replace = FALSE
   ## Now that we have the weights, we ceate the return matrix, taking account of
   ## the value of replace.
   
-  for(i in 1:chains) {
-    m = matrix(0, ncol = n, nrow = nrow(x))     
+  for(i in 1:length(weights)) {
+    m = matrix(0, ncol = ncol(weights[[i]]), nrow = nrow(x))     
     if(!replace) {
       m[which(x[[weight.var]] == 0),] <- weights[[i]]
     } else {
