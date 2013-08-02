@@ -32,6 +32,17 @@ check this, we need to examine the dimensions of A. If it has more rows than col
 get this error. Not sure about this. Note that in d), A has the same number of rows as 
 columns, but it is just that the single solution is not in the positive orthant.
 
+f) Note that many of these test cases should be used twice: first as a test case for 
+kmatch, which means that the input needs to be a data frame, and, second, as an input 
+for hitandrun and/or mirror.
+
+g) Several of these test cases, especially c) and d) above, should feature two 
+versions, one for replace = TRUE and one for replace = FALSE. If we can't use 
+observations with a positive weight.var then, obviously, we are going to have more 
+trouble finding a solution then if we can. c) and d) as described above suggest 
+replace = TRUE, but, obviously, we want to test the same things with 
+replace = FALSE.
+
 4) Change matching.rnw from Sweave to knitr. First step is to get the whole 
 thing to actually work, creating a pdf. Once that is happening, make sure to 
 check in that version and e-mail me a copy of the pdf. Feel free to simplify 
@@ -53,3 +64,9 @@ this, but it might make some things (like making label names be different that t
 actual factor values) easier. Angel might be well-prepared to work on some of these
 graphics improvements.
 
+9) Split up hitandrun and mirror in the same way that I did kmatch. Notice how I took
+out constraint.equation from kmatch. Breaking functions into smaller chunks is a very
+good idea. It makes testing much easier.
+
+10) Add more error checking to hitandrun and mirror, as I did with kmatch. See how we now
+check to make sure that the input data makes sense? This is a good idea everywhere.
