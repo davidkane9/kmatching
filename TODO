@@ -18,18 +18,19 @@ c) A warning should be issued when there is only one solution that matches the c
 d) A error should be issued if there is no solution in x >= 0. A similar test 
 case to the above should work for that. Graphically, this is the situation in 
 which the two constraints (each of which is a line on the plane x + y + z = 1) meet 
-at a single point, but that point is not in the positive orthant. In this case, a NULL is
-returned because there is no solution.
+at a single point, but that point is not in the positive orthant. In this case, a NULL is returned because there is no solution.
 
-e) A different error (or warning?) is issued when there is no solution because there are more 
-constraints then there are degrees of freedom. (Note that this is different from d, I think.) To
-check this, we need to examine the dimensions of A. If it has more rows than columns, we 
-get this error. Not sure about this. Note that in d), A has the same number of rows as 
-columns, but it is just that the single solution is not in the positive orthant.
+e) A different error (or warning?) is issued when there is no solution 
+because there are more  constraints then there are degrees of freedom. 
+(Note that this is different from d, I think.) To check this, we need 
+to examine the dimensions of A. If it has more rows than columns, we 
+get this error. Not sure about this. Note that in d), A has the same 
+number of rows as  columns, but it is just that the single solution 
+is not in the positive orthant.
 
-f) Note that many of these test cases should be used twice: first as a test case for 
-kmatch, which means that the input needs to be a data frame, and, second, as an input 
-for hitandrun and/or mirror.
+f) Note that many of these test cases should be used twice: first as a 
+test case for  kmatch, which means that the input needs to be a data 
+frame, and, second, as an input  for hitandrun and/or mirror.
 
 g) Several of these test cases, especially c) and d) above, should feature two 
 versions, one for replace = TRUE and one for replace = FALSE. If we can't use 
@@ -49,22 +50,24 @@ the special settings were a requirement of the journal that we submitted it to.
 6) Add a data directory to matching,portfolios. This data directory should contain 
 whatever data set (maybe just a single data frame) we need to get the package to work.
 
-7) Figure 4 in the paper is wrong because the caption talks about a panel for "Other" 
-but the label of the panel seems to be "FRA". Also, the region captions should 
-be "United States", "Japan"  and so on, these full names are both easier to understand 
-and (should) match the caption description.
+7) Figure 4 in the paper is wrong because the caption talks about a 
+panel for "Other"  but the label of the panel seems to be "FRA". Also, 
+the region captions should  be "United States", "Japan"  and so on, 
+these full  names are both easier to understand  and (should) 
+match the caption description.
 
-8) Optional: Consider changing some of the graphics to ggplot. You do not have to do
-this, but it might make some things (like making label names be different that the
-actual factor values) easier. Angel might be well-prepared to work on some of these
-graphics improvements.
+8) Optional: Consider changing some of the graphics to ggplot. You do 
+not have to do this, but it might make some things (like making 
+label names be different that the actual factor values) easier. Angel 
+might be well-prepared to work on some of these graphics improvements.
 
-9) Split up hitandrun and mirror in the same way that I did kmatch. Notice how I took
-out constraint.equation from kmatch. Breaking functions into smaller chunks is a very
-good idea. It makes testing much easier.
+9) Split up hitandrun and mirror in the same way that I did 
+kmatch. Notice how I took out constraint.equation from kmatch. Breaking 
+functions into smaller chunks is a very good idea. It makes testing much easier.
 
-10) Add more error checking to hitandrun and mirror, as I did with kmatch. See how we now
-check to make sure that the input data makes sense? This is a good idea everywhere unless it
-generates too much of a hit to performance. (I like to think/hope that this isn't a problem
-since such checks just happen once, but I am not an expert in the use/structure of these
-functions.)
+10) Add more error checking to hitandrun and mirror, as I did 
+with kmatch. See how we now check to make sure that the input data 
+makes sense? This is a good idea everywhere unless it generates too 
+much of a hit to performance. (I like to think/hope that this isn't 
+a problem since such checks just happen once, but I am not an expert 
+in the use/structure of these functions.)
