@@ -46,12 +46,12 @@ test_that("Missing entries are noted", {
   ## test error thrown if there are NAs in A
   A = matrix(c(NA, NA, 1), ncol = 3)
   b = 1
-  expect_error(hitandrun(A, b, n = 1), "'A' cannot have NA")
+  expect_error(hitandrun(A, b, n = 1), "'A' cannot have NA's in it, has 2")
   
   ## test error thrown if there are NAs in b
   A = matrix(c(1, 1, 1), ncol = 3)
   b = NA
-  expect_error(hitandrun(A, b, n = 1), "'b' cannot have NA")
+  expect_error(hitandrun(A, b, n = 1), "'b' cannot have NA's in it, has 1")
 })
 
 
