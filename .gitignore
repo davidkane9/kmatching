@@ -1,0 +1,9 @@
+.Rproj.user
+.Rhistory
+.RData
+kmatching.Rproj
+*.log
+*.pdf
+*.gz
+*.tex
+rprof.out

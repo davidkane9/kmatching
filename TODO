@@ -11,7 +11,7 @@ interested in test cases that cause warnings and errors to be created.
 
 a) DONE?. A warning should be issued when any weight.var observation is missing. The correct behavior is to then not use that observation in any of the matches. But we always return a matrix with the same number of rows as the input x. Please add more comments in the test case explaining exactly what is going on.
 ---- a warning is now given noting the number of entries missing and the name
----- of the weight var column. Comments are in test_bad_input.R
+---- of the weight var column. Comments are in test_bad_input.R. 
 
 b) DONE? A warning should be issued when any match.var observation is missing. (All warnings should make it clear what is missing, both in terms of number of observations and in terms of which variable.) Again, the behavior is that any such observation is not given a positive weight in any match set. Please add more comments in the test case explaining exactly what is going on.
 ---- a warning is now given noting the number of entries missing and the name
