@@ -1,7 +1,7 @@
-The is a list of TODOs, mainly for the kmatching project, but also 
-or the matchingportfolios project. As each is accomplished, please delete
-it from this list, check in the new file along with a commit comment about
-where/how it was done.
+The is a list of TODOs for the kmatching project. As each is 
+accomplished, please add a DONE comment, explaining what was done.
+I will read it and then delete. If there is still more to do,
+I will relabel it as undone.
 
 
 3) Test cases for kmatch. (Several of these will require adding code 
@@ -47,7 +47,7 @@ the special settings were a requirement of the journal that we submitted it to.
 
 5) Change the name of the package to "matching.portfolios"
 
-6) Add a data directory to matching,portfolios. This data directory should contain 
+6) Add a data directory to matching.portfolios. This data directory should contain 
 whatever data set (maybe just a single data frame) we need to get the package to work.
 
 7) Figure 4 in the paper is wrong because the caption talks about a 
@@ -71,4 +71,10 @@ makes sense? This is a good idea everywhere unless it generates too
 much of a hit to performance. (I like to think/hope that this isn't 
 a problem since such checks just happen once, but I am not an expert 
 in the use/structure of these functions.)
+
+11) We need to think about how the results section of the paper should now
+look. What do you think? Certainly we want to give a sense of how the sampling
+works. Maybe so some mixing details? Certainly want a graph of portfolio
+performance. We might have a phone conversation about this on Wednesday. With
+luck, most of the above issues will be done by then.
 
