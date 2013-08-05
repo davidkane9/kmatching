@@ -39,14 +39,14 @@ kmatch <- function(x, weight.var, match.var,  n = 1, chains = 1, replace = FALSE
   ret = matrix(0, nrow = nrow(x), ncol = n)
   
   if(any(is.na(x[[weight.var]]))) {
-    warning("Some weights are missing, these rows are zeroed in the output")
+    warning(paste(length(which(is.na(x[[weight.var]]))), " entries of '", weight.var, "' are missing, these rows are zeroed in the output", sep = ""))
     notincluded = c(notincluded, which(is.na(x[[weight.var]])))
     x = subset(x, !is.na(x[[weight.var]]))
   }
 
   for(v in match.var) {
     if(any(is.na(x[[v]]))) {
-      warning(paste("Some entries of ", v, " column are missing, these rows are zeroed in the output", sep = ""))
+      warning(paste(length(which(is.na(x[[v]]))), " entries of '", v, "' are missing, these rows are zeroed in the output", sep = ""))
       notincluded = c(notincluded, which(is.na(x[[v]])))
       x = subset(x, !is.na(x[[v]]))
     }
