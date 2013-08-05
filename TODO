@@ -84,8 +84,9 @@ works. Maybe so some mixing details? Certainly want a graph of portfolio
 performance. We might have a phone conversation about this on Wednesday. With
 luck, most of the above issues will be done by then.
 
-
 Angel TODO:
 
 1) Look over the hitandrun test cases in test_bad_input, specifically in "Missing entries are noted" and "Problems aren't overdetermined", (specifically the hitandrun cases). Duplicate these test cases for the mirror function, also make the error messages yourself. By the end you should have a test cases for mirror to make sure that it throws an error if there are NA's in A or b or if the number of rows of A is greater than the number of columns. You can find the error messages I made for hitandrun near the top of the function.
 
+2) To test your knowledge of this stuff: Generate 3 lists of 100 numbers which sum to 1, every 
+second one sums to .3, and every third sums to .5
