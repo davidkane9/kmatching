@@ -25,8 +25,8 @@
 #' @param chains number of different chains, starting from different starting points
 #' @param verbose Give verbose output of how the function is progressing.
 #' 
-#' @return In the even chains = 1, gives back a matrix with 'n' columns corrresponding
-#' to n uniformly sampled solutions of Ax = b, if chains > 1, gives back a list of 'chains' matrices with 
+#' @return Gives back a list of matrices with 'n' columns corrresponding
+#' to n uniformly sampled solutions of Ax = b. The number of lists = "chains" variable. 
 #' 'n' columns.  
 #' @export
 #' @author Mike Flynn \email{mflynn210@@gmail.com}
