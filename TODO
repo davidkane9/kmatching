@@ -1,40 +1,36 @@
-The is a list of TODOs, mainly for the kmatching project, but also 
-or the matchingportfolios project. As each is accmplished, please delete
-it from this list, check in the new file along with a commit comment about
-where/how it was done.
+The is a list of TODOs for the kmatching project. As each is 
+accomplished, please add a DONE comment, explaining what was done.
+I will read it and then delete. If there is still more to do,
+I will relabel it as undone.
 
-1) DONE. Add a data directory. Add lalonde data, copied over (with
-attribution!) from MatchIt. Make sure to document the data set, maybe just using the
-help file from MatchIt. (I don't know the recommended way of doing via roxygen, if there is one. 
-Maybe it has to be done by hand.)
 
-2) DONE. Package then no lomger depends on MatchIt, so that can be removed from the DESCRIPTION.
+3) Test cases for kmatch. (Several of these will require adding code 
+that catches the problem.)  Ideally, most of these test cases will use a 
+small hand-made data set of just 3 or so observations. I am especially 
+interested in test cases that cause warnings and errors to be created.
 
-3) Test cases for kmatch. (Several of these will require adding code that catches the problem.) 
-Ideally, most of these test cases will use a small hand-made data set of just 3 or so observations.
-I am especially interested in test cases that cause warnings and errors to be created.
+a) NOT-DONE. A warning should be issued when any weight.var observation is missing. The correct behavior is to then not use that observation in any of the matches. But we always return a matrix with the same number of rows as the input x. Please add more comments in the test case explaining exactly what is going on.
 
-a) DONE. A warning should be issued when any weight.var observation is missing. The correct behavior is to then not use that observation in any of the matches. But we always return a matrix with the same number of rows as the input x.
-
-b) DONE A warning should be issued when any match.var observation is missing. (All warnings should make it clear what is missing, both in terms of number of observations and in terms of which variable.) Again, the behavior is that any such observation is not given a positive weight in any match set.
+b) NOT-DONE A warning should be issued when any match.var observation is missing. (All warnings should make it clear what is missing, both in terms of number of observations and in terms of which variable.) Again, the behavior is that any such observation is not given a positive weight in any match set. Please add more comments in the test case explaining exactly what is going on.
 
 c) DONE A warning should be issued when there is only one solution that matches the constraints. When that happens, the return value should be a matrix with just one column (that single solution) even if n is greater than 1. A simple test case for this would be three observations with two constraints, but you need to make sure that those two constraints generate a solution in the space of all x >= 0.
 
 d) A error should be issued if there is no solution in x >= 0. A similar test 
 case to the above should work for that. Graphically, this is the situation in 
 which the two constraints (each of which is a line on the plane x + y + z = 1) meet 
-at a single point, but that point is not in the positive orthant. In this case, a NULL is
-returned because there is no solution.
+at a single point, but that point is not in the positive orthant. In this case, a NULL is returned because there is no solution.
 
-e) A different error (or warning?) is issued when there is no solution because there are more 
-constraints then there are degrees of freedom. (Note that this is different from d, I think.) To
-check this, we need to examine the dimensions of A. If it has more rows than columns, we 
-get this error. Not sure about this. Note that in d), A has the same number of rows as 
-columns, but it is just that the single solution is not in the positive orthant.
+e) A different error (or warning?) is issued when there is no solution 
+because there are more  constraints then there are degrees of freedom. 
+(Note that this is different from d, I think.) To check this, we need 
+to examine the dimensions of A. If it has more rows than columns, we 
+get this error. Not sure about this. Note that in d), A has the same 
+number of rows as  columns, but it is just that the single solution 
+is not in the positive orthant.
 
-f) Note that many of these test cases should be used twice: first as a test case for 
-kmatch, which means that the input needs to be a data frame, and, second, as an input 
-for hitandrun and/or mirror.
+f) Note that many of these test cases should be used twice: first as a 
+test case for  kmatch, which means that the input needs to be a data 
+frame, and, second, as an input  for hitandrun and/or mirror.
 
 g) Several of these test cases, especially c) and d) above, should feature two 
 versions, one for replace = TRUE and one for replace = FALSE. If we can't use 
@@ -51,25 +47,34 @@ the special settings were a requirement of the journal that we submitted it to.
 
 5) Change the name of the package to "matching.portfolios"
 
-6) Add a data directory to matching,portfolios. This data directory should contain 
+6) Add a data directory to matching.portfolios. This data directory should contain 
 whatever data set (maybe just a single data frame) we need to get the package to work.
 
-7) Figure 4 in the paper is wrong because the caption talks about a panel for "Other" 
-but the label of the panel seems to be "FRA". Also, the region captions should 
-be "United States", "Japan"  and so on, these full names are both easier to understand 
-and (should) match the caption description.
+7) Figure 4 in the paper is wrong because the caption talks about a 
+panel for "Other"  but the label of the panel seems to be "FRA". Also, 
+the region captions should  be "United States", "Japan"  and so on, 
+these full  names are both easier to understand  and (should) 
+match the caption description.
 
-8) Optional: Consider changing some of the graphics to ggplot. You do not have to do
-this, but it might make some things (like making label names be different that the
-actual factor values) easier. Angel might be well-prepared to work on some of these
-graphics improvements.
+8) Optional: Consider changing some of the graphics to ggplot. You do 
+not have to do this, but it might make some things (like making 
+label names be different that the actual factor values) easier. Angel 
+might be well-prepared to work on some of these graphics improvements.
 
-9) Split up hitandrun and mirror in the same way that I did kmatch. Notice how I took
-out constraint.equation from kmatch. Breaking functions into smaller chunks is a very
-good idea. It makes testing much easier.
+9) Split up hitandrun and mirror in the same way that I did 
+kmatch. Notice how I took out constraint.equation from kmatch. Breaking 
+functions into smaller chunks is a very good idea. It makes testing much easier.
 
-10) Add more error checking to hitandrun and mirror, as I did with kmatch. See how we now
-check to make sure that the input data makes sense? This is a good idea everywhere unless it
-generates too much of a hit to performance. (I like to think/hope that this isn't a problem
-since such checks just happen once, but I am not an expert in the use/structure of these
-functions.)
+10) Add more error checking to hitandrun and mirror, as I did 
+with kmatch. See how we now check to make sure that the input data 
+makes sense? This is a good idea everywhere unless it generates too 
+much of a hit to performance. (I like to think/hope that this isn't 
+a problem since such checks just happen once, but I am not an expert 
+in the use/structure of these functions.)
+
+11) We need to think about how the results section of the paper should now
+look. What do you think? Certainly we want to give a sense of how the sampling
+works. Maybe so some mixing details? Certainly want a graph of portfolio
+performance. We might have a phone conversation about this on Wednesday. With
+luck, most of the above issues will be done by then.
+
