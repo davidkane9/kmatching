@@ -42,4 +42,14 @@ test_that("Missing entries are noted", {
   ## Since there are missing entries in size of dat, should give warning
   expect_warning(kmatch(x = dat2, match.var = "size", weight.var = "weight", n = 10, replace = TRUE),
                  "size column are missing")
+  
+  ## test error thrown if there are NAs in A
+  A = matrix(c(NA, NA, 1), ncol = 3)
+  b = 1
+  expect_error(hitandrun(A, b, n = 1), "'A' cannot have NA")
+  
+  ## test error thrown if there are NAs in b
+  A = matrix(c(1, 1, 1), ncol = 3)
+  b = NA
+  expect_error(hitandrun(A, b, n = 1), "'b' cannot have NA")
 })

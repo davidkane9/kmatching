@@ -9,9 +9,13 @@ that catches the problem.)  Ideally, most of these test cases will use a
 small hand-made data set of just 3 or so observations. I am especially 
 interested in test cases that cause warnings and errors to be created.
 
-a) NOT-DONE. A warning should be issued when any weight.var observation is missing. The correct behavior is to then not use that observation in any of the matches. But we always return a matrix with the same number of rows as the input x. Please add more comments in the test case explaining exactly what is going on.
+a) DONE?. A warning should be issued when any weight.var observation is missing. The correct behavior is to then not use that observation in any of the matches. But we always return a matrix with the same number of rows as the input x. Please add more comments in the test case explaining exactly what is going on.
+---- a warning is now given noting the number of entries missing and the name
+---- of the weight var column. Comments are in test_bad_input.R
 
-b) NOT-DONE A warning should be issued when any match.var observation is missing. (All warnings should make it clear what is missing, both in terms of number of observations and in terms of which variable.) Again, the behavior is that any such observation is not given a positive weight in any match set. Please add more comments in the test case explaining exactly what is going on.
+b) DONE? A warning should be issued when any match.var observation is missing. (All warnings should make it clear what is missing, both in terms of number of observations and in terms of which variable.) Again, the behavior is that any such observation is not given a positive weight in any match set. Please add more comments in the test case explaining exactly what is going on.
+---- a warning is now given noting the number of entries missing and the name
+---- of the match var column. Comments are in test_bad_input.R
 
 c) DONE A warning should be issued when there is only one solution that matches the constraints. When that happens, the return value should be a matrix with just one column (that single solution) even if n is greater than 1. A simple test case for this would be three observations with two constraints, but you need to make sure that those two constraints generate a solution in the space of all x >= 0.
 

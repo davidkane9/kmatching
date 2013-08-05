@@ -51,6 +51,14 @@ hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose 
       stop("n must be a positive integer")
     }
     
+    if(any(is.na(A))) 
+      stop(paste("'A' cannot have NA's in it, has ", sum(is.na(A)), sep = ""))
+  
+    
+    if(any(is.na(b)))
+      stop(paste("'b' cannot have NA's in it, has ", sum(is.na(b)), sep = ""))
+    
+    
     dimen = dim(A)
     if(dimen[1] == dimen[2]) {
       if(det(A) != 0) {
