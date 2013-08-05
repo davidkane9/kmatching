@@ -29,12 +29,17 @@ test_that("Non matching dimensions lead to error", {
 
 test_that("Missing entries are noted", {
   set.seed(400)
+  
+  ## fake data, weight and size
   dat = data.frame( size = rnorm(10), value = rnorm(10, 0, 2), weight = rep(.05, 10))
+  ## dat is to test the weight warning, dat2 is to test match.var warning
   dat2 = dat
   dat$weight[ 1:2] = c(NA, NULL)
   dat2$size[1:2] = c(NA, NULL)
+  ## Since there are missing entries in weight of dat, should give warning
   expect_warning(kmatch(x = dat, match.var = "size", weight.var = "weight", n = 10, replace = TRUE),
                  "weights are missing")
+  ## Since there are missing entries in size of dat, should give warning
   expect_warning(kmatch(x = dat2, match.var = "size", weight.var = "weight", n = 10, replace = TRUE),
                  "size column are missing")
 })
