@@ -103,6 +103,11 @@ test_that("hitandrun knows when there is only 1 solution", {
   expect_that(nrow(h), equals(3))
   expect_that(ncol(h), equals(1))
   expect_that(h[,1], equals(c(solve(A) %*% b)))
+  
+  ## error if no positive solution
+  A = matrix(c(1,1,1,-1), ncol = 2, byrow = T)
+  b = c(-1, 0)
+  expect_error(hitandrun(A, b, n = 10), "no positive")
 })
 
 test_that("kmatch knows when there is only 1 solutions", {
