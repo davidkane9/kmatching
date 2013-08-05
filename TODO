@@ -45,18 +45,18 @@ trouble finding a solution then if we can. c) and d) as described above suggest
 replace = TRUE, but, obviously, we want to test the same things with 
 replace = FALSE.
 
-4) Change matching.rnw from Sweave to knitr. First step is to get the whole 
+4) DONE. Change matching.rnw from Sweave to knitr. First step is to get the whole 
 thing to actually work, creating a pdf. Once that is happening, make sure to 
 check in that version and e-mail me a copy of the pdf. Feel free to simplify 
 all the crazy formating in whatever way makes your life easier. Most/all of 
 the special settings were a requirement of the journal that we submitted it to.
 
-5) Change the name of the package to "matching.portfolios"
+5) DONE, but the repo still has the same name. Change the name of the package to "matching.portfolios"
 
-6) Add a data directory to matching.portfolios. This data directory should contain 
+6) DONE. Add a data directory to matching.portfolios. This data directory should contain 
 whatever data set (maybe just a single data frame) we need to get the package to work.
 
-7) Figure 4 in the paper is wrong because the caption talks about a 
+7) DONE. Figure 4 in the paper is wrong because the caption talks about a 
 panel for "Other"  but the label of the panel seems to be "FRA". Also, 
 the region captions should  be "United States", "Japan"  and so on, 
 these full  names are both easier to understand  and (should) 
@@ -71,7 +71,7 @@ might be well-prepared to work on some of these graphics improvements.
 kmatch. Notice how I took out constraint.equation from kmatch. Breaking 
 functions into smaller chunks is a very good idea. It makes testing much easier.
 
-10) Add more error checking to hitandrun and mirror, as I did 
+10) IN PROGRESS\DONE. Add more error checking to hitandrun and mirror, as I did 
 with kmatch. See how we now check to make sure that the input data 
 makes sense? This is a good idea everywhere unless it generates too 
 much of a hit to performance. (I like to think/hope that this isn't 
