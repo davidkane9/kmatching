@@ -58,8 +58,13 @@ hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose 
     if(any(is.na(b)))
       stop(paste("'b' cannot have NA's in it, has ", sum(is.na(b)), sep = ""))
     
-    
+    ## overdetermined, more constraints than degrees of freedom
     dimen = dim(A)
+    if(dimen[1] > dimen[2]) {  
+      stop("Problem is overdetermined, more constraints than degrees of freedom")
+    }
+    
+    #unique solution
     if(dimen[1] == dimen[2]) {
       if(det(A) != 0) {
         warning("Solution to Ax=b is unique")

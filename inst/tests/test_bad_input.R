@@ -38,10 +38,10 @@ test_that("Missing entries are noted", {
   dat2$size[1:2] = c(NA, NULL)
   ## Since there are missing entries in weight of dat, should give warning
   expect_warning(kmatch(x = dat, match.var = "size", weight.var = "weight", n = 10, replace = TRUE),
-                 "weights are missing")
+                 "2 entries of 'weight' are missing")
   ## Since there are missing entries in size of dat, should give warning
   expect_warning(kmatch(x = dat2, match.var = "size", weight.var = "weight", n = 10, replace = TRUE),
-                 "size column are missing")
+                 "2 entries of 'size' are missing")
   
   ## test error thrown if there are NAs in A
   A = matrix(c(NA, NA, 1), ncol = 3)
@@ -52,4 +52,12 @@ test_that("Missing entries are noted", {
   A = matrix(c(1, 1, 1), ncol = 3)
   b = NA
   expect_error(hitandrun(A, b, n = 1), "'b' cannot have NA")
+})
+
+
+test_that("Problems aren't overdetermined", {
+  A = matrix(rnorm(6), ncol = 2, nrow = 3)
+  b = c(1,2,3)
+  expect_error(hitandrun(A, b, n = 1), "overdetermined")
+  
 })

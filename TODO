@@ -18,13 +18,15 @@ b) DONE? A warning should be issued when any match.var observation is missing. (
 ---- of the match var column. Comments are in test_bad_input.R
 
 c) DONE A warning should be issued when there is only one solution that matches the constraints. When that happens, the return value should be a matrix with just one column (that single solution) even if n is greater than 1. A simple test case for this would be three observations with two constraints, but you need to make sure that those two constraints generate a solution in the space of all x >= 0.
+---- this is in test_contraints
 
 d) A error should be issued if there is no solution in x >= 0. A similar test 
 case to the above should work for that. Graphically, this is the situation in 
 which the two constraints (each of which is a line on the plane x + y + z = 1) meet 
 at a single point, but that point is not in the positive orthant. In this case, a NULL is returned because there is no solution.
+---- I don't know how to test if this is true
 
-e) A different error (or warning?) is issued when there is no solution 
+e) DONE. A different error (or warning?) is issued when there is no solution 
 because there are more  constraints then there are degrees of freedom. 
 (Note that this is different from d, I think.) To check this, we need 
 to examine the dimensions of A. If it has more rows than columns, we 
@@ -36,7 +38,7 @@ f) Note that many of these test cases should be used twice: first as a
 test case for  kmatch, which means that the input needs to be a data 
 frame, and, second, as an input  for hitandrun and/or mirror.
 
-g) Several of these test cases, especially c) and d) above, should feature two 
+g) DONE FOR C. Several of these test cases, especially c) and d) above, should feature two 
 versions, one for replace = TRUE and one for replace = FALSE. If we can't use 
 observations with a positive weight.var then, obviously, we are going to have more 
 trouble finding a solution then if we can. c) and d) as described above suggest 
