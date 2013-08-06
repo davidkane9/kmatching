@@ -90,3 +90,5 @@ Angel TODO:
 
 2) To test your knowledge of this stuff: Generate 3 lists of 100 numbers which sum to 1, every 
 second one sums to .3, and every third sums to .5; x0 + x3 + x6 = .5; x0 + x2 = .3
+
+3) In matching.portfolios, matching.rnw. Figure 4, the panel labels are FRA, GBR, JPN, USA. Change these to France, Great Brtiain, Japan, USA. 
