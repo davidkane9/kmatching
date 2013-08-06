@@ -28,13 +28,12 @@
   progressing.}
 }
 \value{
-  In the even chains = 1, gives back a matrix with 'n'
-  columns corrresponding to n solutions of Ax = b, if
-  chains > 1, gives back a list of 'chains' matrices with
-  'n' columns.
+  Gives back a list of matrices with 'n' columns
+  corrresponding to n uniformly sampled solutions of Ax =
+  b. The number of lists = "chains" variable. 'n' columns.
 }
 \description{
-  Randomly samples from a convex polytope given by linear
+  Uniformly samples from a convex polytope given by linear
   equalities in the parameters using a hit-and-run
   algorithm. Given constraints: \eqn{Ax = b} and \eqn{x \ge
   0} the algorithm finds a point on the interior of the
