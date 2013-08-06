@@ -34,7 +34,7 @@ get this error. Not sure about this. Note that in d), A has the same
 number of rows as  columns, but it is just that the single solution 
 is not in the positive orthant.
 
-f) Note that many of these test cases should be used twice: first as a 
+f) DONE. Note that many of these test cases should be used twice: first as a 
 test case for  kmatch, which means that the input needs to be a data 
 frame, and, second, as an input  for hitandrun and/or mirror.
 
@@ -92,3 +92,5 @@ Angel TODO:
 second one sums to .3, and every third sums to .5; x0 + x3 + x6 = .5; x0 + x2 = .3
 
 3) In matching.portfolios, matching.rnw. Figure 4, the panel labels are FRA, GBR, JPN, USA. Change these to France, Great Brtiain, Japan, USA. 
+
+4) Read matching paper
