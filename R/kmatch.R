@@ -81,7 +81,7 @@ kmatch <- function(x, weight.var, match.var,  n = 1, chains = 1, replace = FALSE
   if(verbose) {
     ## for mcmc objects, the columns are variables, and rows samples, it is the opposite
     ## with our output, so we must transpose each chain
-    mclist = lapply(weights, function(w) mcmc(t(w), thin = skiplength)
+    mclist = lapply(weights, function(w) mcmc(t(w), thin = skiplength))
     g = gelman.diag(mclist, multivariate = FALSE)
     print(g)
   }
