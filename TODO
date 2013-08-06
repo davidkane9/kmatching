@@ -56,7 +56,7 @@ the special settings were a requirement of the journal that we submitted it to.
 6) DONE. Add a data directory to matching.portfolios. This data directory should contain 
 whatever data set (maybe just a single data frame) we need to get the package to work.
 
-7) DONE. Figure 4 in the paper is wrong because the caption talks about a 
+7) ANGEL: Figure 4 in the paper is wrong because the caption talks about a 
 panel for "Other"  but the label of the panel seems to be "FRA". Also, 
 the region captions should  be "United States", "Japan"  and so on, 
 these full  names are both easier to understand  and (should) 
