@@ -11,6 +11,7 @@
 #' @param chains number of different chains, starting from different starting points. Default is 1
 #' @param replace if FALSE then any rows that had non-zero weight in 'weight.var' will
 #' be set to 0 in the output
+#' @param verbose TRUE to give verbose output, including gelman-rubin analysis on the random walk
 #' @param ... parameters to be passed to the sampling methods
 #' 
 #' @return Returns a list of "chains" matrices of 'n' sets of weights that match the given set of
@@ -25,7 +26,7 @@
 #' x <- data.frame(size = rnorm(50), weight = rep(.02, 50))
 #' weights <- kmatch(x, weight.var = "weight", match.var = "size", n = 100, replace = TRUE)
 
-kmatch <- function(x, weight.var, match.var,  n = 1, chains = 1, replace = FALSE, ...) {
+kmatch <- function(x, weight.var, match.var,  n = 1, chains = 1, replace = FALSE, verbose = FALSE, skiplength = 5,...) {
   
   ## Input checking.
   
@@ -75,6 +76,15 @@ kmatch <- function(x, weight.var, match.var,  n = 1, chains = 1, replace = FALSE
   ## way? Surely, this needs to be a choice variable for kmatch.
   
   weights <- hitandrun(equation$A, equation$b, n = n, chains = chains, ...)
+  
+  ## print out G-R analysis
+  if(verbose) {
+    ## for mcmc objects, the columns are variables, and rows samples, it is the opposite
+    ## with our output, so we must transpose each chain
+    mclist = lapply(weights, function(w) mcmc(t(w), thin = skiplength)
+    g = gelman.diag(mclist, multivariate = FALSE)
+    print(g)
+  }
   
   ## Now that we have the weights, we ceate the return matrix, taking account of
   ## the value of replace.

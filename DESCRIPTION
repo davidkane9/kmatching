@@ -13,7 +13,8 @@ Depends:
     MASS,
     plyr,
     ggplot2,
-    grid
+    grid,
+    coda
 Description: Samples uniformly from the positive solutions space of a linear
     problem Ax=b.
 License: BSD

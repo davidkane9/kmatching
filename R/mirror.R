@@ -141,7 +141,7 @@ mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20, includeInfeasible 
             ## if only violators are very small negative numbers, set to zero
             if(all(ret[,i] > smallnegnumber)) {
               ret[which(ret[,i] < 0),i] = 0
-              message("mirror set some components to zero because they were very small, may prevent hitandrun from finding a good direction. Caused by small solution space. Ignore message if hitandrun is not erroring.")
+              warning("mirror set some components to zero because they were very small. Could cause hitandrun to fail.")
             }
             
             newdist <- ret[,i][j]

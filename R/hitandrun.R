@@ -131,7 +131,7 @@ hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose 
         Z <- Null(t(A))
       }
 
-      if(verbose) cat("Random Walk\nDone with: ")
+      if(verbose) cat(paste("Random Walk: Chain ", chainnum, "\nDone with: "))
       str <- "0"
       if(verbose) cat(str)
       for(i in 1:(n*skiplength+discard)) {
@@ -176,7 +176,10 @@ hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose 
         if(verbose) cat(str)
       }
       chainlist[[chainnum]] <- X[,(discard+1):ncol(X)]
+      if(verbose) {
+        for(i in 1:nchar(str)) cat("\b")
+        for(i in 1:nchar(paste("Random Walk: Chain ", chainnum, "\nDone with: "))) cat("\b")
+      }
     }
-    if(verbose) cat("\n\n")
     return(chainlist)
 }
