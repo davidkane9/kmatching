@@ -45,6 +45,19 @@
 
 mirror <- function(Amat, x0, n, verbose = FALSE, numjump= 20, includeInfeasible = FALSE) {
   
+  if(any(is.na(Amat))) 
+    stop(paste("'Amat' cannot have NA's in it. It currently has ", sum(is.na(Amat)), sep = ""))
+  
+  
+  if(any(is.na(x0)))
+    stop(paste("'x0' cannot have NA's in it. It currently has ", sum(is.na(x0)), sep = ""))
+  
+  ## overdetermined, more constraints than degrees of freedom
+  dimen = dim(Amat)
+  if(dimen[1] > dimen[2]) {  
+    stop("Problem is overdetermined, more constraints than degrees of freedom")
+  }
+  
     ## set number at which to set components to zero
     smallnegnumber = -10e-100
     ## columns of Z are orthogonal, unit basis of null space of Amat
