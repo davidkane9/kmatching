@@ -99,15 +99,15 @@ second one sums to .3, and every third sums to .5; x0 + x3 + x6 = .5; x0 + x2 = 
 4) Read matching paper
 
 Learn Rcpp/Stan:
--make example of non-convergence
--profile kmatch with Rprof
--get Windows compilers working...
 -go through RStan and RCpp tutorials
 -go through GPU R programming tutorial
 -write hitandrun/mirror in C++
 
 Thursday:
 -add example to kmatch w/plot
--change instances of Ax = b to Aw = b
--post example statement to rstan help
+-change instances of Ax = b to Aw = b -- this will be hard because there are many references to just 'x'
+-post example statement to rstan help DONE
+-find simple breaking case, lalonde, sample 50 rows, 1 match var, 100 samples
 
+Basic parallel implementation:
+Have each processor run several chains, combine chains in the end

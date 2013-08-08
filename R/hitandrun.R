@@ -1,4 +1,4 @@
-#' Samples from \eqn{Ax=b} and \eqn{x>0}.
+#' Samples from \eqn{Ax=b} and \eqn{w>0}.
 #' 
 #' Uniformly samples from a convex polytope given by linear equalities in the 
 #' parameters using a hit-and-run algorithm. Given constraints: \eqn{Ax = b} and
@@ -77,10 +77,16 @@ hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose 
       }
     }
     
+    ## resolve weird quirk in Null() function
+    if(ncol(A) ==1) {
+      Z <- Null(A)
+    } else {
+      Z <- Null(t(A))
+    }
     
     
-    chainlist <- list()
-    for(chainnum in 1:chains) {
+    chainlist <- 
+    llply(1:chains, function(chainnum) {
       str <- "Finding an intial solution..."
       if(verbose) cat(str)
       X <- matrix(0, nrow = ncol(A), ncol = (n + discard))
@@ -123,13 +129,6 @@ hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose 
       }
       
       if(verbose) for(i in 1:nchar(str)) cat("\b")
-      
-      ## resolve weird quirk in Null() function
-      if(ncol(A) ==1) {
-        Z <- Null(A)
-      } else {
-        Z <- Null(t(A))
-      }
 
       if(verbose) cat(paste("Random Walk: Chain ", chainnum, "\nDone with: "))
       str <- "0"
@@ -175,11 +174,11 @@ hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose 
         str <- paste(i)
         if(verbose) cat(str)
       }
-      chainlist[[chainnum]] <- X[,(discard+1):ncol(X)]
       if(verbose) {
         for(i in 1:nchar(str)) cat("\b")
         for(i in 1:nchar(paste("Random Walk: Chain ", chainnum, "\nDone with: "))) cat("\b")
       }
-    }
+      return(X[,(discard+1):ncol(X)])
+    }, .parallel = TRUE, .paropts = list(.packages = "kmatching"))
     return(chainlist)
 }
