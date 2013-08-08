@@ -51,7 +51,6 @@ check in that version and e-mail me a copy of the pdf. Feel free to simplify
 all the crazy formating in whatever way makes your life easier. Most/all of 
 the special settings were a requirement of the journal that we submitted it to.
 
-5) DONE, but the repo still has the same name. Change the name of the package to "matching.portfolios"
 
 6) DONE. Add a data directory to matching.portfolios. This data directory should contain 
 whatever data set (maybe just a single data frame) we need to get the package to work.
@@ -84,6 +83,9 @@ works. Maybe so some mixing details? Certainly want a graph of portfolio
 performance. We might have a phone conversation about this on Wednesday. With
 luck, most of the above issues will be done by then.
 
+12) Give citation to MatchIt package (use the paper that accompanies 
+the MatchIt package on Gary King's web page) in the lalonde documentation.
+
 Angel TODO:
 
 1) Look over the hitandrun test cases in test_bad_input, specifically in "Missing entries are noted" and "Problems aren't overdetermined", (specifically the hitandrun cases). Duplicate these test cases for the mirror function, also make the error messages yourself. By the end you should have a test cases for mirror to make sure that it throws an error if there are NA's in A or b or if the number of rows of A is greater than the number of columns. You can find the error messages I made for hitandrun near the top of the function.
@@ -93,4 +95,3 @@ second one sums to .3, and every third sums to .5; x0 + x3 + x6 = .5; x0 + x2 = 
 
 3) In matching.portfolios, matching.rnw. Figure 4, the panel labels are FRA, GBR, JPN, USA. Change these to France, Great Brtiain, Japan, USA. 
 
-4) Read matching paper

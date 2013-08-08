@@ -3,7 +3,7 @@
 \title{Create matching vectors based on data}
 \usage{
   kmatch(x, weight.var, match.var, n = 1, chains = 1,
-    replace = FALSE, ...)
+    replace = FALSE, verbose = FALSE, skiplength = 5, ...)
 }
 \arguments{
   \item{x}{data frame containing needed input data}
@@ -22,6 +22,9 @@
 
   \item{replace}{if FALSE then any rows that had non-zero
   weight in 'weight.var' will be set to 0 in the output}
+
+  \item{verbose}{TRUE to give verbose output, including
+  gelman-rubin analysis on the random walk}
 
   \item{...}{parameters to be passed to the sampling
   methods}
