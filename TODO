@@ -104,3 +104,8 @@ Learn Rcpp/Stan:
 -go through GPU R programming tutorial
 -write hitandrun/mirror in C++
 
+Thursday:
+-add example to kmatch w/plot
+-change instances of Ax = b to Aw = b
+-post example statement to rstan help
+

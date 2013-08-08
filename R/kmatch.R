@@ -25,6 +25,13 @@
 #' set.seed(40)
 #' x <- data.frame(size = rnorm(50), weight = rep(.02, 50))
 #' weights <- kmatch(x, weight.var = "weight", match.var = "size", n = 100, replace = TRUE)
+#' 
+#' x2 <- data.frame(var1 = c(-2,-1, 0, 1, 2), var2 = c(1, -1, 2, -1, 0), w = rep(.2, 5))
+#' matchvars = c("var1", "var2")
+#' weights2 = kmatch(x=x2, weight.var = "w", match.var = matchvars, n= 1000, skiplength = 100, replace= TRUE)[[1]]
+#' ## for interactive graphics:
+#' ## library(rgl)
+#' ## plot3d(x = weights2[1,], y = weights2[2,], z = weights2[3,])
 
 kmatch <- function(x, weight.var, match.var,  n = 1, chains = 1, replace = FALSE, verbose = FALSE, skiplength = 5,...) {
   
@@ -78,7 +85,7 @@ kmatch <- function(x, weight.var, match.var,  n = 1, chains = 1, replace = FALSE
   weights <- hitandrun(equation$A, equation$b, n = n, chains = chains, verbose = verbose, skiplength = skiplength, ...)
   
   ## print out G-R analysis
-  if(verbose) {
+  if(verbose && chains > 2) {
     ## for mcmc objects, the columns are variables, and rows samples, it is the opposite
     ## with our output, so we must transpose each chain
     mclist = lapply(weights, function(w) mcmc(t(w), thin = skiplength))
