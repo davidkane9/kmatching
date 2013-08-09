@@ -15,6 +15,7 @@ Depends:
     ggplot2,
     grid,
     coda,
+    foreach,
     Rcpp (>= 0.10.1)
 LinkingTo: Rcpp
 Description: Samples uniformly from the positive solutions space of a linear
