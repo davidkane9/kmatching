@@ -1,6 +1,6 @@
 \name{hitandrun}
 \alias{hitandrun}
-\title{Samples from \eqn{Ax=b} and \eqn{x>0}.}
+\title{Samples from \eqn{Ax=b} and \eqn{w>0}.}
 \usage{
   hitandrun(A, b, n, discard = 0, skiplength = 5,
     chains = 1, verbose = FALSE)

@@ -111,3 +111,6 @@ Thursday:
 
 Basic parallel implementation:
 Have each processor run several chains, combine chains in the end
+
+-write direction finder (hitandrun) in C++
+-Look at case with 50 stocks, 2 matching variables

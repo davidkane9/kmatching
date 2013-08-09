@@ -14,7 +14,9 @@ Depends:
     plyr,
     ggplot2,
     grid,
-    coda
+    coda,
+    Rcpp (>= 0.10.1)
+LinkingTo: Rcpp
 Description: Samples uniformly from the positive solutions space of a linear
     problem Ax=b.
 License: BSD
@@ -28,3 +30,4 @@ Collate:
     'kmatching-package.R'
     'plotmirror.R'
     'lalonde.R'
+    'RcppExports.R'

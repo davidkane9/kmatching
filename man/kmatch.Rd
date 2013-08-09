@@ -43,6 +43,13 @@
 set.seed(40)
 x <- data.frame(size = rnorm(50), weight = rep(.02, 50))
 weights <- kmatch(x, weight.var = "weight", match.var = "size", n = 100, replace = TRUE)
+
+x2 <- data.frame(var1 = c(-2,-1, 0, 1, 2), var2 = c(1, -1, 2, -1, 0), w = rep(.2, 5))
+matchvars = c("var1", "var2")
+weights2 = kmatch(x=x2, weight.var = "w", match.var = matchvars, n= 1000, skiplength = 100, replace= TRUE)[[1]]
+## for interactive graphics:
+## library(rgl)
+## plot3d(x = weights2[1,], y = weights2[2,], z = weights2[3,])
 }
 \author{
   Mike Flynn \email{mflynn210@gmail.com}
