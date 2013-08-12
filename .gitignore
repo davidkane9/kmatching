@@ -7,3 +7,5 @@ kmatching.Rproj
 *.gz
 *.tex
 rprof.out
+cppsamples.R
+convolve.cpp

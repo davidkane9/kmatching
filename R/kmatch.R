@@ -82,7 +82,7 @@ kmatch <- function(x, weight.var, match.var,  n = 1, chains = 1, replace = FALSE
   ## Generate the weights. Are we dealing with number of chains in a sensible
   ## way? Surely, this needs to be a choice variable for kmatch.
   
-  weights <- hitandrun(equation$A, equation$b, n = n, chains = chains, verbose = verbose, skiplength = skiplength, ...)
+  weights <- hitandrun(equation$A, equation$b, n = n, chains = chains, verbose = (verbose && chains == 1), skiplength = skiplength, ...)
   
   ## print out G-R analysis
   if(verbose && chains > 2) {
@@ -93,6 +93,7 @@ kmatch <- function(x, weight.var, match.var,  n = 1, chains = 1, replace = FALSE
     print(g)
     print(summary(g$psrf[,1]))
     print(summary(g$psrf[,2]))
+    print(paste(which(g$psrf[,2] > 1.2), "does not pass"))
   }
   
   ## Now that we have the weights, we ceate the return matrix, taking account of

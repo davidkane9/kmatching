@@ -106,7 +106,7 @@ Learn Rcpp/Stan:
 Thursday:
 -add example to kmatch w/plot
 -change instances of Ax = b to Aw = b -- this will be hard because there are many references to just 'x'
--post example statement to rstan help DONE
+-post example statement to rstan help
 -find simple breaking case, lalonde, sample 50 rows, 1 match var, 100 samples
 
 Basic parallel implementation:
