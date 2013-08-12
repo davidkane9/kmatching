@@ -1,13 +1,15 @@
-#include <Rcpp.h>
+//#include "hnr_loop.h"
 #include <RcppArmadillo.h>
 
+using namespace Rcpp;
 // y: starting point
 // Z: null-space matrix
 // n: number of outputs
 // skiplength: number to skip
 // discard: burninlength
-RccpExport SEXP hnr.loop(SEXP y_s, SEXP Z_s, SEXP n_s, SEXP skiplength_s, SEXP discard_s) {
-BEGIN_RCCP
+
+SEXP hnr_loop(SEXP y_s, SEXP Z_s, SEXP n_s, SEXP skiplength_s, SEXP discard_s) {
+BEGIN_RCPP
   Rcpp::NumericVector y(y_s);
   Rcpp::NumericMatrix Z(Z_s);
   // can't do optimized matrix mult with Rcpp objects, so do a copyless (fast)
@@ -16,14 +18,21 @@ BEGIN_RCCP
   arma::mat Zarm(Z.begin(), Z.nrow(), Z.ncol(), false);
   int n = Rcpp::as<int>(n_s);
   int skiplength = Rcpp::as<int>(skiplength_s);
-  int discard = Rcpp::as<int>(discard);
+  int discard = Rcpp::as<int>(discard_s);
+  Rcpp::NumericVector r(Z.ncol());
+  arma::colvec u(Z.nrow());
+  arma::colvec c(Z.nrow());
+  arma::mat X(Z.ncol(), n+discard);
+  
+  
+  int tmin = 0; int tmax = 0; int runs = 0; int i = 0;
 
   Rcpp::RNGScope scope;
 
   while(tmin ==0 && tmax ==0) {
     // r is a random unit vector in with basis in Z
-    r = rnorm(ncol(Z));
-    r = r/sqrt(sum(r^2));
+    r = rnorm(Z.ncol());
+    r = r/sqrt(sum(r*r));
     // copyless assignment to armadillo
     arma::colvec r_arm(r.begin(), r.size(), false);
     // u is a unit vector in the appropriate k-plane pointing in a
@@ -31,8 +40,8 @@ BEGIN_RCCP
     u = Zarm*r_arm;
     
     //unboundedness
-    if(any(u==0)) {
-      throw std::runtime_error("Problem is unbounded")
+    if(sum(u==0) >=1) {
+      throw std::runtime_error("Problem is unbounded");
     }
     c = yarm/u;
     // determine intersections of x + t*u with walls
