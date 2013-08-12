@@ -12,6 +12,7 @@
 #' @param replace if FALSE then any rows that had non-zero weight in 'weight.var' will
 #' be set to 0 in the output
 #' @param verbose TRUE to give verbose output, including gelman-rubin analysis on the random walk
+#' @param skiplength Only 1 out of every 'skiplength' vectors will be recorded
 #' @param ... parameters to be passed to the sampling methods
 #' 
 #' @return Returns a list of "chains" matrices of 'n' sets of weights that match the given set of
@@ -33,7 +34,8 @@
 #' ## library(rgl)
 #' ## plot3d(x = weights2[1,], y = weights2[2,], z = weights2[3,])
 
-kmatch <- function(x, weight.var, match.var,  n = 1, chains = 1, replace = FALSE, verbose = FALSE, skiplength = 5,...) {
+kmatch <- function(x, weight.var, match.var,  n = 1, chains = 1, 
+                   replace = FALSE, verbose = FALSE, skiplength = 5,...) {
   
   ## Input checking.
   

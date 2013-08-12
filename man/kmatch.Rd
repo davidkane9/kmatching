@@ -26,6 +26,9 @@
   \item{verbose}{TRUE to give verbose output, including
   gelman-rubin analysis on the random walk}
 
+  \item{skiplength}{Only 1 out of every 'skiplength'
+  vectors will be recorded}
+
   \item{...}{parameters to be passed to the sampling
   methods}
 }
