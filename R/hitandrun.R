@@ -45,7 +45,7 @@
 #' ##2 chains
 #' chains.2 <- hitandrun(A, b, n = 10, chains = 2)
 
-hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose = FALSE) {
+hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose = FALSE, cpp= FALSE) {
     
     if(n <= 0 || n %% 1 != 0) {
       stop("n must be a positive integer")
@@ -133,6 +133,7 @@ hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose 
       if(verbose) cat(paste("Random Walk: Chain ", chainnum, "\nDone with: "))
       str <- "0"
       if(verbose) cat(str)
+      if(cpp) return(hnr_loop(y, Z, n, skiplength, discard))
       for(i in 1:(n*skiplength+discard)) {
         tmin<-0;tmax<-0;
         ## runs counts how many times tried to pick a direction, if

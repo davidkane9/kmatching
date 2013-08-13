@@ -16,9 +16,8 @@ Depends:
     grid,
     coda,
     Rcpp (>= 0.10.1),
-    RcppArmadillo (>= 0.3.900.7)
-    foreach,
-    Rcpp (>= 0.10.1)
+    RcppArmadillo (>= 0.3.900.7),
+    foreach
 LinkingTo: Rcpp, RcppArmadillo
 Description: Samples uniformly from the positive solutions space of a linear
     problem Ax=b.
