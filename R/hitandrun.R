@@ -129,10 +129,6 @@ hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose 
       }
       
       if(verbose) for(i in 1:nchar(str)) cat("\b")
-
-      if(verbose) cat(paste("Random Walk: Chain ", chainnum, "\nDone with: "))
-      str <- "0"
-      if(verbose) cat(str)
       return(hnr_loop(y, Z, n, skiplength, discard))
     }, .parallel = TRUE, .paropts = list(.packages = "kmatching", .export = "hnr_loop"))
     return(chainlist)

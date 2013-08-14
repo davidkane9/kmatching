@@ -13,6 +13,7 @@
 #' be set to 0 in the output
 #' @param verbose TRUE to give verbose output, including gelman-rubin analysis on the random walk
 #' @param skiplength Only 1 out of every 'skiplength' vectors will be recorded
+#' @param analyse print out gelman rubin diagnostic analysis of chains
 #' @param ... parameters to be passed to the sampling methods
 #' 
 #' @return Returns a list of "chains" matrices of 'n' sets of weights that match the given set of
@@ -35,7 +36,8 @@
 #' ## plot3d(x = weights2[1,], y = weights2[2,], z = weights2[3,])
 
 kmatch <- function(x, weight.var, match.var,  n = 1, chains = 1, 
-                   replace = FALSE, verbose = FALSE, skiplength = 5,...) {
+                   replace = FALSE, verbose = FALSE, skiplength = 5,
+                   analyse = FALSE, ...) {
   
   ## Input checking.
   
@@ -87,7 +89,7 @@ kmatch <- function(x, weight.var, match.var,  n = 1, chains = 1,
   weights <- hitandrun(equation$A, equation$b, n = n, chains = chains, verbose = (verbose && chains == 1), skiplength = skiplength, ...)
   
   ## print out G-R analysis
-  if(verbose && chains > 2) {
+  if(analyse && chains > 2) {
     ## for mcmc objects, the columns are variables, and rows samples, it is the opposite
     ## with our output, so we must transpose each chain
     mclist = lapply(weights, function(w) mcmc(t(w), thin = skiplength))
