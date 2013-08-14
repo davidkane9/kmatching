@@ -45,7 +45,7 @@
 #' ##2 chains
 #' chains.2 <- hitandrun(A, b, n = 10, chains = 2)
 
-hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose = FALSE, cpp= FALSE) {
+hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose = FALSE) {
     
     if(n <= 0 || n %% 1 != 0) {
       stop("n must be a positive integer")
@@ -133,53 +133,7 @@ hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose 
       if(verbose) cat(paste("Random Walk: Chain ", chainnum, "\nDone with: "))
       str <- "0"
       if(verbose) cat(str)
-      if(cpp) return(hnr_loop(y, Z, n, skiplength, discard))
-      for(i in 1:(n*skiplength+discard)) {
-        tmin<-0;tmax<-0;
-        ## runs counts how many times tried to pick a direction, if
-        ## too high fail.
-        runs = 0
-        while(tmin ==0 && tmax ==0) {
-          ## r is a random unit vector in with basis in Z
-          r <- rnorm(ncol(Z))
-          r <- r/sqrt(sum(r^2))
-          
-          ## u is a unit vector in the appropriate k-plane pointing in a
-          ## random direction Z %*% r is the same as in mirror
-          u <- Z%*%r
-          c <- y/u
-          ## determine intersections of x + t*u with walls
-          ## the limits on how far you can go backward and forward
-          ## i.e. the maximum and minimum ratio y_i/u_i for negative and positive u.
-          tmin <- max(-c[u>0]); tmax <- min(-c[u<0]);
-          ## unboundedness
-          if(tmin == -Inf || tmax == Inf){
-            stop("problem is unbounded")
-          }
-          ## if stuck on boundary point
-          if(tmin==0 && tmax ==0) {
-            runs = runs + 1
-            if(runs >= 1000) stop("hitandrun found can't find feasible direction, cannot generate points")
-          }
-        }
-        
-        ## chose a point on the line segment
-        y <- y + (tmin + (tmax - tmin)*runif(1))*u;
-        
-        ## choose a point every 'skiplength' samples
-        if(i %% skiplength == 0) {
-          X[,index] <- y
-          index <- index + 1
-        }
-        if(verbose) for(j in 1:nchar(str)) cat("\b")
-        str <- paste(i)
-        if(verbose) cat(str)
-      }
-      if(verbose) {
-        for(i in 1:nchar(str)) cat("\b")
-        for(i in 1:nchar(paste("Random Walk: Chain ", chainnum, "\nDone with: "))) cat("\b")
-      }
-      return(X[,(discard+1):ncol(X)])
-    }, .parallel = TRUE, .paropts = list(.packages = "kmatching"))
+      return(hnr_loop(y, Z, n, skiplength, discard))
+    }, .parallel = TRUE, .paropts = list(.packages = "kmatching", .export = "hnr_loop"))
     return(chainlist)
 }

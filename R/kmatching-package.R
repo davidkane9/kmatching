@@ -13,4 +13,5 @@
 #' 
 #' @name kmatching-package
 #' @docType package
+#' @useDynLib kmatching
 NA
