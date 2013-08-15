@@ -89,7 +89,7 @@ kmatch <- function(x, weight.var, match.var,  n = 1, chains = 1,
   weights <- hitandrun(equation$A, equation$b, n = n, chains = chains, verbose = (verbose && chains == 1), skiplength = skiplength, ...)
   
   ## print out G-R analysis
-  if(analyse && chains > 2) {
+  if(analyse && chains >= 2) {
     ## for mcmc objects, the columns are variables, and rows samples, it is the opposite
     ## with our output, so we must transpose each chain
     mclist = lapply(weights, function(w) mcmc(t(w), thin = skiplength))

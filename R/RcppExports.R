@@ -5,16 +5,17 @@
 #' 
 #' Runs the hitandrun algorithm in a loop
 #' @name hnr_loop
-#' @param y_s: starting point
-#' @param Z_s: null-space matrix
-#' @param n_s: number of outputs
-#' @param skiplength_s: number to skip
-#' @param discard_s: burninlength
+#' @param y_s starting point
+#' @param Z_s null-space matrix
+#' @param n_s number of outputs
+#' @param skiplength_s number to skip
+#' @param discard_s burninlength, will also be used to generate samples
+#' @param achr_s "accelerated convergence hit and run"
 #' 
 #' @export
 NULL
 
-hnr_loop <- function(y_s, Z_s, n_s, skiplength_s, discard_s) {
-    .Call('kmatching_hnr_loop', PACKAGE = 'kmatching', y_s, Z_s, n_s, skiplength_s, discard_s)
+hnr_loop <- function(y_s, Z_s, n_s, skiplength_s, discard_s, achr_s) {
+    .Call('kmatching_hnr_loop', PACKAGE = 'kmatching', y_s, Z_s, n_s, skiplength_s, discard_s, achr_s)
 }
 

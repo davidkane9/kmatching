@@ -24,6 +24,9 @@
 #' @param skiplength Only 1 out of every 'skiplength' vectors will be recorded
 #' @param chains number of different chains, starting from different starting points
 #' @param verbose Give verbose output of how the function is progressing.
+#' @param achr Whether to use "accelerated convergence hit and run" algorithm proposed in
+#' paper: <Insert Kaufman, Smith citation>. "discard" will be used to collect presamples to
+#' estimate the expected value of the span.
 #' 
 #' @return Gives back a list of matrices with 'n' columns corrresponding
 #' to n uniformly sampled solutions of Ax = b. The number of lists = "chains" variable. 
@@ -45,7 +48,7 @@
 #' ##2 chains
 #' chains.2 <- hitandrun(A, b, n = 10, chains = 2)
 
-hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose = FALSE) {
+hitandrun <- function(A, b, n, discard = 1000, skiplength = 5, chains = 1, verbose = FALSE, achr = TRUE) {
     
     if(n <= 0 || n %% 1 != 0) {
       stop("n must be a positive integer")
@@ -129,7 +132,7 @@ hitandrun <- function(A, b, n, discard = 0, skiplength = 5, chains = 1, verbose 
       }
       
       if(verbose) for(i in 1:nchar(str)) cat("\b")
-      return(hnr_loop(y, Z, n, skiplength, discard))
-    }, .parallel = TRUE, .paropts = list(.packages = "kmatching", .export = "hnr_loop"))
+      return(hnr_loop(y, Z, n, skiplength, discard, achr))
+    }, .parallel = FALSE, .paropts = list(.packages = "kmatching", .export = "hnr_loop"))
     return(chainlist)
 }
