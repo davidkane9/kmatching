@@ -18,6 +18,7 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 SEXP hnr_loop(SEXP y_s, SEXP Z_s, SEXP n_s, SEXP skiplength_s, SEXP discard_s, SEXP achr_s) {
 BEGIN_RCPP
+  // initialize Armadillo objects and other variables
   arma::vec y = as<arma::vec>(y_s);
   arma::mat Z = as<arma::mat>(Z_s);
   int n = Rcpp::as<int>(n_s);
@@ -50,6 +51,7 @@ BEGIN_RCPP
        // u is unit vector from center to 'pickindex' point
        u = X.col(pickindex) - center;
        u = u/sqrt(dot(u,u));
+       // note that this skips matrix mult, which dominated running time
      } else {
      
       // r is a random unit vector in with basis in Z
@@ -57,7 +59,7 @@ BEGIN_RCPP
       r = r/sqrt(sum(r*r));
       // copyless assignment to armadillo
       arma::vec r_arm(r.begin(), r.size(), false);
-      // u is a unit vector in the appropriate k-plane pointing in a
+      // u is a direction vector in the appropriate k-plane pointing in a
       // random direction Z %*% r is the same as in mirror
       u = Z*r_arm;
      }
@@ -82,7 +84,10 @@ BEGIN_RCPP
      }
 
    }
+   
+   // distance to travel along segment
    rdistance =  (double) runif(1)[0];
+   // new y is a random point on segment
    y = y + (tmin + (tmax - tmin)*rdistance)*u;
 
    if(i % skiplength == 0 || index< discard) {

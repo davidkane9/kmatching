@@ -3,7 +3,8 @@
 \title{Create matching vectors based on data}
 \usage{
   kmatch(x, weight.var, match.var, n = 1, chains = 1,
-    replace = FALSE, verbose = FALSE, skiplength = 5, ...)
+    replace = FALSE, verbose = FALSE, skiplength = 5,
+    analyse = FALSE, ...)
 }
 \arguments{
   \item{x}{data frame containing needed input data}
@@ -28,6 +29,9 @@
 
   \item{skiplength}{Only 1 out of every 'skiplength'
   vectors will be recorded}
+
+  \item{analyse}{print out gelman rubin diagnostic analysis
+  of chains}
 
   \item{...}{parameters to be passed to the sampling
   methods}

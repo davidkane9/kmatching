@@ -2,8 +2,8 @@
 \alias{hitandrun}
 \title{Samples from \eqn{Ax=b} and \eqn{w>0}.}
 \usage{
-  hitandrun(A, b, n, discard = 0, skiplength = 5,
-    chains = 1, verbose = FALSE)
+  hitandrun(A, b, n, discard = 1000, skiplength = 5,
+    chains = 1, verbose = FALSE, achr = FALSE)
 }
 \arguments{
   \item{A}{Matrix of constraint coefficients, rows should
@@ -26,6 +26,11 @@
 
   \item{verbose}{Give verbose output of how the function is
   progressing.}
+
+  \item{achr}{Whether to use "accelerated convergence hit
+  and run" algorithm proposed in paper: <Insert Kaufman,
+  Smith citation>. "discard" will be used to collect
+  presamples to estimate the expected value of the span.}
 }
 \value{
   Gives back a list of matrices with 'n' columns
