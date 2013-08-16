@@ -48,7 +48,7 @@
 #' ##2 chains
 #' chains.2 <- hitandrun(A, b, n = 10, chains = 2)
 
-hitandrun <- function(A, b, n, discard = 1000, skiplength = 5, chains = 1, verbose = FALSE, achr = TRUE) {
+hitandrun <- function(A, b, n, discard = 1000, skiplength = 5, chains = 1, verbose = FALSE, achr = FALSE) {
     
     if(n <= 0 || n %% 1 != 0) {
       stop("n must be a positive integer")

@@ -28,29 +28,39 @@ BEGIN_RCPP
   arma::vec u(Z.n_rows);
   arma::vec c(Z.n_rows);
   arma::mat X(Z.n_rows, n+discard);
-  arma::vec spans(discard);
+  arma::vec center(y.begin(), y.size());
+
   
   
   double tmin; double tmax; int runs; int index = 0;
-  double rdistance; bool accepted; double univar;
-  int spanindex;
+  double rdistance; int pickindex;
+ 
   
   for(int i = 0; i < n*skiplength + discard;i++) {
     
-   tmin = 0; tmax = 0; runs = 0; accepted = false; spanindex =0;
+   tmin = 0; tmax = 0; runs = 0;
   
    Rcpp::RNGScope scope;
   
-   while((tmin ==0 && tmax ==0) || !accepted) {
-     // r is a random unit vector in with basis in Z
-     r = rnorm(Z.n_cols);
-     r = r/sqrt(sum(r*r));
-     // copyless assignment to armadillo
-     arma::vec r_arm(r.begin(), r.size(), false);
-     // u is a unit vector in the appropriate k-plane pointing in a
-     // random direction Z %*% r is the same as in mirror
-     u = Z*r_arm;
-    
+   while(tmin ==0 && tmax ==0) {
+     
+     if(achr && (index >= discard)) {
+       // randomly select from the previous indices
+       pickindex = (int) floor(runif(1)[0]*index);
+       // u is unit vector from center to 'pickindex' point
+       u = X.col(pickindex) - center;
+       u = u/sqrt(dot(u,u));
+     } else {
+     
+      // r is a random unit vector in with basis in Z
+      r = rnorm(Z.n_cols);
+      r = r/sqrt(sum(r*r));
+      // copyless assignment to armadillo
+      arma::vec r_arm(r.begin(), r.size(), false);
+      // u is a unit vector in the appropriate k-plane pointing in a
+      // random direction Z %*% r is the same as in mirror
+      u = Z*r_arm;
+     }
      //unboundedness
      if(sum(u==0) >=1) {
        throw std::runtime_error("Problem is unbounded");
@@ -61,10 +71,7 @@ BEGIN_RCPP
      // i.e. the maximum and minimum ratio y_i/u_i for negative and positive u.
     
      tmin = max(-c.elem(find(u>0))); 
-    
      tmax = min(-c.elem(find(u<0)));
-     
-     spans[spanindex] = tmax - tmin;
 
      // if stuck on boundary point
      if(tmin==0 && tmax ==0) {
@@ -73,22 +80,7 @@ BEGIN_RCPP
          throw std::runtime_error("hitandrun found can't find feasible direction, cannot generate points");
        }
      }
-     
-     if(!achr) {
-       accepted = true;
-     } else {
-       if(index < discard) {
-         accepted = true;
-       } else {
-         // compare this point to the distribution of spans
-         // if a random uniform variate is < quantile of span, accept
-         univar = runif(1)[1];
-         if(sum(spans[spanindex] >= spans)/discard > univar) {
-           accepted = true;
-         }
-       }
-     }
-     spanindex = (spanindex + 1) % discard;
+
    }
    rdistance =  (double) runif(1)[0];
    y = y + (tmin + (tmax - tmin)*rdistance)*u;
@@ -97,6 +89,7 @@ BEGIN_RCPP
      for(unsigned int k=0; k < X.n_rows; k++) {
        X(k,index) = y[k];
      }
+     center = ((index+ 1) * center + y)/(index+2);
      index = index + 1;
    }
   }
