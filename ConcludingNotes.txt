@@ -1,0 +1,34 @@
+Concluding Notes:
+Depressing final result: achr - "adaptive centering hit and run" I hoped
+would solve all our problems, it didn't, even though it got rid of the matrix multiplication
+step that was taking so much time and apparently mathematically converges faster, I could not
+get samples that were as different from each other within a chain as they were between chains.
+A simple example:
+set.seed(21)
+data(lalonde)
+matchvars = c("age", "educ", "black")
+k = kmatch(lalonde, weight.var = "treat", match.var = matchvars, n = 1000, skiplength = 500*30, analyse = TRUE, chains=4, achr = TRUE)
+
+Compare the difference of these two:
+plot(k[[1]][,1])
+plot(k[[1]][,1000])
+This is comparing two different samples in 1 chain (chain 1) (y is weight, x is index, each plot is one "portfolio")
+
+Now compare that difference to this difference:
+plot(k[[1]][,1])
+plot(k[[2]][,1])
+This is the difference between the first sample of Chain 1 and the first sample of Chain 2.
+
+It is clear from these plots that there are much more differences in the samples between chains than
+within them. And this is even with a skiplength high enough that multiplying it by 100 to increase the
+differnces of samples within the chain would make the running time way too high.
+
+What this indicates to
+me is that "mirror" combined with a psuedo-inverse generated initial point samples the space
+much more completely than hitandrun. Perhaps the best way to sample points is to generate a bunch
+of "initial points" in parallel and combine them together. Again this is a disappointing result for
+me because hitandrun should be a quick and efficient algorithm. The main problem is for when
+individual "stocks" or "weights" have large solution spaces, the algorithm does not explore these
+spaces very well because no matter what direction is moved in, chances are it will set one of the
+very small weights to zero before any significant distance is traveled. Another potential solution is 
+to pick directions biased towards these large solution spaces. That would be possible via projecting a unit vector pointing in these directions onto the solution plane. 
